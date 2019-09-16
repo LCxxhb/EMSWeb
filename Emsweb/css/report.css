@@ -1,0 +1,50 @@
+﻿.page-tab-content {
+    background: #fff;
+    width: 100%;
+}
+
+.dateinput {
+    width: 130px;
+    float: none;
+}
+
+.endTime {
+    margin-left: 10px;
+}
+
+.table > thead > tr {
+    border: 1px solid #CCC;
+    height: 35px;
+}
+
+.table > tbody > tr {
+    border: 1px solid #CCC;
+    height: 30px;
+}
+
+.table td, .table th {
+    text-align: center;
+    padding: 0 !important;
+    display: table-cell;
+    vertical-align: middle !important;
+}
+
+.tb_rowspan_center {
+    display: table-cell;
+    vertical-align: middle !important;
+}
+
+.td_bold {
+    font-weight: bold;
+    /*background-color: #f5f5f5;*/
+}
+
+.table > tbody > tr:hover {
+    background-color: #fff !important;
+}
+
+.td_mark {
+    height: 45px !important;
+    text-align: left;
+    font-weight: bold;
+}

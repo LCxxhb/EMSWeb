@@ -1,0 +1,89 @@
+﻿/*粒子效果样式*/
+#particles 
+{
+    position:absolute;
+    top:0px;
+    width: 100%;
+    z-index: -1;
+    background-color: #0A374C;
+}
+/*全屏遮盖*/
+#divloading 
+{
+    display:none;
+	position:fixed;
+	z-index:2500;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	background-color:#cccccc; 
+	filter:alpha(Opacity=80);
+	-moz-opacity:0.5;
+	opacity: 0.5;
+	z-index:99999999; 
+}
+/*加载框样式*/
+#shclDefault 
+{
+    width:200px;
+    height:200px; 
+    margin:auto;
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    bottom: 0; 
+    right: 0; 
+}
+.main-menu
+{
+  list-style: none;
+  height:58px; 
+  width:65px; 
+  margin-top:10px;
+  cursor:pointer;    
+  /*background-color:Red;padding-top:10px;*/
+}
+.main-menu img
+{
+    margin-left:4px;
+    border:0;
+    height:28px;
+}
+.sub-menu {
+  position: absolute;
+  left: 65px;
+  top: -30px;
+  padding: 0px;
+  width: 220px;
+  display:none;
+  background-color:#37434f;
+
+}
+.sub-menu li 
+{
+  list-style: none;
+  position: relative;
+  width: 220px;
+}
+    .sub-menu li a {
+        padding-left: 30px;
+        height: 58px;
+        line-height: 58px;
+        font-size: 20px;
+        font-family: Microsoft YaHei;
+        color: White;
+        display: block;
+        text-align: left;
+}
+.sub-menu  li a:hover
+{
+    background:#666
+}
+.clstab1
+{
+font-family: Microsoft YaHei;
+font-size:24px; 
+height:80px;
+width:100px;
+}

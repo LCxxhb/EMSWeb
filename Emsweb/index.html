@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>主页</title>
+    <script>
+        var _mainFun = _mainFun || [];
+        (function () {
+            _mainFun.tokenInvalid = false; //Token你失效
+        })();
+    </script>
+
+    <style>
+        .nav_logo {
+            float: left;
+            position: relative;
+            padding-left: 6px;
+            height: 68px;
+            line-height: 68px;
+            width: 210px;
+        }
+
+        .nav_logo img {
+            height: 40px;
+        }
+
+        .nav_logo span {
+            font-family: 'Microsoft YaHei';
+            font-weight:bold;
+            font-size:15px;
+            color:#fff;
+            padding-left: 2px;
+        }
+
+    </style>
+
+
+</head>
+<body>
+<div class="page-wrapper">
+    <!--菜单标签-->
+    <nav class="ter-navbar navbar navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-wrapper">
+                <div class="nav_logo">
+                    <img src="images/logo.png" alt="">
+                    <span>能源管理系统报表</span>
+                </div>
+                <ul class="navbar-other pull-right">
+
+
+                    <li class="personInfo">
+                        <a class="headImg-box" href="javascript:;">
+                            <img src="images/headImg.jpg">
+                            <span class="userName" id="userName"></span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="user-dropdown">
+                            <li id="modifyPassword">修改密码</li>
+                            <li id="loginout">退出登录</li>
+                        </ul>
+                    </li>
+
+                </ul>
+                <div class="navbar-tabs">
+                    <div class="navbar-tab-box clearFix">
+                        <div class="navbar-tab-item active" id="tab0" data-url="tree.html">
+                            <div class="tabText">首页</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!--左侧目录-->
+    <div class="ter-sidebar sidebar-fixed">
+        <div class="sidebar-fold">
+            <i class="fa fa-bars fa-rotate-90"></i>
+        </div>
+        <!--菜单-->
+        <div class="sidebar-navList">
+            <div class="sidebar-navItem">
+                <div class="sidebar-title">
+                    <span class="title-icon"></span>
+                    <span class="title-name">煤气报表</span>
+                </div>
+                <ul class="sidebar-trans-list mCustomScrollbar">
+
+                    <li class="sidebar-trans-item" id="2" data-url="homepage.html">
+                        <a href="javascript:;">
+                            <div class="trans-icon">
+                                <i class="fa fa-address-book"></i>
+                            </div>
+                            <div class="trans-name">瞬时煤气查询</div>
+                        </a>
+                    </li>
+                    <li class="sidebar-trans-item" id="3" data-url="homepage.html">
+                        <a href="javascript:;">
+                            <div class="trans-icon">
+                                <i class="fa fa-address-book"></i>
+                            </div>
+                            <div class="trans-name">历史煤气查询</div>
+                        </a>
+                    </li>
+                    <li class="sidebar-trans-item" id="20" data-url="homepage.html">
+                        <a href="javascript:;">
+                            <div class="trans-icon">
+                                <i class="fa fa-address-book"></i>
+                            </div>
+                            <div class="trans-name">煤气统计查询</div>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <div class="sidebar-navItem">
+                <div class="sidebar-title">
+                    <span class="title-icon"></span>
+                    <span class="title-name">报表管理</span>
+                </div>
+                <ul class="sidebar-trans-list">
+                    <li class="sidebar-trans-item" id="4" data-url="EmsReport/GasReport.html">
+                        <a href="javascript:;">
+                            <div class="trans-icon">
+                                <i class="fa fa-address-book"></i>
+                            </div>
+                            <div class="trans-name">能源气体报表</div>
+                        </a>
+                    </li>
+                    <li class="sidebar-trans-item" id="5" data-url="homepage.html">
+                        <a href="javascript:;">
+                            <div class="trans-icon">
+                                <i class="fa fa-address-book"></i>
+                            </div>
+                            <div class="trans-name">电力计量报表</div>
+                        </a>
+                    </li>
+                    <li class="sidebar-trans-item" data-url="EmsReport/WaterReport.html">
+                        <a href="javascript:;">
+                            <div class="trans-icon">
+                                <i class="fa fa-address-book"></i>
+                            </div>
+                            <div class="trans-name">用水量报表</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="sidebar-navItem">
+                <div class="sidebar-title">
+                    <span class="title-icon"></span>
+                    <span class="title-name">用户管理</span>
+                </div>
+                <ul class="sidebar-trans-list">
+                    <li class="sidebar-trans-item" id="4" data-url="EmsReport/GasReport.html">
+                        <a href="javascript:;">
+                            <div class="trans-icon">
+                                <i class="fa fa-address-book"></i>
+                            </div>
+                            <div class="trans-name">添加用户</div>
+                        </a>
+                    </li>
+                    <li class="sidebar-trans-item" id="5" data-url="homepage.html">
+                        <a href="javascript:;">
+                            <div class="trans-icon">
+                                <i class="fa fa-address-book"></i>
+                            </div>
+                            <div class="trans-name">删除用户</div>
+                        </a>
+                    </li>  
+                </ul>
+            </div>
+        </div>
+        <span class="ter-tool">缩小后的小气泡提示</span>
+    </div>
+    <!--功能区-->
+    <div class="ter-mainContainer">
+        <div class="iframe-wrapper embed-responsive">
+            <iframe id="iframe0" src="main.html" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+        </div>
+    </div>
+</div>
+<!--修改密码模态框-->
+<div class="modal fade" id="password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">修改密码</h4>
+            </div>
+            <div class="modal-body">
+                <div class="modal-form">
+                    <form class="form-horizontal" id="modifyPwdModal">
+                        <div class="form-group">
+                            <label for="nowPassword" class="control-label">当前密码</label>
+                            <div class="input-box">
+                                <input type="password" class="form-control require" id="nowPassword">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword" class="control-label">新密码</label>
+                            <div class="input-box">
+                                <input type="password" class="form-control require" id="newPassword">
+                                <p class="help-block no-bottom">密码为3位及以上的数字或字母.</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reNewPassword" class="control-label">确认新密码</label>
+                            <div class="input-box">
+                                <input type="password" class="form-control require" id="reNewPassword">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="saveBtn">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--左侧功能菜单-->
+<script id="sideMenu" type="text/html">
+    {{each $data}}
+    <div class="sidebar-navItem">
+        <div class="sidebar-title">
+            <span class="title-icon"></span>
+            <span class="title-name">{{$value.MenuName}}</span>
+        </div>
+        <ul class="sidebar-trans-list mCustomScrollbar">
+            {{each $value.FunNames}}
+            <li class="sidebar-trans-item" data-url="{{$value.MenuUrl}}">
+                <a href="javascript:;">
+                    <div class="trans-icon">
+                        <i class="iconfont {{$value.Icon}}"></i>
+                    </div>
+                    <div class="trans-name">{{$value.FunName}}</div>
+                </a>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+    {{/each}}
+</script>
+
+
+<script src="Site1.js"></script>
+<script src="lib/toast/iziToast.js"></script>
+<script src="js/frame.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>

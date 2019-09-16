@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="css/newcss.css" rel="stylesheet" />
+		<style type="text/css">
+			.nine-gap,
+			.nine-block-wrap {
+				position: absolute;
+				top: 50%;
+				right: 0;
+				left: 0;
+				-webkit-transform: translateY(-50%);
+				-moz-transform: translateY(-50%);
+				-ms-transform: translateY(-50%);
+				-o-transform: translateY(-50%);
+				transform: translateY(-50%);
+				text-align: center;
+			}
+			
+			.one-block,
+			.two-block,
+			.three-block {
+				height: 205px;
+				margin: 8px;
+				display: inline-block;
+				position: relative;
+				opacity: .8;
+				cursor: pointer;
+				-webkit-transition: all .3s;
+				-moz-transition: all .3s;
+				-ms-transition: all .3s;
+				-o-transition: all .3s;
+				transition: all .3s;
+			}
+			
+			.one-block {
+				width: 280px;
+			}
+			
+			.two-block {
+				width: 205px;
+			}
+			
+			.three-block {
+				width: 430px;
+			}
+			
+			.one-block:hover,
+			.two-block:hover,
+			.three-block:hover {
+				opacity: 1;
+			}
+			.one-block img,
+			.two-block img,
+			.three-block img{
+				-webkit-transition: all .3s;
+				-moz-transition: all .3s;
+				-ms-transition: all .3s;
+				-o-transition: all .3s;
+				transition: all .3s;
+			}
+			.one-block:hover img,
+			.two-block:hover img,
+			.three-block:hover img{
+				-webkit-transform: scale(1.2);
+				-moz-transform: scale(1.2);
+				-ms-transform: scale(1.2);
+				-o-transform: scale(1.2);
+				transform: scale(1.2);
+			}
+			
+			.nine-block-wrap p {
+				margin-top: 10px;
+				font-family: Microsoft YaHei;
+				font-size: 24px;
+				color: White;
+			}
+		</style>
+	</head>
+	<body style="overflow: hidden;margin-left: 0px;" onselectstart="return false">
+		<div id="particles" style="bottom:0"><canvas class="particles-js-canvas-el" width="1115" height="925" style="width: 100%; height: 100%;"></canvas></div>
+		<div class="nine-gap">
+			<div class="one-line">
+				<div class="one-block" style="background: #05b8cd;">
+					<div class="nine-block-wrap">
+						<img src="images/sjdt.png">
+						<p>能耗分析</p>
+					</div>
+				</div>
+				<div class="one-block" style="background: #35c896;">
+					<div class="nine-block-wrap">
+						<img src="images/bfjk.png">
+						<p>能源监测</p>
+					</div>
+				</div>
+				<div class="one-block" style="background: #f3af1d;">
+					<div class="nine-block-wrap">
+						<img src="images/sjfx.png">
+						<p>数据分析</p>
+					</div>
+				</div>
+			</div>
+			<div style="clear: both;"></div>
+			<div class="two-line">
+				<div class="two-block" style="background: #6dc234;">
+					<div class="nine-block-wrap">
+						<img src="images/xtsz.png">
+						<p>系统设置</p>
+					</div>
+				</div>
+				<div class="two-block" style="background: #e04b5f;">
+					<div class="nine-block-wrap">
+						<img src="images/ycbj.png">
+						<p>异常数据</p>
+					</div>
+				</div>
+				<div class="two-block" style="background: #db6abf;">
+					<div class="nine-block-wrap">
+						<img src="images/11.png">
+						<p>人员轨迹</p>
+					</div>
+				</div>
+				<div class="two-block" style="background: #20a2ae;">
+					<div class="nine-block-wrap">
+						<img src="images/rwpf.png">
+						<p>能源中心</p>
+					</div>
+				</div>
+			</div>
+			<div style="clear: both;"></div>
+			<div class="three-line">
+				<div class="three-block" style="background: #ed8931;">
+					<div class="nine-block-wrap">
+						<img src="images/xjfx.png">
+						<p>能源分析</p>
+					</div>
+				</div>
+				<div class="three-block" style="background: #4ec8f0;">
+					<div class="nine-block-wrap">
+						<img src="images/zhbb.png">
+						<p>综合报表</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	</body>
+	</body>
+</html>

@@ -1,0 +1,31 @@
+
+body {
+    background-color: #e6e8ed;
+}
+
+.nav.nav-tabs {
+    /*margin-bottom: 10px;*/
+    font-size: 17px;
+    padding: 0 10px;
+}
+
+.nav-tabs > li > a {
+    line-height: 15px;
+    padding: 10px 15px;
+}
+
+.xyTableIframe {
+    background-color: #fff;
+    height: 100%;
+    width: 100%;
+    min-height: 500px;
+    display:none;
+}
+
+    .xyTableIframe.active {
+        display: block;
+    }
+
+section {
+    padding: 0 20px;
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+		<meta charset="UTF-8">
+		<title>登录</title>
+		 <style>
+        canvas {
+            border:none!important;
+        }
+    </style>
+   
+    <!-- 右下角live2d效果 -->
+<script type="text/javascript" charset="utf-8" src="https://cdn.jsdelivr.net/npm/live2d-widget@3.0.4/lib/L2Dwidget.min.js"></script>
+
+    <!-- <script>
+         $(function () {
+             //$.ajax({
+             //    url:"http://localhost:55780/lchyapi/report/Home/test",
+             //    data:{ str1: '123', str2: '456' },
+             //    type: 'GET',
+             //    dataType: JSON,
+             //    success:function (res)
+             //    {
+             //        alert(res.Result);
+             //    },
+             //    error: function ()
+             //    {
+
+             //    }
+             //});
+
+
+             setTimeout(() => {
+                 L2Dwidget.init({
+                     "model": {
+                         "scale": 0.5
+                     },
+                     "display": {
+                         "position": "right",
+                         "width": 180,
+                         "height": 260,
+                         "hOffset": 0,
+                         "vOffset": -20
+                     },
+                     "mobile": {
+                         "show": true,
+                         "scale": 0.5
+                     },
+                     "react": {
+                         "opacityDefault": 0.7,
+                         "opacityOnHover": 0.2
+                     }
+                 });
+
+             }, 500)
+
+              //$("#live2dcanvas").css({ "cssTest":"border:none!important"});
+         })
+
+     </script>-->
+	</head>
+	<body>
+		<div class="page-container">
+        <!--页面主体内容部分-->
+        <div class="content-wrapper no-margin indexPage-wrapper">
+            <!--上-->
+            <div class="company-logo">
+               <!-- <img src="images/" alt="">-->
+            </div>
+            <!--中-->
+            <div class="loginMain">
+                <div class="leftBox">
+                    <div class="sysName">
+                        <div class="chinese"><a href="#"></a></div>
+                        <div class="english"></div>
+                    </div>
+                    <div class="sysBg">
+                        <img src="images/login-pic1.png" alt="">
+                    </div>
+                </div>
+                <div class="rightBox">
+                    <div class="formTitle">用户登录</div>
+                    <div class="formContent">
+                        <form id="formlogin">
+                            <div class="form-group loginInputBox">
+                                <input type="text" class="form-control userName" id="UserName" placeholder="请输入用户名">
+                            </div>
+                            <div class="form-group loginInputBox">
+                                <input type="password" class="form-control userPassword" id="Password" placeholder="请输入密码">
+                            </div>
+                            <button type="button" class="btn btn-sure btn-block loginBtn" id="btnLogin">登录</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <script src="Site1.js"></script>
+        <script src="lib/jq/jquery.min.js"></script>
+     <script src="js/login.js"></script>
+     
+         <!-- 右下角live2d效果 -->
+<script type="text/javascript" charset="utf-8" async="" src="https://cdn.jsdelivr.net/npm/live2d-widget@3.0.4/lib/L2Dwidget.min.js"></script>
+    <script>
+        $(function () {
+            //$.ajax({
+            //    url:"http://localhost:55780/lchyapi/report/Home/test",
+            //    data:{ str1: '123', str2: '456' },
+            //    type: 'GET',
+            //    dataType: JSON,
+            //    success:function (res)
+            //    {
+            //        alert(res.Result);
+            //    },
+            //    error: function ()
+            //    {
+
+            //    }
+            //});
+          
+
+            setTimeout(() => {
+                L2Dwidget.init({
+                    "model": {
+                        "scale": 0.5
+                    },
+                    "display": {
+                        "position": "right",
+                        "width": 180,
+                        "height": 260,
+                        "hOffset": 0,
+                        "vOffset": -20
+                    },
+                    "mobile": {
+                        "show": true,
+                        "scale": 0.5
+                    },
+                    "react": {
+                        "opacityDefault": 0.7,
+                        "opacityOnHover": 0.2
+                    }
+                });
+               
+            }, 500)
+
+             //$("#live2dcanvas").css({ "cssTest":"border:none!important"}); 
+        }) 
+        
+    </script>
+	</body>
+</html>
