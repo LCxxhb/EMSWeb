@@ -31,7 +31,7 @@
                     }                   
                     if (message.indexOf('成功') > -1) {
                         localStorage.setItem('userInfo', JSON.stringify(res));
-                        location.href = '/index.aspx';
+                        location.href = 'index.html';
                     }
                 });
             }

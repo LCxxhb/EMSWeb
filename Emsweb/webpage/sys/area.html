@@ -128,20 +128,10 @@
 						<!--列表-->
 						<div class="pressureList">
 							<div class="page-main-box clearfix" id="preInstantTable" style="width: 100%; margin: 0 auto; padding-bottom: 10px;">
-								<table class="table" id="instantTable">
-									<thead>
-										<tr>
-											<th>ID</th>
-											<th>区域名称</th>
-											<th>区域父ID</th>
-											<th>操作</th>
-										</tr>
-									</thead>
-								</table>
+								
+								<table class="table" id="mytable"></table>
 							</div>
-							<div class="page-main-box clearfix" id="preAverageTable" style="display: none; width: 95%; margin: 0 auto; padding-bottom: 10px;">
-								<table class="table" id="table"></table>
-							</div>
+							
 						</div>
 					</div>
 
@@ -200,12 +190,26 @@
 				</div>
 			</div>
 		</div>
-		<script src="../js/Site2.js"></script>
-		<script src="../lib/ztree/js/jquery.ztree.exhide.js"></script>
-		<script src="../lib/ztree/js/fuzzysearch.js"></script>
-		<script src="../lib/echarts/echarts.min.js"></script>
-		<script src="../js/sys/user.js"></script>
-		
+		<script src="../../js/Site1.js"></script>
+		<script src="../../lib/ztree/js/jquery.ztree.exhide.js"></script>
+		<script src="../../lib/ztree/js/fuzzysearch.js"></script>
+		<script src="../../lib/echarts/echarts.min.js"></script>
+		<!--<script src="../../js/sys/area.js"></script>-->
+		<script type="text/javascript">
+			$('#mytable').bootstrapTable({
+			    url: '1.json',
+			    columns: [{
+			        field: 'id',
+			        title: '区域id'
+			    }, {
+			        field: 'name',
+			        title: '区域名称'
+			    }, {
+			        field: 'photo',
+			        title: '区域父id'
+			    }, ]
+			});
+		</script>
 
 	</body>
 

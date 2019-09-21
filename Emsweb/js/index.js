@@ -62,7 +62,7 @@ var indexPage = {
 
                 }
             })*/
-          location.href = '../Emsweb/login.html';
+          location.href = 'login.html';
         })
     },
     getPageData: function () {

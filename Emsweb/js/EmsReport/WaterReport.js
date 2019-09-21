@@ -560,10 +560,7 @@ var waterReport = {
                 id: '10',
                 name: 'item10'
             }],//
-            onClickRow: function (row, element) {//添加点击行颜色
-                $('.click').removeClass('click');
-                $(element).addClass('click');
-            }
+            
         });
     },
 }
