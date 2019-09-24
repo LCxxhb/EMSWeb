@@ -41,38 +41,17 @@
 	<body>
 		<div class="iframe-wrapper" style="overflow-x: hidden; position: relative;">
 			<div class="page-container">
-				<!--tree-wrapper包含树的结构，如果页面不需要树结构，只需要将这段代码删除-->
-				<!--
-            <div class="tree-wrapper">
-                <div class="input-group tree-search-box">
-                    <input type="text" class="form-control" id="keywords" name="keywords">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" id="treesearch" name="treesearch">
-                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                        </button>
-                    </span>
-                </div>
-                <div class="tree-content">
-                    <ul id="treeDemo" class="ztree"></ul>
-                </div>
-                <div class="tree-toggle" onclick="Ter.treeToggle('')">
-                    <i class="fa fa-outdent tree-icon"></i>
-                    <div class="tree-shape"></div>
-                </div>
-            </div>-->
+
 				<!--页面主体内容部分-->
-				<div class="content-wrapper">
+				<div class="content-wrapper" id="pagediv">
 					<!--功能区域-->
 					<div class="page-btns-box clearfix" style="margin: 0; padding: 10px">
 						<form class="form-inline pumpRunCount-search pull-left">
 
 							<div class="form-group">
 								<label class="control-label" style="width: 80px; padding-left: 0;">总厂：</label>
-								<select class="form-control" id="reportType">
-									<option selected="selected" value="1">总厂1</option>
-									<!--   <option value="2">日平均压力</option>-->
-									<option value="2">总厂2</option>
-									<option value="3">总厂2</option>
+								<select class="form-control" id="areaPid">
+
 								</select>
 							</div>
 							<div class="form-group">
@@ -100,38 +79,25 @@
 							<button class="btn btn-add" type="button" data-toggle="modal" data-target="#myModal">
 				                <span class="glyphicon glyphicon-plus"></span>添加
 				            </button>
-							<button class="btn btn-edit" type="button" onclick="btnEdit()">
+							<button class="btn btn-edit" type="button" onclick="areaPage.btnEdit()">
 				                <span class="glyphicon glyphicon-edit"></span>修改
 				           </button>
-							<button class="btn btn-del" type="button" onclick="btnDelete()">
+							<button class="btn btn-del" type="button" onclick="areaPage.btnDelete()">
 				                <span class="glyphicon glyphicon-trash"></span>删除
 				            </button>
 
 						</form>
 					</div>
-					<!--<div class="page-btns-box clearfix">
-						<button class="btn btn-add btn-margin pull-right" type="button" data-toggle="modal" data-target="#myModal">
-			                <span class="glyphicon glyphicon-plus"></span>添加
-			            </button>
-						<button class="btn btn-edit btn-margin pull-right" type="button" onclick="btnEdit()">
-			                <span class="glyphicon glyphicon-edit"></span>修改
-			            </button>
-			           
-						<button class="btn btn-del btn-margin js-alert-show pull-right" type="button" onclick="btnDelete()">
-			                <span class="glyphicon glyphicon-trash"></span>删除
-			            </button>
-
-					</div>-->
 
 					<!--图表 列表-->
 					<div class="PressureData">
 						<!--列表-->
 						<div class="pressureList">
 							<div class="page-main-box clearfix" id="preInstantTable" style="width: 100%; margin: 0 auto; padding-bottom: 10px;">
-								
+
 								<table class="table" id="mytable"></table>
 							</div>
-							
+
 						</div>
 					</div>
 
@@ -147,27 +113,24 @@
 								<!--区域添加start-->
 								<div class="modal-body">
 									<form class="form-horizontal" role="form" id="optionsForm" action="/admin/addquestionbank" method="post">
-										<div class="form-group">
+										<!--<div class="form-group">
 											<label class="col-sm-2 control-label"><font color="black">区域id:</font></label>
 											<div class="col-sm-10">
 												<input type="text" class="form-control" id="usrId" placeholder="请输入区域名id">
 											</div>
-										</div>
+										</div>-->
 										<div class="form-group">
 											<label class="col-sm-2 control-label"><font color="black">区域名称:</font></label>
 											<div class="col-sm-10">
-												<input type="text" class="form-control" id="usrName" placeholder="请输入区域名称">
+												<input type="text" class="form-control" id="aName" placeholder="请输入区域名称">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-2 control-label"><font color="black">父级区域:</font></label>
 											<div class="col-sm-10">
 												<!--<input type="text" class="form-control" id="usrIdentify" placeholder="请输入父级区域">-->
-												<select class="form-control" id="reportType">
-													<option>-请选择-</option>
-													<option value="1">车间1</option>
-													<option value="2">车间1</option>
-													<option value="3">车间1</option>
+												<select class="form-control" id="areaPid">
+
 												</select>
 											</div>
 										</div>
@@ -178,7 +141,7 @@
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 									</button>
-									<button type="button" class="btn btn-primary" onclick="addBtn()">
+									<button type="button" class="btn btn-primary" onclick="areaPage.btnOk()">
 										确定
 									</button>
 								</div>
@@ -194,22 +157,7 @@
 		<script src="../../lib/ztree/js/jquery.ztree.exhide.js"></script>
 		<script src="../../lib/ztree/js/fuzzysearch.js"></script>
 		<script src="../../lib/echarts/echarts.min.js"></script>
-		<!--<script src="../../js/sys/area.js"></script>-->
-		<script type="text/javascript">
-			$('#mytable').bootstrapTable({
-			    url: '1.json',
-			    columns: [{
-			        field: 'id',
-			        title: '区域id'
-			    }, {
-			        field: 'name',
-			        title: '区域名称'
-			    }, {
-			        field: 'photo',
-			        title: '区域父id'
-			    }, ]
-			});
-		</script>
+		<script src="../../js/sys/area.js"></script>
 
 	</body>
 

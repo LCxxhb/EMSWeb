@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<!--引入插件css的地方-->
+		<title>历史煤气查询</title>
+		<!--页面上的css-->
+
+	</head>
+
+	<body>
+		<div class="iframe-wrapper" style="overflow-x: hidden; position: relative;">
+			<div class="page-container">
+				<!--tree-wrapper包含树的结构，如果页面不需要树结构，只需要将这段代码删除-->
+				<!--
+            <div class="tree-wrapper">
+                <div class="input-group tree-search-box">
+                    <input type="text" class="form-control" id="keywords" name="keywords">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" id="treesearch" name="treesearch">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </button>
+                    </span>
+                </div>
+                <div class="tree-content">
+                    <ul id="treeDemo" class="ztree"></ul>
+                </div>
+                <div class="tree-toggle" onclick="Ter.treeToggle('')">
+                    <i class="fa fa-outdent tree-icon"></i>
+                    <div class="tree-shape"></div>
+                </div>
+            </div>-->
+				<!--页面主体内容部分-->
+				<div class="content-wrapper">
+					<!--功能区域-->
+					<div class="page-btns-box clearfix" style="margin: 0; padding: 10px">
+						<form class="form-inline pumpRunCount-search pull-left">
+							<div class="form-group">
+								<label class="control-label" style="width: 80px; padding-left: 0;">区域：</label>
+								<select class="form-control" id="reportType">
+									<option selected="selected" value="1">分厂1</option>
+									<!--   <option value="2">日平均压力</option>-->
+									<option value="2">分厂1</option>
+									<option value="3">分厂1</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label class="control-label" style="width: 80px; padding-left: 0;">车间：</label>
+								<select class="form-control" id="reportType">
+									<option selected="selected" value="1">车间1</option>
+									<!--   <option value="2">日平均压力</option>-->
+									<option value="2">车间1</option>
+									<option value="3">车间1</option>
+								</select>
+							</div>
+
+							<button type="button" id="btn btn-search" class="btn btn-search" onclick="">
+								<span class="glyphicon glyphicon-search"></span>查询
+							</button>
+							<button class="btn btn-black-link btn-margin" type="button" onclick="historygas.Import()">
+				                <span class="glyphicon glyphicon-import"></span>导入excel
+				            </button>
+							<button class="btn btn-black-link btn-margin" type="button" onclick="historygas.Import()">
+				                <span class="glyphicon glyphicon-export"></span>导出excel
+				            </button>
+						</form>
+					</div>
+					<!--文件导入input框-->
+					<input type="file" name="file" id="userImport" style="display: none" onchange="historygas.uploadFiles()">
+					<!--<div class="uploadbtn"><span class="upchar" onclick="inputFile()">批量导入</span></div>-->
+					<!--图表 列表-->
+					<div class="PressureData">
+						<!--列表-->
+						<div class="pressureList">
+							<div class="page-main-box clearfix" id="preInstantTable" style="width: 100%; margin: 0 auto; padding-bottom: 10px;">
+
+								<table class="table" id="mytable"></table>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/Site1.js"></script>
+		<script src="../../lib/ztree/js/jquery.ztree.exhide.js"></script>
+		<script src="../../lib/ztree/js/fuzzysearch.js"></script>
+		<script src="../../lib/echarts/echarts.min.js"></script>
+		<script src="../../js/gas/historygas.js"></script>
+	</body>
+
+</html>
