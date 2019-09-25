@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="dist/jQuery-3.4.1.js"></script>
+    <script src="layer/layer.js"></script>
+    <link rel="stylesheet" href="layer/theme/default/layer.css">
+</head>
+<body>
+<div id="layer1">
+    <p>layer 示例</p>
+    <button type="button" id="btn1">多窗口模式，层叠置顶</button>
+    <button data-method="offset" data-type="t" id="btn2">上弹出</button>
+</div>
+<script type="text/javascript">
+
+    $(function () {
+        $("#btn1").click(function () {
+            layer.open({
+                type: 2,
+                title: '当你选择该窗体时，即会在最顶端',
+                area: ['390px', '330px'],
+                offset: [Math.random() * ($(window).height() - 300),
+                    Math.random() * ($(window).width() - 390)],
+                maxmin: true,
+                content: 'layer.html',
+                btn: ['继续弹出', '全部关闭'],
+                yes: function () {
+                    $("#btn1").click();
+                },
+                btn2: function () {
+                    layer.closeAll();
+                },
+                zIndex: layer.zIndex, /*层叠值*/
+                success: function (layero) {   /*弹出后回调*/
+                    layer.setTop(layero);
+                }
+            });
+
+        });
+
+    });
+
+</script>
+<script>
+    layui.use('layer', function () {
+        var $ = layui.jquery, layer = layui.layer;
+
+        var demo = {
+            offset: function (othis) {
+                var type = othis.data('type'),
+                    text = othis.text();
+                layer.open({
+                    type: 1,
+                    offset: type,
+                    id: 'layerDemo' + type,
+                    content: '<div style="padding: 20px 100px;">' + text + '</div>'
+                    btn: '关闭全部',
+                    btnAlign: 'c', //按钮居中
+                    shade: 0,//不显示遮罩
+                    yes: function () {
+                        layer.closeAll();
+                    }
+                });
+
+            }
+        };
+        $('#layer1.btn2').on('click', function () {
+            var othis = $(this),
+                method = othis.data('method');
+            active[method] ? active[method].call(this, othis) : '';
+        });
+    });
+</script>
+</body>
+</html>

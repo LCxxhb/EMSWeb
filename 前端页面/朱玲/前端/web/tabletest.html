@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, initial-scale=1.0">
+    <title>表格练习</title>
+    <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap-table.min.css">
+    <script src="../js/jquery-3.4.1.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-table.min.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap-table-zh-CN.js"></script>
+</head>
+<div class="container">
+    <table id="table1"></table>
+</div>
+<script>
+    $('#table1').bootstrapTable({
+        columns:[{
+            field:'id',
+            title:'序号'
+        }, {
+            field:'name',
+            title:'姓名'
+        },{
+            field:'sex',
+            title:'性别'
+        }],
+        data:[{
+            id:'1',
+            name:'朱玲',
+            sex:'女'
+        },{
+            id:'2',
+            name:'余世治',
+            sex:'女'
+        }]
+    })
+</script>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bootstrap 2</title>
+    <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+<body>
+<!--对话框-->
+
+<!--    导航栏-->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+<!--                汉堡包按钮-->
+                <button class="navbar-toggle" data-toggle="collapse" data-target="#responsive-navbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="" class="navbar-brand"><strong>ninghao</strong>.net</a>
+            </div>
+            <div class="collapse navbar-collapse" id="responsive-navbar">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="">课程</a></li>
+                <li><a href="">博客</a></li>
+                <li><a href="">手册</a></li>
+            </ul>
+<!--            为搜索输入框设置样式，想左浮动-->
+            <form action=""class="navbar-form navbar-left">
+                <input type="text" placeholder="搜索" class="form-control">
+                <button type="submit">
+<!--                    添加样式，使用bootstraps内部的搜索图标-->
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </form>
+<!--            btn定义基础按钮类,btn-primary定义样式，btn-sm定义按钮小一号，navbar-btn在导航栏上面的按钮，为按钮提示合适边距-->
+            <a href="" class="btn btn-primary btn-sm navbar-btn navbar-right hidden-xs">订阅课程</a>
+            <div class="profile navbar-right">
+                <ul class="nav navbar-nav">
+<!--                    data打开链接， data-toggle="modal"要切换显示对话框，data-target是指对话框的id-->
+                    <li><a href="" data-toggle="modal" data-target="#login-modal">登录</a></li>
+                    <li><a href="">注册</a></li>
+                </ul>
+            </div>
+        </div>
+        </div>
+    </nav>
+<div class="container">
+    <p class="alert alert-info">
+        该剧以宏大的历史视野，正面地完整地真实地形象地再现一九四九年到一九五四年
+        期间中国革命进程和在中国发生的翻天覆地的变化。全方位展现了北平和平解放、西柏坡
+        党的七届二中全会、国共和谈、渡江战役、上海金融大战、签署《中苏友好同盟互助条约》、和平解放
+        新疆、解放大西南、中国人民志愿军赴朝鲜战场、和平解放西藏等一系列波澜壮阔的革命历史画面。
+        演绎了国共两党在军事、政治、经济、统战以及秘密战线等各个领域的全面较量；
+        歌颂了人民群众衷心拥护革命、推动历史前进的伟大力量；
+        颂扬了爱国民主人士为中国革命作出的特殊贡献。展示了以毛泽东为首的革命领袖的丰功伟业，
+        特别是毛泽东放眼世界、实现民族大团结的雄才大略以及求贤若渴的平民意识和领袖胸襟。
+    </p>
+</div>
+<!--对话框-->
+<div class="modal fade" id="login-modal" tabindex="-1" data-remote="loginform.html">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">&times;</button>
+                <h4>用户登录</h4>
+            </div>
+            <div class="modal-body">
+                用户登录表单
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary">登录</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="../js/jquery-3.4.1.js"></script>
+<script src="../lib/bootstrap/js/bootstrap.min.js"></script>
+<script>
+  /*  $(function () {
+        $('#login-modal').modal({
+            show:false,
+            backdrop:false,
+            remote:'loginform.html'
+            })
+    })*/
+  $(function () {
+      $('#login-modal').on('show.bs.modal',function () {
+          console.log('显示对话框');
+      });
+      $('#login-modal').on('show.bs.modal',function () {
+          console.log('对话框已经显示了');
+      });
+      $('#login-modal').on('hide.bs.modal',function () {
+          console.log('隐藏对话框');
+      });
+      $('#login-modal').on('hidden.bs.modal',function () {
+          console.log('隐藏了对话框');
+      });
+      $('#login-modal').on('loaded.bs.modal',function () {
+          console.log('已经加载好了对话框的内容');
+      });
+  })
+</script>
+</body>
+</html>

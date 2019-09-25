@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jedate控件练习</title>
+    <script src="dist/jQuery-3.4.1.js"></script>
+    <script src="jedate-6.5.0/dist/jedate.min.js"></script>
+    <link rel="stylesheet" href="jedate-6.5.0/skin/jedate.css">
+    <script src="jedate-6.5.0/src/jedate.js"></script>
+    <link rel="stylesheet" href="jedate-6.5.0/test/jeDate-test.css">
+    <script src="dist/jquery-1.7.2.js"></script>
+</head>
+<body>
+<div id="jd1"></div>
+<div>
+    <input id="jd2" class="jd icons" type="text" placeholder="请选择" readonly
+           onclick="testShow(this)">
+</div>
+<script type="text/javascript">
+    jeDate("#jd1", {
+        format: "YYYY-MM-DD",
+        /*language: {                                  //多语言设置
+            name: "cn",
+            month: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
+            weeks: ["日", "一", "二", "三", "四", "五", "六"],
+            /!* times : ["小时","分钟","秒数"],*!/
+            titText: "请选择日期时间",
+            clear: "清空",
+            today: "今天",
+            yes: "确定",
+            close: "关闭"
+        },*/
+        isShow: false,
+        multiPane: false,
+        isClear: true,
+        isToday: true
+    });
+
+    function testShow() {
+        jeDate("#jd2", {
+            trigger: false,
+            isTime: true,
+            format: "YYYY-MM-DD hh:mm",
+            onClose: false
+        })
+    };
+</script>
+
+</body>
+</html>

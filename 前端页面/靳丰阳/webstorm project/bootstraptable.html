@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script></script>
+    <!--<script src="zTree_v3/js/jquery-1.10.2.min.js"></script>-->
+    <script src="dist/jQuery-3.4.1.js"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="bootstrap/dist/bootstrap-table.css">
+
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="bootstrap/dist/bootstrap-table.js"></script>
+    <script src="bootstrap/dist/locale/bootstrap-table-zh-CN.js"></script>
+
+
+
+</head>
+<body>
+<div id="div5">
+    <p id="p5" class="name">BootstrapTable表格控件示例</p>
+    <table id="table1"></table>
+    <table id="table2"></table>
+</div>
+    <script>
+        $('#table1').bootstrapTable({
+            columns:[{
+                field:'id',
+                title:'编号'
+            },{
+                field:'name',
+                title:'姓名'
+            },{
+                field:'photo',
+                title:'联系方式'
+            }],
+            data:[{
+                id: 1,
+                name:'a',
+                photo:'1557893637'
+            },{
+                id: 2,
+                name:'b',
+                photo:'1057336459'
+            },{
+                id: 3,
+                name:'c',
+                photo:'1597350059'
+            }]
+        });
+    </script>
+<script>
+    $('#table2').bootstrapTable({
+        url:'case1.json',
+        columns:[{
+                field:'id',
+                title:'编号'
+            },{
+                field:'name',
+                title:'姓名'
+            },{
+                field:'photo',
+                title:'联系方式'
+        },]
+    });
+</script>
+</body>
+</html>

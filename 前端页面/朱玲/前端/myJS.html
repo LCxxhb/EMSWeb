@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+<div id="container" style="height: 100%"></div>
+<script src="js/echarts.min.js"></script>
+<script type="text/javascript">
+
+    var dom = document.getElementById("container");
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(dom);
+    /*定义X轴和Y轴等各项属性*/
+    var option = {
+        title: {
+            text: '堆叠区域图'
+        },
+        // 鼠标穿过图标时产生标线和数据
+        tooltip : {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
+
+        legend: {
+            data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+        },
+        // 可视化工具箱
+        toolbox: {
+            show: true,
+            feature: {
+                dataView: { //数据视图
+                    show: true
+                },
+                restore: { //重置
+                    show: true
+                },
+              /*  dataZoom: { //数据缩放视图
+                    show: true
+                },*/
+                saveAsImage: {//保存图片
+                    show: true
+                },
+                magicType: {//动态类型切换
+                    type: ['bar', 'line']
+                }
+            }
+        },
+        // 绘图区在图表容器中的位置
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                data : ['周一','周二','周三','周四','周五','周六','周日']
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value'
+            }
+        ],
+        series : [
+            {
+                name:'邮件营销',
+                type:'line',
+                stack: '总量',
+                areaStyle: {},
+                data:[120, 132, 101, 134, 90, 230, 210]
+            },
+            {
+                name:'联盟广告',
+                type:'line',
+                stack: '总量',
+                areaStyle: {},
+                data:[220, 182, 191, 234, 290, 330, 310]
+            },
+            {
+                name:'视频广告',
+                type:'line',
+                stack: '总量',
+                areaStyle: {},
+                data:[150, 232, 201, 154, 190, 330, 410]
+            },
+            {
+                name:'直接访问',
+                type:'line',
+                stack: '总量',
+                areaStyle: {normal: {}},
+                data:[320, 332, 301, 334, 390, 330, 320]
+            },
+            {
+                name:'搜索引擎',
+                type:'line',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'top'
+                    }
+                },
+                areaStyle: {normal: {}},
+                data:[820, 932, 901, 934, 1290, 1330, 1320]
+            }
+        ]
+    };
+    ;
+    // 使用刚指定的配置项和数据显示图表。
+   /* myChart.setOption(option);*/
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+</script>
+</body>
+</html>

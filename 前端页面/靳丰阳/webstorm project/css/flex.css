@@ -1,0 +1,19 @@
+.item{
+    border: 1px solid;
+    /*width: 100px;
+    height: 50px;*/
+}
+.box{
+    border: 1px solid red;
+    display: flex;
+    width: 250px;
+    height: 200px;
+    /*align-items: flex-end;!*在交叉轴上如何对齐（上中下）*!*/
+    /*justify-content:space-between;!*在主轴(行)上的对齐方式（左中右）*!*/
+   /* flex-direction: column;!*垂直方向从上到下排列*!
+    align-items: center;*/
+    /*justify-content: center;*/
+}
+.item:nth-child(2){
+    align-self: center;
+}

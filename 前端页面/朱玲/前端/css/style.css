@@ -1,0 +1,33 @@
+body{
+    padding-top: 70px;
+    /*上边内边距*/
+}
+/*暗色背景下的导航栏中属性为text的input元素设置自定义样式*/
+.navbar-inverse input[type="text"]{
+    background: #313131;
+    border: none;
+    /*去掉边框*/
+    color: #999;
+}
+/*form标签上的类使用相对定位*/
+.navbar-inverse .navbar-form{
+    position: relative;
+}
+/*按钮位置和边框背景色等*/
+.navbar-inverse button[type="submit"]{
+    /*绝对定位*/
+    position: absolute;
+    top: 25%;
+    right: 20px;
+    background: none;
+    border: none;
+}
+/*媒体查询*/
+@media (min-width: 768px) {
+    .navbar-inverse button[type="submit"]{
+        top:15%;
+    }
+}
+.navbar-inverse .glyphicon{
+    color:#999;
+}
