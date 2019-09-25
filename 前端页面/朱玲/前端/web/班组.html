@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <title>班组</title>
+    <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.css">
+   <style>
+       .container{
+           margin-left: 25%;
+       }
+       .row{
+           margin-top: 4%;
+       }
+        .choose{
+            position: fixed;
+            bottom: 5%;
+            margin-left: 45%;
+            height: 60px;
+            width: 150px;
+            border-radius: 16px;
+            font-size: 20px;
+        }
+       .opt{
+           height: 35px;
+           width: 200px;
+       }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <form action=" ">
+        <div class="col-md-3">
+            部门：
+            <select class="opt">
+                <option value="">信息化部</option>
+                <option value="">能源部</option>
+                <option value="">财务部</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            班组：
+            <select class="opt">
+            <option value="">信息化部</option>
+            <option value="">能源部</option>
+            <option value="">财务部</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            人数：
+            <select class="opt">
+            <option value="">信息化部</option>
+            <option value="">能源部</option>
+            <option value="">财务部</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+        </div>
+        </form>
+    </div>
+</div>
+    <div>
+
+    </div>
+    <div>
+        <button class="choose btn-success" type="submit">抽取</button>
+    </div>
+
+</body>
+</html>

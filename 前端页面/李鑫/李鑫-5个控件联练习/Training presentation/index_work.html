@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>五个练习</title>
+		<script type="text/javascript" src="js/lib/jq/jquery-1.10.2.min.js"></script>
+		<script src="css/incubator-echarts-4.3.0/dist/echarts-en.common.js"></script>
+		<script src="css/jedate-6.5.0/src/jedate.js"></script>
+		<link type="text/css" rel="stylesheet" href="css/jedate-6.5.0/skin/jedate.css" />
+		<link type="text/css" rel="stylesheet" href="css/jedate-6.5.0/test/jeDate-test.css">
+		<link rel="stylesheet" href="js/layui-v2.5.5/layui/css/layui.css" media="all" />
+		<script src="js/layui-v2.5.5/layui/layui.all.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/tree/zTreeStyle.css"/>
+		
+		<script type="text/javascript" src="js/tree/jquery.ztree.core.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="js/lib/bootstrap/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="js/lib/bootstrap/css/bootstrap-table.min.css"/>
+		
+		<script type="text/javascript"src="js/lib/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript"src="js/lib/bootstrap/js/bootstrap-table-zh-CN.js"></script>
+		<script type="text/javascript" src="js/lib/bootstrap/js/bootstrap-table.min.js"></script>
+
+	</head>
+	<body>
+		<div id="container">
+			<div id="bignav">
+				<h3 style="color: #008000;">bootstrapTable 表格练习</h3>
+				<hr style="color: #CA3A11;" />
+				<div id="bootstraotable1">
+					
+					<table id="table1"></table>
+					
+					
+					<script>
+					    $('#table1').bootstrapTable({
+					        columns: [{
+					            field: 'id',
+					            title: '编号名'
+					        }, {
+					            field: 'name',
+					            title: '姓名'
+					        }, {
+					            field: 'photo',
+					            title: '联系方式'
+					        }],
+					        data: [{
+					            id: 1,
+					            name: '王小婷',
+					            photo: '1373717324'
+					        }, {
+					            id: 2,
+					            name: '安安',
+					            photo: '131313'
+					        }]
+					    });
+					</script>
+					
+				</div>
+
+
+
+				<h3 style="color: #008000;">Echarts 图表练习</h3>
+				<hr style="color: #CA3A11;" />
+				<div id="Echart1">
+					<div id="a1" style="width: 900px;height:400px;"></div>
+					<script type="text/javascript">
+						var myChart = echarts.init(document.getElementById('a1'));
+
+						var option = {
+							title: {
+								text: 'ECharts 练习'
+							},
+							tooltip: {},
+							legend: {
+								data: ['电视剧榜单']
+							},
+							xAxis: {
+								data: ["香蜜沉沉烬如霜", "亲爱的，热爱的", "甄嬛传", "我在未来等你", "小欢喜", "格鲁纳酒店"]
+							},
+							yAxis: {},
+							series: [{
+								name: '电视剧榜单',
+								type: 'bar',
+								data: [18, 20, 60, 30, 20, 10]
+							}]
+						};
+						myChart.setOption(option);
+					</script>
+					<div id="a2" style="width: 600px;height:400px;"></div>
+					<script type="text/javascript">
+						var dom = document.getElementById("a2");
+						var myChart = echarts.init(dom);
+						var app = {};
+						option = null;
+						option = {
+							series: [{
+								name: '访问来源',
+								type: 'pie',
+								radius: '55%',
+								data: [{
+										value: 235,
+										name: '视频广告'
+									},
+									{
+										value: 274,
+										name: '联盟广告'
+									},
+									{
+										value: 310,
+										name: '邮件营销'
+									},
+									{
+										value: 335,
+										name: '直接访问'
+									},
+									{
+										value: 400,
+										name: '搜索引擎'
+									}
+								]
+							}]
+						};;
+						if (option && typeof option === "object") {
+							myChart.setOption(option, true);
+						}
+					</script>
+				</div>
+
+
+
+
+
+				<h3 style="color: #008000;">jeDate日期控件练习</h3>
+				<hr style="color: #CA3A11;" />
+
+				<div id="jeDate1">
+					<h4 style="color: #00A680;">———— 第一种 ————————————————————————————————————————————————————————————————————————</h4>
+					<div id="main1" style="width: 100%; height: 300px; display: flex; align-content: center;">
+						<div id="as1">
+							<label class="jelabel">点击图标</label>
+							<div class="jeinpbox">
+								<input type="text" class="jeinput" id="testico" placeholder="YYYY-MM-DD">
+								<div class="icons jebtns" onclick="jeDate('#testico',{trigger:false,format: 'YYYY-MM-DD'})"></div>
+							</div>
+						</div>
+						<div id="as2">
+							<label class="jelabel">没有图标</label>
+							<div class="jeinpbox">
+								<input type="text" class="jeinput" id="checkIn" placeholder="YYYY-MM-DD">
+							</div>
+						</div>
+					</div>
+					<h4 style="color: #00A680;">———— 第二种 ————————————————————————————————————————————————————————————————————————</h4>
+					<div id="main2" style="width: 100%; display: flex; justify-content: space-around;">
+						<div id="show01"></div>
+						<div id="show02"></div>
+						<div id="show03"></div>
+						<div id="show04"></div>
+						<div id="show05"></div>
+					</div>
+
+
+					<script type="text/javascript">
+						//直接展示日历
+						jeDate("#show01", {
+							isShow: false,
+							format: "YYYY-MM-DD hh:mm:ss"
+						});
+						jeDate("#show02", {
+							isShow: false,
+							format: "YYYY-MM"
+						});
+						jeDate("#show03", {
+							isShow: false,
+							format: "YYYY"
+						});
+						jeDate("#show04", {
+							isShow: false,
+							format: "hh:mm:ss"
+						});
+						jeDate("#checkIn", {
+							multiPane: false,
+							theme: {
+								bgcolor: "#D91600",
+								pnColor: "#FF6653"
+							},
+							format: "YYYY-MM-DD hh:mm:ss"
+						});
+					</script>
+				</div>
+
+				<h3 style="color: #008000;">layer弹出层插件</h3>
+				<hr style="color: #CA3A11;" />
+				<div id="layer1" style="width: 100%; height: 500px;">
+					<div id="la1">
+						<blockquote class="layui-bg-red">
+							李鑫说：“这是第四个作业，她太难了！”
+						</blockquote>
+						<fieldset class="layui-elem-field layui-field-title site-demo-button" style="margin-top: 30px;">
+							<legend>我的例子,好多颜色</legend>
+						</fieldset>
+					</div>
+					<div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+						<button data-method="setTop" class="layui-btn layui-bg-orange " style="color: mediumturquoise;">多窗口模式，层叠置顶</button>
+						<button data-method="confirmTrans" class="layui-btn layui-bg-cyan">配置一个透明的询问框</button>
+						<button data-method="notice" class="layui-btn layui-bg-red">示范一个公告层</button>
+						<button data-method="offset" data-type="t" class="layui-btn layui-btn-normal">上弹出</button>
+						<button data-method="offset" data-type="r" class="layui-btn layui-btn-normal layui-bg-red">右弹出</button>
+						<button data-method="offset" data-type="b" class="layui-btn layui-btn-normal">下弹出</button>
+						<button data-method="offset" data-type="l" class="layui-btn layui-btn-normal layui-bg-green">左弹出</button>
+						<button data-method="offset" data-type="lt" class="layui-btn layui-btn-normal layui-bg-black">左上弹出</button>
+						<button data-method="offset" data-type="lb" class="layui-btn layui-btn-normal">左下弹出</button>
+						<button data-method="offset" data-type="rt" class="layui-btn layui-btn-normal layui-bg-green">右上弹出</button>
+						<button data-method="offset" data-type="rb" class="layui-btn layui-btn-normal">右下弹出</button>
+						<button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal layui-bg-black">居中弹出</button>
+					</div>
+					<div id="la3">
+						<script>
+							layui.use('layer', function() { //独立版的layer无需执行这一句
+								var $ = layui.jquery,
+									layer = layui.layer; //独立版的layer无需执行这一句
+
+								//触发事件
+								var active = {
+									setTop: function() {
+										var that = this;
+										//多窗口模式，层叠置顶
+										layer.open({
+											type: 2 //此处以iframe举例
+												,
+											title: '当你选择该窗体时，即会在最顶端',
+											area: ['390px', '260px'],
+											shade: 0,
+											maxmin: true,
+											offset: [ //为了演示，随机坐标
+												Math.random() * ($(window).height() - 300), Math.random() * ($(window).width() - 390)
+											],
+											content: '//layer.layui.com/test/settop.html',
+											btn: ['继续弹出', '全部关闭'] //只是为了演示
+												,
+											yes: function() {
+												$(that).click();
+											},
+											btn2: function() {
+													layer.closeAll();
+												}
+
+												,
+											zIndex: layer.zIndex //重点1
+												,
+											success: function(layero) {
+												layer.setTop(layero); //重点2
+											}
+										});
+									},
+									confirmTrans: function() {
+										//配置一个透明的询问框
+										layer.msg('大部分参数都是可以公用的<br>合理搭配，展示不一样的风格', {
+											time: 20000, //20s后自动关闭
+											btn: ['明白了', '知道了', '哦']
+										});
+									},
+									notice: function() {
+										//示范一个公告层
+										layer.open({
+											type: 1,
+											title: false //不显示标题栏
+												,
+											closeBtn: false,
+											area: '300px;',
+											shade: 0.8,
+											id: 'LAY_layuipro' //设定一个id，防止重复弹出
+												,
+											btn: ['火速围观', '残忍拒绝'],
+											btnAlign: 'c',
+											moveType: 1 //拖拽模式，0或者1
+												,
+											content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">你知道吗？亲！<br>layer ≠ layui<br><br>layer只是作为Layui的一个弹层模块，由于其用户基数较大，所以常常会有人以为layui是layerui<br><br>layer虽然已被 Layui 收编为内置的弹层模块，但仍然会作为一个独立组件全力维护、升级。<br><br>我们此后的征途是星辰大海 ^_^</div>',
+											success: function(layero) {
+												var btn = layero.find('.layui-layer-btn');
+												btn.find('.layui-layer-btn0').attr({
+													href: 'http://www.layui.com/',
+													target: '_blank'
+												});
+											}
+										});
+									},
+									offset: function(othis) {
+										var type = othis.data('type'),
+											text = othis.text();
+
+										layer.open({
+											type: 1,
+											offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+												,
+											id: 'layerDemo' + type //防止重复弹出
+												,
+											content: '<div style="padding: 20px 100px;">' + text + '</div>',
+											btn: '关闭全部',
+											btnAlign: 'c' //按钮居中
+												,
+											shade: 0 //不显示遮罩
+												,
+											yes: function() {
+												layer.closeAll();
+											}
+										});
+									}
+								};
+
+								$('#layerDemo .layui-btn').on('click', function() {
+									var othis = $(this),
+										method = othis.data('method');
+									active[method] ? active[method].call(this, othis) : '';
+								});
+
+							});
+						</script>
+					</div>
+
+				</div>
+
+
+				<h3 style="color: #008000;">树插件练习</h3>
+				<hr style="color: #CA3A11;" />
+				<div id="tree1">
+					<blockquote class="layui-bg-gray">
+						下面是树插件练习
+					</blockquote>
+					<br>
+					<br>
+					<div id="tr1" style="width: 100%; height: 600px;">
+						<h3>最简单的树 -- 简单 JSON 数据 </h3><br>
+						<hr  style="color: #000000;">
+						<br>
+						<div class="zTreeDemoBackground">
+							<ul id="treeDemo" class="ztree"></ul>
+						</div>
+						<script type="text/javascript">
+							$(document).ready(function() {
+								$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+							});
+						</script>
+						<script type="text/javascript">
+							var setting = {
+								data: {
+									simpleData: {
+										enable: true
+									}
+								}
+							};
+							var zNodes = [{
+								id: 1,
+								pId: 0,
+								name: "父节点1 - 展开",
+								open: true
+							}, {
+								id: 11,
+								pId: 1,
+								name: "父节点2 - 折叠"
+							}, {
+								id: 111,
+								pId: 11,
+								name: "子叶1"
+							}, {
+								id: 112,
+								pId: 11,
+								name: "子叶2"
+							}, {
+								id: 113,
+								pId: 11,
+								name: "子叶3"
+							}, {
+								id: 114,
+								pId: 11,
+								name: "子叶4"
+							}, {
+								id: 12,
+								pId: 1,
+								name: "子叶5"
+							}, {
+								id: 121,
+								pId: 12,
+								name: "子叶6"
+							}, {
+								id: 122,
+								pId: 12,
+								name: "子叶7"
+							}, {
+								id: 123,
+								pId: 12,
+								name: "子叶8"
+							}, {
+								id: 124,
+								pId: 12,
+								name: "子叶9"
+							}, {
+								id: 13,
+								pId: 1,
+								name: "我是文件夹 - 没有子节点",
+								isParent: true
+							}, {
+								id: 2,
+								pId: 0,
+								name: "文件夹 - 折叠"
+							}, {
+								id: 21,
+								pId: 2,
+								name: "父节点3 - 展开",
+								open: true
+							}, {
+								id: 211,
+								pId: 21,
+								name: "叶子节点211"
+							}, {
+								id: 212,
+								pId: 21,
+								name: "叶子节点212"
+							}, {
+								id: 213,
+								pId: 21,
+								name: "叶子节点213"
+							}, {
+								id: 214,
+								pId: 21,
+								name: "叶子节点214"
+							}, {
+								id: 22,
+								pId: 2,
+								name: "父节点22 - 折叠"
+							}, {
+								id: 221,
+								pId: 22,
+								name: "叶子节点221"
+							}, {
+								id: 222,
+								pId: 22,
+								name: "叶子节点222"
+							}, {
+								id: 223,
+								pId: 22,
+								name: "叶子节点223"
+							}, {
+								id: 224,
+								pId: 22,
+								name: "叶子节点224"
+							}, {
+								id: 23,
+								pId: 2,
+								name: "父节点23 - 折叠"
+							}, {
+								id: 231,
+								pId: 23,
+								name: "叶子节点231"
+							}, {
+								id: 232,
+								pId: 23,
+								name: "叶子节点232"
+							}, {
+								id: 233,
+								pId: 23,
+								name: "叶子节点233"
+							}, {
+								id: 234,
+								pId: 23,
+								name: "叶子节点234"
+							}, {
+								id: 3,
+								pId: 0,
+								name: "父节点 - 没有子节点",
+								isParent: true
+							}];
+						</script>
+						
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

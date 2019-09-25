@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Echarts图表</title>
+		<script src="incubator-echarts-4.3.0/dist/echarts-en.common.js"></script>
+		<script src="incubator-echarts-4.3.0/dist/echarts.min.js"></script>
+	</head>
+	<body>
+		<div id="main" style="width:600px;height: 600px;"></div>
+		<div id="main1" style="width:400px;height: 300px;"></div>
+		<script type="text/javascript">
+			 var myChart=echarts.init(document.getElementById('main'));// 基于准备好的dom，初始化echarts实例
+            // 指定图表的配置项和数据
+        var option = {
+            title:{
+            	text:'某市居民购物渠道'
+            },
+            tooltip:{},
+            legend:{
+                data:['占比']
+            },
+            xAxis:{
+                data:["京东","唯品会","拼多多","线下实体","淘宝","其他"]
+            },
+            yAxis:{},
+            series:[
+                {
+                    name:'占比',
+                    type:'bar',
+                    data:[25, 15, 8, 12, 36, 5]
+                    }
+                        ]
+              };
+        myChart.setOption(option);
+		</script>
+		
+		
+		
+		
+		<script type="text/javascript">
+			var myChart=echarts.init(document.getElementById('main1'));
+			var option={
+				series : [
+        {
+            name: '购物渠道',
+            type: 'pie',
+            radius: '55%',
+            data:[
+                {value:400, name:'京东'},
+                {value:350, name:'唯品会'},
+                {value:210, name:'拼多多'},
+                {value:335, name:'线下实体'},
+                {value:600, name:'淘宝'},
+                {value:100, name:'其他'}
+            ]
+        }
+    ]
+			}
+			 myChart.setOption(option);
+		</script>
+		
+	</body>
+</html>

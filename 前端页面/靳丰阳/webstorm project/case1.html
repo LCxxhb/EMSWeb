@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="dist/jQuery-3.4.1.js"></script>
+    <link rel="stylesheet" href="css/case1.css">
+
+    <script src="dist/echarts.js"></script>
+    <script src="layer/layer.js"></script>
+
+    <script src="jedate-6.5.0/src/jedate.js"></script>
+    <link rel="stylesheet" href="jedate-6.5.0/test/jeDate-test.css">
+    <link rel="stylesheet" href="jedate-6.5.0/skin/jedate.css">
+
+
+    <script src="zTree_v3/js/jquery.ztree.all.js"></script>
+    <script src="zTree_v3/js/jquery.ztree.core.js"></script>
+    <script src="zTree_v3/js/jquery.ztree.excheck.js"></script>
+    <script src="zTree_v3/js/jquery.ztree.exedit.js"></script>
+    <script src="zTree_v3/js/jquery.ztree.exhide.js"></script>
+    <script src="zTree_v3/demo/js/fuzzysearch.js"></script>
+    <link rel="stylesheet" href="zTree_v3/css/demo.css">
+    <link rel="stylesheet" href="zTree_v3/css/zTreeStyle/zTreeStyle.css">
+    <link rel="stylesheet" href="zTree_v3/css/metroStyle/metroStyle.css">
+
+    <script src="bootstrap/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <script src="bootstrap/dist/bootstrap-table.js"></script>
+    <script src="bootstrap/dist/locale/bootstrap-table-zh-CN.js"></script>
+    <link rel="stylesheet" href="bootstrap/dist/bootstrap-table.css">
+
+</head>
+<body>
+<div id="div1">
+    <p class="name">JeDate日期控件示例</p> <br/>
+
+    <div id="s1">
+        <input id="input3" class="input icons" type="text" placeholder="YYYY年MM月DD日 hh:mm"
+               onclick="jeDate('#input3',{
+                           trigger:false,
+                           onClose:false,
+                           isTime:true,
+                           format:'YYYY年MM月DD日 hh:mm'})">
+    </div>
+    <div id="jd1"></div>
+    <div id="jd2"></div>
+</div>
+<script type="text/javascript">
+    /*点击显示（YYYY年MM月DD日 hh:mm:ss）格式*/
+    jeDate("#jd1",{
+        shortcut:[
+            {name:"一周",val:{DD:7}},
+            {name:"一个月",val:{DD:30}},
+            {name:"二个月",val:{MM:2}},
+            {name:"三个月",val:{MM:3}},
+            {name:"一年",val:{DD:365}}
+        ],
+        isShow:false,
+        format:'YYYY年MM月DD日 hh:mm:ss'
+    });
+    jeDate("#jd2",{
+        theme:{
+            bgcolor:"#00A1CB",
+            color:"#ffffff",
+            pnColor:"#00CCFF"},
+        isShow:false,
+        format:'YYYY年MM月DD日'
+    });
+
+</script>
+
+<p id="p2" class="name">ECharts控件示例</p>
+<!--为ECharts准备一个具备大小（宽高）的Dom-->
+<div id="div2">
+
+</div>
+<script type="text/javascript">
+    /*基于准备好的dom，初始化echarts实例*/
+    var myChart = echarts.init(document.getElementById('div2'));
+   /*指定图标的配置项和数据*/
+    option2 = {
+        title: {
+            text: '堆叠区域图'
+        },
+        tooltip: {
+            /*trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }*/
+        },
+        /*每条折线名称*/
+        legend: {
+            data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+        },
+        /*toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },*/
+        /*设置边距*/
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [
+            {
+                /*type: 'category',*/
+                boundaryGap: false,/*控制从起始位置开始显示*/
+                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            }
+        ],
+        yAxis: [
+            {
+                /*type: 'value'*/
+            }
+        ],
+        series: [
+            {
+                name: '邮件营销',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {},/*控制当前折线下方区域之间颜色*/
+                data: [120, 132, 101, 134, 90, 230, 210]
+            },
+            {
+                name: '联盟广告',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {},
+                data: [220, 182, 191, 234, 290, 330, 310]
+            },
+            {
+                name: '视频广告',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {},
+                data: [150, 232, 201, 154, 190, 330, 410]
+            },
+            {
+                name: '直接访问',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {normal: {}},
+                data: [320, 332, 301, 334, 390, 330, 320]
+            },
+            {
+                name: '搜索引擎',
+                type: 'line',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'top'
+                    }
+                },
+                areaStyle: {normal: {}},
+                data: [820, 932, 901, 934, 1290, 1330, 1320]
+            }
+        ]
+    };
+    myChart.setOption(option2);
+</script>
+
+<div id="div3">
+    <p id="p3" class="name">layer控件示例</p>
+    <button id="btn1">示例一</button>
+    <button id="btn2" onclick="showinfo()">右弹出</button>
+    <button type="button" id="btn3">多窗口模式，层叠置顶</button>
+</div>
+<script type="text/javascript">
+    $ (function(){
+        $("#btn1").click(function () {
+            layer.confirm('您是如何看待前端开发？', {
+                btn: ['重要','奇葩'] //按钮
+            }, function(){
+                layer.msg('的确很重要', {icon: 1});
+            }, function(){
+                layer.msg('也可以这样', {
+                    time: 20000, //20s后自动关闭
+                    btn: ['明白了', '知道了']
+                });
+            });
+        });
+        });
+    function showinfo() {
+        layer.tips('默认就是向右的','#btn2')
+    }
+
+</script>
+<script type="text/javascript">
+
+    $(function () {
+        $("#btn3").click(function () {
+            layer.open({
+                type: 2,
+                title: '当你选择该窗体时，即会在最顶端',
+                area: ['390px', '330px'],
+                offset: [Math.random() * ($(window).height() - 300),
+                    Math.random() * ($(window).width() - 390)],
+                maxmin: true,
+                content: 'layer.html',
+                btn: ['继续弹出', '全部关闭'],
+                yes: function () {
+                    $("#btn3").click();
+                },
+                btn2: function () {
+                    layer.closeAll();
+                },
+                zIndex: layer.zIndex, /*层叠值*/
+                success: function (layero) {   /*弹出后回调*/
+                    layer.setTop(layero);
+                }
+            });
+
+        });
+
+    });
+
+</script>
+
+<div id="div4">
+    <p id="p4" class="name">zTree控件示例</p>
+    <div id="ztreediv1">
+        <ul id="treeDemo" class="ztree"></ul>
+    </div>
+</div>
+    <script type="text/javascript">
+        var setting ={
+            data:{
+                simpleData:{
+                    enable:true,
+                    idKey:"id",
+                    pIdKey:"parentId",
+                    rootPId:-1
+                },
+                key:{
+                    name:"menuName"}
+            },
+                check:{
+                    enable:true,
+                    nocheckInherit:true
+                }
+
+        };
+        var zNodes = [
+            {menuName:"父节点1", open:true, children:[
+                {menuName:"子节点1"}, {menuName:"子节点2"}]},
+            {menuName:"父节点2", open:true, children:[
+                {menuName:"子节点3"}, {menuName:"子节点4"}]}
+            ];
+        $(document).ready(function() {
+            zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes); //初始化树
+            zTreeObj.expandAll(true);    //true 节点全部展开、false节点收缩
+        });
+
+    </script>
+
+
+<div id="div5">
+    <p id="p5" class="name">BootstrapTable表格控件示例</p>
+    <table id="table">
+
+    </table>
+    <script>
+        $('#table').bootstrapTable({
+            columns:[{
+                field:'id',
+                title:'编号'
+            },{
+                field:'name',
+                title:'姓名'
+        },{
+                field:'photo',
+                title:'联系方式'
+            }],
+            data:[{
+                id:1,
+                name:'a',
+                photo:'1557893637'
+            },{
+                id:2,
+                name:'b',
+                photo:'1057336459'
+            },{
+                id:3,
+                name:'c',
+                photo:'1597350059'
+            }]
+        })
+    </script>
+</div>
+
+</body>
+</html>

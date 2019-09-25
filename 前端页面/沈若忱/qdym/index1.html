@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>jedate日期控件</title>
+		<script src="jedate/dist/jedate.min.js"></script>
+		<link rel="stylesheet" href="jedate/skin/jedate.css" />
+		<link rel="stylesheet" href="jedate/test/jeDate-test.css" />
+		<style type="text/css">
+			#show1,#show2,#show3,#show4{
+				float: left; margin: 50px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="cof" style="width: 300px;margin: 20px;">
+      	    <input type="text" class="jeinput icons" id="testico" placeholder="YYYY-MM-DD"> 
+        </div>
+      	
+  
+		<script type="text/javascript">
+		
+            jeDate("#testico",{
+				isinitVal:true,
+				festival: true,
+				format: 'YYYY年MM月DD日 hh:mm:ss'
+			}); 
+		</script>
+		<br />
+		<div id="show1"></div>
+		<div id="show2"></div>
+		<div id="show3"></div>
+		<div id="show4"></div>
+	    <script type="text/javascript">
+            jeDate("#show1",{
+                isShow:false,
+                format: "YYYY-MM-DD hh:mm:ss"
+            });
+            jeDate("#show2",{
+                isShow:false,
+                format: "YYYY-MM"
+            });
+            jeDate("#show3",{
+                isShow:false,
+                format: "YYYY"
+            });
+            jeDate("#show4",{
+                isShow:false,
+                format: "hh:mm:ss"
+            });
+       </script>
+      
+      
+      
+	</body>
+</html>

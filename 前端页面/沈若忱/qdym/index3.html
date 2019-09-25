@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		
+		<link href="js/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="js/bootstrap/css/bootstrap-table.min.css" rel="stylesheet"/>
+		
+		<script src="js/jq/jquery-1.10.2.min.js"></script>
+		<script src="js/bootstrap/js/bootstrap.min.js"></script>
+		
+		<script src="js/bootstrap/js/bootstrap-table.min.js"></script>
+		
+		<script src="js/bootstrap/js/bootstrap-table-zh-CN.js"></script>
+		
+
+		
+		<title></title>
+	</head>
+	<body>
+		<table id="mytable"></table>	
+	</body>
+	
+	 <script>
+	 	  $('#mytable').bootstrapTable({
+    url: '1.json',
+    columns: [{
+        field: 'id',
+        title: '编号'
+    }, {
+        field: 'name',
+        title: '姓名'
+    }, {
+        field: 'photo',
+        title: '联系'
+    }, ]
+});
+
+//     $("#mytable").bootstrapTable({
+//         
+//          striped: true,//隔行变色
+//          columns: [{
+//              field: 'id',
+//              title: 'ID',
+//              align: 'center',
+//          }, {
+//              field: 'name',
+//              title: 'Item Name',
+//              align: 'center',
+//          }],
+//          data: [{
+//              id: '0',
+//              name: 'item0'
+//          }, {
+//              id: '1',
+//              name: 'item'
+//          }, {
+//              id: '2',
+//              name: 'item2'
+//          }, {
+//              id: '3',
+//              name: 'item3'
+//          }, {
+//              id: '4',
+//              name: 'item4'
+//          }, {
+//              id: '5',
+//              name: 'item5'
+//          }, {
+//              id: '6',
+//              name: 'item6'
+//          }, {
+//              id: '7',
+//              name: 'item7'
+//          }, {
+//              id: '8',
+//              name: 'item8'
+//          }, {
+//              id: '9',
+//              name: 'item9'
+//          }, {
+//              id: '10',
+//              name: 'item10'
+//          }],//
+//          onClickRow: function (row, element) {//添加点击行颜色
+//              $('.click').removeClass('click');
+//              $(element).addClass('click');
+//          }
+//      });
+    
+    </script>
+
+
+</html>
+
+
+
+
+

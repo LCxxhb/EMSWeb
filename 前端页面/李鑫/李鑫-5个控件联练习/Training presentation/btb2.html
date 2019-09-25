@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+ 
+    <head>
+        <meta charset="UTF-8">
+		
+		<link rel="stylesheet" type="text/css" href="js/lib/bootstrap/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="js/lib/bootstrap/css/bootstrap-table.min.css"/>
+		<script type="text/javascript"src="js/lib/jq/jquery.min.js"></script>
+		<script type="text/javascript"src="js/lib/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript"src="js/lib/bootstrap/js/bootstrap-table-zh-CN.js"></script>
+		<script type="text/javascript" src="js/lib/bootstrap/js/bootstrap-table.min.js"></script>
+		
+        <title></title>
+    </head>
+ 
+    <body>
+        <table id="mytable"></table>
+ 
+    </body>
+   
+ 
+    <script>
+        $('#mytable').bootstrapTable({
+            columns: [{
+                field: 'id',
+                title: '编号名'
+            }, {
+                field: 'name',
+                title: '姓名'
+            }, {
+                field: 'photo',
+                title: '联系方式'
+            }],
+            data: [{
+                id: 1,
+                name: '王小婷',
+                photo: '1373717324'
+            }, {
+                id: 2,
+                name: '安安',
+                photo: '131313'
+            }]
+        });
+    </script>
+ 
+</html>
