@@ -17,7 +17,7 @@
 			pageNumber: 1, //初始化加载第一页，默认第一页,并记录
 			contentType: "application/x-www-form-urlencoded", //发送到服务起的数据编码类型
 			striped: true,
-			url: 'http://10.1.11.112:8888/region/findAllRegion',
+			url: baseUrl + '/region/findAllRegion',
 			method: 'post',
 			columns: [{
 				checkbox: true,
@@ -56,7 +56,7 @@
 	loadSlect: function() {
 		$.ajax({
 			type: 'post',
-			url: baseUrl+'/region/deleteRegion',
+			url: baseUrl + '/region/findAllRegion',
 			dataType: 'json',
 			beforeSend: function() {
 				//					obj.html('正在处理...');
@@ -76,7 +76,7 @@
 		var pid = $.trim($('#areaPid option:selected').val());
 		var aName = $.trim($('#aName').val());
 		$.ajax({
-			url: baseUrl+"/region/addRegion",
+			url: baseUrl + "/region/addRegion",
 			data: {
 				"pid": pid,
 				"aName": aName,
@@ -118,7 +118,12 @@
 			return;
 		}
 		$("#myModal").modal("show");
-
+		$('#myModal').on('show.bs.modal', function(event) {
+			var modal = $(this); //get modal itself
+			modal.find('.modal-body #aName').text(rows[0].aname);
+			modal.find('.modal-body #areaPid').text(rows[0].pId);
+		});
+         
 	},
 
 	//实现删除数据的方法
@@ -142,7 +147,7 @@
 		};
 		$.ajax({
 			type: 'post',
-			url: baseUrl+'/region/deleteRegion',
+			url: baseUrl + '/region/deleteRegion',
 			dataType: 'json',
 			data: dataStr,
 			beforeSend: function() {
