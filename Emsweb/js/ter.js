@@ -14,7 +14,7 @@ var Ter = {
             async: true,
             contentType: 'application/x-www-form-urlencoded',
             processData: true,
-            showLoading:true
+            showLoading:true,
         }
         var opt = $.extend({}, setting, options);
         $.ajax({
@@ -52,15 +52,19 @@ var Ter = {
             },
             success: function (response) {
 				try{
-					if (response.ErrCode == "SUCCESS") {
+					if(response.code == "1") {
 						callback(response);
-					} else {
-                        if (response.ErrCode == 'KEY_Forbidden' || response.ErrCode == 'KEY_Invalid') {
-                            Ter.goLogin(response.ErrMsg);
-                        } else {
-                            layer.alert(response.ErrMsg, { title: '提示' });
-						}
-					}
+					} 
+					
+//					if (response.ErrCode == "SUCCESS") {
+//						callback(response);
+//					} else {
+//                      if (response.ErrCode == 'KEY_Forbidden' || response.ErrCode == 'KEY_Invalid') {
+//                          Ter.goLogin(response.ErrMsg);
+//                      } else {
+//                          layer.alert(response.ErrMsg, { title: '提示' });
+//						}
+//					}
 				}
 				catch(err){
 					if (opt.showLoading) {
@@ -122,9 +126,10 @@ var Ter = {
                     }, 1500);
                 },   
             },
-            sidePagination: 'server',
-            pageSize: 100,//单页记录数
-            pageList: [100, 50, 20],//分页步进值
+            sidePagination: "client", 
+            pagination: true,  
+            pageSize: 10,//单页记录数
+            pageList: [50, 30, 10],//分页步进值
             responseHandler: function (res) {
                 if (res.ErrCode == "SUCCESS") {
                     return {
