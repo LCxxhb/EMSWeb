@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<!--引入插件css的地方-->
-		<title>XXX报表</title>
+		<title>区域管理</title>
 		<!--页面上的css-->
 		<style>
 			.PressureData {
@@ -49,37 +49,32 @@
 						<form class="form-inline pumpRunCount-search pull-left">
 
 							<div class="form-group">
-								<label class="control-label" style="width: 80px; padding-left: 0;">总厂：</label>
-								<select class="form-control" id="areaPid">
-
-								</select>
+								<label class="control-label" style="width: 60px; padding-left: 0;">总厂:</label>
+								<input class="form-control" readonly="readonly" type="text" value="汉冶" style="width: 90px;" />
 							</div>
 							<div class="form-group">
-								<label class="control-label" style="width: 80px; padding-left: 0;">分厂：</label>
-								<select class="form-control" id="reportType">
-									<option selected="selected" value="1">分厂1</option>
-									<!--   <option value="2">日平均压力</option>-->
-									<option value="2">分厂1</option>
-									<option value="3">分厂1</option>
+								<label class="control-label" style="width: 60px; padding-left: 0;">分厂：</label>
+								<select class="form-control"  id="areaPid" >
+									<option value="">-请选择-</option>
 								</select>
 							</div>
-							<div class="form-group">
-								<label class="control-label" style="width: 80px; padding-left: 0;">车间：</label>
-								<select class="form-control" id="reportType">
-									<option selected="selected" value="1">车间1</option>
-									<!--   <option value="2">日平均压力</option>-->
-									<option value="2">车间1</option>
-									<option value="3">车间1</option>
+						<!-- 	<div class="form-group">
+								<label class="control-label" style="width: 60px; padding-left: 0;">车间：</label>
+								<select class="form-control" id="areaPid2" >
+									<option value="">-请选择-</option>
 								</select>
 							</div>
-
-							<button type="button" id="btn btn-search" class="btn btn-search" onclick="">
+ -->
+							<button type="button" id="btn btn-search" class="btn btn-search" onclick="areaPage.btnSearch()">
 								<span class="glyphicon glyphicon-search"></span>查询
 							</button>
-							<button class="btn btn-add" type="button" data-toggle="modal" data-target="#myModal">
+							<!--<button type="button" id="btn btn btn-reset" class="btn btn-reset" onclick="areaPage.btnReset()">
+								<span class="glyphicon glyphicon-reset"></span>重置
+							</button>-->
+							<button class="btn btn-add" type="button"  onclick="areaPage.btnEdit(0)">
 				                <span class="glyphicon glyphicon-plus"></span>添加
 				            </button>
-							<button class="btn btn-edit" type="button" onclick="areaPage.btnEdit()">
+							<button class="btn btn-edit" type="button" onclick="areaPage.btnEdit(1)">
 				                <span class="glyphicon glyphicon-edit"></span>修改
 				           </button>
 							<button class="btn btn-del" type="button" onclick="areaPage.btnDelete()">
@@ -101,57 +96,50 @@
 						</div>
 					</div>
 
-					<!-- 模态框（Modal） -->
-					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
+					<!--修改密码模态框-->
+					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						<div class="modal-dialog" role="document" style="width: 450px;">
 							<div class="modal-content">
-								<div class="modal-header bg-primary">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title" v-if="btnState == 0">新增区域</h4>
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title" v-if="btnState == 0">区域信息</h4>
 								</div>
-
-								<!--区域添加start-->
 								<div class="modal-body">
-									<form class="form-horizontal" role="form" id="optionsForm" action="/admin/addquestionbank" method="post">
-										<!--<div class="form-group">
-											<label class="col-sm-2 control-label"><font color="black">区域id:</font></label>
-											<div class="col-sm-10">
-												<input type="text" class="form-control" id="usrId" placeholder="请输入区域名id">
+									<div class="modal-form">
+										<form class="form-horizontal" id="modifyPwdModal">
+											<div class="form-group">
+												<label for="nowPassword" class="control-label">区域名称:</label>
+												<div class="input-box">
+													<input type="text" class="form-control require" id="aName" placeholder="请输入区域名称">
+												</div>
 											</div>
-										</div>-->
-										<div class="form-group">
-											<label class="col-sm-2 control-label"><font color="black">区域名称:</font></label>
-											<div class="col-sm-10">
-												<input type="text" class="form-control" id="aName" placeholder="请输入区域名称">
+											<div class="form-group">
+												<label for="newPassword" class="control-label"></label>
+												<input type="hidden" id="aid">
+												<!--隐藏域放区域id-->
 											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-2 control-label"><font color="black">父级区域:</font></label>
-											<div class="col-sm-10">
-												<!--<input type="text" class="form-control" id="usrIdentify" placeholder="请输入父级区域">-->
-												<select class="form-control" id="areaPid" style="width: 100px;">
+											<div class="form-group">
+												<label for="reNewPassword" class="control-label">父级区域:</label>
+												<div class="input-box">
+													<select class="form-control" id="modalArea" style="width: 99%;">
 
-												</select>
+													</select>
+												</div>
 											</div>
-										</div>
-									</form>
+										</form>
+									</div>
 								</div>
-								<!--区域添加end-->
-
 								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">关闭
-									</button>
-									<button type="button" class="btn btn-primary" onclick="areaPage.btnOk()">
-										确定
-									</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+									<button type="button" class="btn btn-primary" onclick="areaPage.btnOk()">保存</button>
 								</div>
 							</div>
-							<!-- /.modal-content -->
 						</div>
-						<!-- /.modal -->
 					</div>
+
 				</div>
 			</div>
+		</div>
 		</div>
 		<script src="../../js/Site1.js"></script>
 		<script src="../../lib/ztree/js/jquery.ztree.exhide.js"></script>

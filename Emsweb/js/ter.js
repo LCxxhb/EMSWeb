@@ -2,7 +2,7 @@
 var loadIndex, loadFlag=true;
 var load_arr = [];
 var Ter = {
-    server: "",//(globalConfig.webApiUrl == "" ? window.location.protocol + "//" + window.location.host : globalConfig.webApiUrl) +"/ltswapi/smartwater/",
+    server: "http://10.5.7.130:8888",//(globalConfig.webApiUrl == "" ? window.location.protocol + "//" + window.location.host : globalConfig.webApiUrl) +"/ltswapi/smartwater/",
     version: "1.0",//版本号
     userInfo: localStorage.getItem('userInfo') == undefined ? { key: "" } : JSON.parse(localStorage.getItem('userInfo')),
     author: 'LiTong Water',//开发：
@@ -14,7 +14,7 @@ var Ter = {
             async: true,
             contentType: 'application/x-www-form-urlencoded',
             processData: true,
-            showLoading:true
+            showLoading:true,
         }
         var opt = $.extend({}, setting, options);
         $.ajax({
@@ -52,13 +52,13 @@ var Ter = {
             },
             success: function (response) {
 				try{
-					if (response.ErrCode == "SUCCESS") {
+					if (response.errCode == "SUCCESS") {
 						callback(response);
 					} else {
-                        if (response.ErrCode == 'KEY_Forbidden' || response.ErrCode == 'KEY_Invalid') {
-                            Ter.goLogin(response.ErrMsg);
-                        } else {
-                            layer.alert(response.ErrMsg, { title: '提示' });
+                     if (response.errCode == 'KEY_Forbidden' || response.errCode == 'KEY_Invalid') {
+                         Ter.goLogin(response.errMsg);
+                     } else {
+                         layer.alert(response.errMsg, { title: '提示' });
 						}
 					}
 				}
@@ -122,20 +122,21 @@ var Ter = {
                     }, 1500);
                 },   
             },
-            sidePagination: 'server',
-            pageSize: 100,//单页记录数
-            pageList: [100, 50, 20],//分页步进值
+            sidePagination: "client", 
+            pagination: true,  
+            pageSize: 10,//单页记录数
+            pageList: [50, 30, 10],//分页步进值
             responseHandler: function (res) {
-                if (res.ErrCode == "SUCCESS") {
+                if (res.errCode == "SUCCESS") {
                     return {
-                        total: res.Result.total, //总页数,前面的key必须为"total"
-                        rows: res.Result.rows //行数据，前面的key要与之前设置的dataField的值一致.
+                        total: res.result.total, //总页数,前面的key必须为"total"
+                        rows: res.result.rows //行数据，前面的key要与之前设置的dataField的值一致.
                     };
                 } else {
-                    if (res.ErrCode == 'KEY_Forbidden' || res.ErrCode == 'KEY_Invalid') {
-                        Ter.goLogin(res.ErrMsg);
+                    if (res.errCode == 'KEY_Forbidden' || res.errCode == 'KEY_Invalid') {
+                        Ter.goLogin(res.errMsg);
                     } else {
-                        layer.alert(res.ErrMsg, { title: '提示' });
+                        layer.alert(res.errMsg, { title: '提示' });
                     }
                     return {
                         total: 0,

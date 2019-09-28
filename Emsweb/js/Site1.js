@@ -23,4 +23,3 @@ document.write(' <script src="../../lib/bootstrap/js/bootstrap-table.min.js"></s
 document.write(' <script src="../../lib/bootstrap/js/bootstrap-table-zh-CN.js"></script> ');
 <!--滚动条js-->
 document.write(' <script src="../../lib/scrollbar/jquery.mCustomScrollbar.js"></script> ');
-var baseUrl='http://10.1.11.112:8888';
