@@ -52,6 +52,7 @@ var Ter = {
             },
             success: function (response) {
 				try{
+					
 					if (response.errCode == "SUCCESS") {
 						callback(response);
 					} else {
@@ -127,6 +128,7 @@ var Ter = {
             pageSize: 10,//单页记录数
             pageList: [50, 30, 10],//分页步进值
             responseHandler: function (res) {
+                
                 if (res.errCode == "SUCCESS") {
                     return {
                         total: res.result.total, //总页数,前面的key必须为"total"

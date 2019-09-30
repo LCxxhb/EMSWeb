@@ -1,4 +1,4 @@
-var areaPage = {
+﻿var areaPage = {
 	init: function() {	
 		areaPage.loadSlect(); //加载下拉框
 		areaPage.loadTable(); //加载table
