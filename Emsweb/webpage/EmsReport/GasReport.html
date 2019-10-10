@@ -1,498 +1,81 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>能源气体报表</title>
+    <script src="../../js/Site1.js"></script>
+    <script src="../../js/EmsReport/GasReport.js"></script>
+</head>
+<body>
+<div class="iframe-wrapper" style="overflow-x: hidden; position: relative; overflow-y: auto;">
+    <!--页面主体内容部分-->
+    <div class="content-wrapper">
+        <!--功能区域-->
+        <div class="page-btns-box clearfix">
+            <form class="form-inline pumpRunCount-search pull-left">
+                <!--条件查询区域-->
+                <div class="form-group">
+                    <label class="control-label">介质类型：</label>
+                    <select class="form-control">
+                        <option selected="selected" value="1">--请选择--</option>
+                        <option value="2">煤气</option>
+                        <option value="3">氧气</option>
+						<option value="4">氮气</option>
+						<option value="5">氩气</option>
+						<option value="6">蒸汽</option>
+                        
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">产出/消耗：</label>
+                    <select class="form-control">
+                        <option selected="selected" value="1">--请选择--</option>
+						<option value="2">产出</option>
+						<option value="3">消耗</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">报表类型：</label>
+                    <select class="form-control">
+                        <option selected="selected" value="1">--请选择--</option>
+						<option value="2">4小时报</option>
+						<option value="3">班报表</option>
+						<option value="4">日报表</option>
+						<option value="5">月报表</option>
+                    </select>
+                </div>
+                <!--日期选择-->
+                <div class="form-group">
+                    <div class="input-group dayGroup-box">
+                        <label class="control-label">开始日期：</label>
+                        <input class="dateinput dateicon startDate dateTime" id="startInstantDate" type="text" readonly>
+                        <!--<label class="control-label endTime" style="margin-left: 15px;">结束日期：</label>
+                        <input class="dateinput dateicon endDate dateTime" id="endInstantDate" type="text" readonly>-->
+                    </div>
+                </div>
+                <!--<button type="button" id="btn-search" class="btn btn-search" onclick="">查询</button>-->
+                <button class="btn btn-search btn-margin" type="button">
+                    <span class="glyphicon glyphicon-search"></span>查询
+                </button>
+            </form>   
+            <button class="btn btn-black-link btn-margin pull-right" type="button" style="margin-top: 10px; margin-right: 15px;">
+                <span class="glyphicon glyphicon-export"></span>导出excel
+            </button>
+            <button class="btn btn-black-link btn-margin pull-right" type="button"style="margin-top: 10px; margin-right: 15px;">
+				<span class="glyphicon glyphicon-import"></span>导入excel
+			</button>
+        </div>
+        <div class="PressureData">
+            <!--图表 列表-->
+            <div class="pressureList">
+                <div class="page-main-box clearfix" id="preInstantTable" style="width: 100%; margin: 0 auto;
+                padding-bottom: 10px;">
+                    <table class="table" id="instantTable"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<link href="../../css/report.css" rel="stylesheet" />
-		<title>能源气体报表</title>
-
-	</head>
-	<body>
-	<div class="iframe-wrapper" style="overflow-x: hidden; position: relative; overflow-y: auto;">
-		<!--页面主体内容部分-->
-		<div class="content-wrapper">
-			<!--功能区域-->
-			<div class="page-btns-box clearfix">
-				<form class="form-inline pumpRunCount-search pull-left">
-					<!--条件查询区域-->
-
-					<!--日期选择-->
-					<div class="form-group">
-						<div class="input-group dayGroup-box">
-							<label class="control-label">日期：</label>
-							<input class="dateinput dateicon startDate dateTime" id="startInstantDate" type="text" readonly>
-
-						</div>
-					</div>
-					<button class="btn btn-search btn-margin" type="button">
-						<span class="glyphicon glyphicon-search"></span>查询
-					</button>
-
-				</form>
-				<button class="btn btn-black-link pull-right" type="button" style="margin-top: 10px; margin-right: 5px;">
-					<span class="glyphicon glyphicon-export"></span>导出excel
-				</button>
-			</div>
-
-			<!--图表 列表-->
-			<div class="page-tab-content">
-				<div class="dma2-container" style="padding: 0; height: 100%; text-align: center;">
-					<h1 id="headTitle">汉冶公司24h能源气体生产信息</h1>
-					<div style="clear: both"></div>
-				</div>
-				<!--列表-->
-				<div class="pressureList">
-					<div class="page-main-box clearfix" id="preInstantTable" style="width: 100%; margin: 0 auto; padding-bottom: 10px;">
-						<div class="fixed-table-container" style="border: none;">
-							<table class="table" id="instantTable">
-								<thead>
-								<tr>
-									<th>介质类型
-									</th>
-									<th>产/用
-									</th>
-									<th>车间/区域
-									</th>
-									<th>单位
-									</th>
-									<th>定额
-									</th>
-									<th>产出/消耗量
-									</th>
-									<th>每小时平均量
-									</th>
-									<th>吨产/耗
-									</th>
-								</tr>
-								</thead>
-								<tbody>
-								<tr>
-									<td rowspan="21" class="tb_rowspan_center">高炉煤气</td>
-									<td rowspan="7" class="tb_rowspan_center">产出</td>
-									<td>1#高炉</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>2#高炉</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>3#高炉</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>煤气液化炉</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>老区送炼轧厂总量</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>新区送炼轧厂总量</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr class="td_bold">
-									<td>合计</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td rowspan="14" class="tb_rowspan_center">消耗</td>
-									<td>1#2#热风炉</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>3#热风炉</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>烧结</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>球团</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>白灰</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>老区喷煤</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>新区喷煤</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>1#加热炉</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>2#加热炉</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>3#加热炉</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>4#加热炉</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>5#加热炉</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>均热坑</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr class="td_bold">
-									<td>合计</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td rowspan="9" class="tb_rowspan_center">转炉煤气</td>
-									<td rowspan="5" class="tb_rowspan_center">产出</td>
-									<td>2#转炉</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>3#转炉</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>4#转炉</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>煤气柜外送总量</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr class="td_bold">
-									<td>合计</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td rowspan="4" class="tb_rowspan_center">消耗</td>
-									<td>炼钢烤大包</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>连铸烤中包</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>外机炉</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-
-								<tr class="td_bold">
-									<td>合计</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-
-								<tr>
-									<td rowspan="8" class="tb_rowspan_center">氧气</td>
-									<td rowspan="3" class="tb_rowspan_center">产出</td>
-									<td>20000制氧</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>6000制氧</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr class="td_bold">
-									<td>合计</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-
-								<tr>
-									<td rowspan="5" class="tb_rowspan_center">消耗</td>
-									<td>1#2#高炉富氧</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>3#高炉富氧</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>炼钢氧气</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>轧钢氧气</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr class="td_bold">
-									<td>合计</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-
-								<tr>
-									<td rowspan="11" class="tb_rowspan_center">氮气</td>
-									<td rowspan="3" class="tb_rowspan_center">产出</td>
-									<td>20000制氧</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>6000制氧</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr class="td_bold">
-									<td>合计</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-
-								<tr>
-									<td rowspan="8" class="tb_rowspan_center">消耗</td>
-									<td>炼铁老区用氮</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>炼铁新区用氮</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>炼钢中压氮</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>炼钢低压氮</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>3350线氮气</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>3800线氮气</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>常化线氮气</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr class="td_bold">
-									<td>合计</td>
-									<td>m³</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr class="td_mark">
-									<td>异常信息</td>
-									<td colspan="7"></td>
-								</tr>
-
-								</tbody>
-
-							</table>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</div>
-	<script src="../../js/Site1.js"></script>
-	<script src="../../js/EmsReport/GasReport.js"></script>
-	</body>
+</body>
 </html>
