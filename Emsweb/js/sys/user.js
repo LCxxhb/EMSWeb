@@ -105,6 +105,227 @@ var userpage = {
 		}
 
 	},
+	//用户权限管理
+	btninfo: function() {
+			//会显选中的数据	
+			$("#myModal1").modal("show");
+			var setting = {
+				view: {
+					selectedMulti: false
+				},
+				check: {
+					enable: true
+				},
+				data: {
+					simpleData: {
+						enable: true
+					}
+				},
+				edit: {
+					enable: true
+				}
+			};
+				
+			var zNodes = [{
+					id: 1,
+					pId: 0,
+					name: "权限管理1",
+					open: true
+				},
+				{
+					id: 101,
+					pId: 1,
+					name: "权限管理1-1"
+				},
+				{
+					id: 102,
+					pId: 1,
+					name: "权限管理1-2"
+				},
+				{
+					id: 103,
+					pId: 1,
+					name: "权限管理1-3"
+				},
+				{
+					id: 104,
+					pId: 1,
+					name: "权限管理1-4"
+				},
+				{
+					id: 108,
+					pId: 1,
+					name: "权限管理1-5"
+				},
+				{
+					id: 109,
+					pId: 1,
+					name: "权限管理1-6"
+				},
+				{
+					id: 110,
+					pId: 1,
+					name: "权限管理1-7"
+				},
+				{
+					id: 111,
+					pId: 1,
+					name: "权限管理1-8"
+				},
+				{
+					id: 112,
+					pId: 1,
+					name: "权限管理1-9"
+				},
+				{
+					id: 113,
+					pId: 1,
+					name: "权限管理1-10"
+				},
+				{
+					id: 114,
+					pId: 1,
+					name: "权限管理1-11"
+				},
+				
+				{
+					id: 2,
+					pId: 0,
+					name: "权限管理2",
+					open: false
+				},
+				{
+					id: 201,
+					pId: 2,
+					name: "权限管理2-1"
+				},
+				{
+					id: 206,
+					pId: 2,
+					name: "权限管理2-2"
+				},
+				{
+					id: 207,
+					pId: 2,
+					name: "权限管理2-3"
+				},
+				{
+					id: 208,
+					pId: 2,
+					name: "权限管理2-4"
+				},
+				{
+					id: 209,
+					pId: 2,
+					name: "权限管理2-5"
+				},
+				{
+					id: 210,
+					pId: 2,
+					name: "权限管理2-6"
+				},
+				{
+					id: 211,
+					pId: 2,
+					name: "权限管理2-7"
+				},
+				{
+					id: 3,
+					pId: 0,
+					name: "权限管理3",
+					open: false
+				},
+				{
+					id: 301,
+					pId: 3,
+					name: "权限管理3-1"
+				},
+				{
+					id: 302,
+					pId: 3,
+					name: "权限管理3-2"
+				},
+				{
+					id: 303,
+					pId: 3,
+					name: "权限管理3-3"
+				},
+				
+				{
+					id: 4,
+					pId: 0,
+					name: "权限管理4",
+					open: false
+				},
+				{
+					id: 401,
+					pId: 4,
+					name: "权限管理4-1"
+				},
+				{
+					id: 402,
+					pId: 4,
+					name: "权限管理4-2"
+				},
+				{
+					id: 403,
+					pId: 4,
+					name: "权限管理4-3"
+				},
+				
+				{
+					id: 5,
+					pId: 0,
+					name: "权限管理5",
+					open: false
+				},
+				{
+					id: 501,
+					pId: 5,
+					name: "权限管理5-1"
+				},
+				{
+					id: 502,
+					pId: 5,
+					name: "权限管理5-2"
+				},
+				{
+					id: 503,
+					pId: 5,
+					name: "权限管理5-3"
+				},
+				
+				{
+					id: 6,
+					pId: 0,
+					name: "权限管理6",
+					open: false
+				},
+				{
+					id: 601,
+					pId: 6,
+					name: "隐藏普通节点"
+				},
+				{
+					id: 602,
+					pId: 6,
+					name: "权限管理6-1"
+				},
+				{
+					id: 603,
+					pId: 6,
+					name: "权限管理6-1"
+				}
+			];
+				
+			$(document).ready(function() {
+				$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+			});
+				
+	},
+	
+	
+	
 	//实现删除数据的方法
 	btnDelete: function() {
 		var ids = ""; //得到用户选择的数据的ID
