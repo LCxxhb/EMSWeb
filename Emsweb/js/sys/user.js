@@ -11,14 +11,27 @@ var userpage = {
 				visible: true
 			}, {
 				field: 'id',
-				title: 'ID',
-				visible: false,
+				title: 'ID',				
 			}, {
 				field: 'username',
 				title: '用户名称'
 			}, {
-				field: 'role_id',
+				field: 'roleId',
 				title: '角色',
+				formatter: function(value,row,index){
+                         //通过formatter可以自定义列显示的内容
+                         //value：当前field的值，即id
+                         //row：当前行的数据
+                         if (0==value) {
+                         	return "管理员";
+                         } else{
+                         	return "用户";
+                         }  
+                    } ,
+			}, {
+				field: 'areaId',
+				title: '区域id',
+				visible: false,
 			}, {
 				field: 'status',
 				title: '状态',
@@ -38,8 +51,24 @@ var userpage = {
 		});
 		this.loadTableData();
 	},
-	//加载模态框下拉框
-	LoadModalSelect: function(pid) {
+	
+	//加载搜索条件下拉框
+	loadSlect: function() {
+		Ter.getApi({
+				apiname: '',
+			},
+			function(res) {
+				if(res.result) {
+					var select = $("#usertype");
+					for(var i = 0; i < res.result.length; i++) {
+						select.append("<option value='" + res.result[i].id + "'>" +
+							res.result[i].name + "</option>");
+					}
+				}
+			})
+	},
+	//加载角色模态框下拉框
+	LoadModalRoleSelect: function(id) {
 		$("#role_id").empty();
 		Ter.getApi({
 				apiname: " "
@@ -48,7 +77,28 @@ var userpage = {
 				if(res.result) {
 					var select = $("#role_id");
 					for(var i = 0; i < res.result.length; i++) {
-						if(pid == res.result[i].aname) {
+						if(id == res.result[i].id) {
+							select.append("<option value='" + res.result[i].id + "' selected='selected'>" +
+								res.result[i].name + "</option>");
+						} else {
+							select.append("<option value='" + res.result[i].id + "'>" +
+								res.result[i].name + "</option>");
+						}
+					}
+				}
+			})
+	},
+	//加载区域模态框下拉框
+	LoadModalAreaSelect: function(id) {
+		$("#area_id").empty();
+		Ter.getApi({
+				apiname: "/region/findAllRegion"
+			},
+			function(res) {
+				if(res.result) {
+					var select = $("#area_id");
+					for(var i = 0; i < res.result.length; i++) {
+						if(id == res.result[i].aid) {
 							select.append("<option value='" + res.result[i].aid + "' selected='selected'>" +
 								res.result[i].aname + "</option>");
 						} else {
@@ -58,12 +108,6 @@ var userpage = {
 					}
 				}
 			})
-
-		// 		if (pid != "") {
-		// 			//$("#modalArea").val(pid+'');
-		// 			$("#modalArea").find("option[text=" + pid + "]").attr("selected", true);
-		// 		}
-		// 
 	},
 	//查询按钮事件绑定
 	btnSearch: function() {
@@ -71,9 +115,16 @@ var userpage = {
 	},
 	//加载table数据
 	loadTableData: function() {
+		var role_id = $.trim($('#usertype option:selected').val());
+		var username =$.trim($('#role_id').val());
+		var params={
+			"roleId":role_id,
+			"username":username,
+		};	
 		var url = '/user/findAll';
 		Ter.getApi({
-				apiname: url
+				apiname: url,
+				params: params
 			},
 			function(res) {
 				if(res.result) {
@@ -86,24 +137,67 @@ var userpage = {
 	btnEdit: function(parm) {
 		if(parm == 0) {
 			$("#myModal").modal("show");
-			$('#aName').val();
-			$('#aid').val();
-			this.LoadModalSelect("");
-
+			$('#role_id').val();
+			$('#area_id').val();
+			$('#id').val();
+			$('#username').val();
+			this.LoadModalRoleSelect("");
+			this.LoadModalAreaSelect("");
 		} else {
 			var rows = $('#mytable').bootstrapTable('getSelections');
 			if(rows.length != 1) {
 				layer.alert("请选择一条数据进行编辑！")
 				return;
 			}
-			//会显选中的数据	
+			//会显选中的用户信息
 			$("#myModal").modal("show");
-			$('#aName').val(rows[0].aname);
-			$('#aid').val(rows[0].aid);
-
-			this.LoadModalSelect(rows[0].pname);
+			$('#role_id').val(rows[0].roleId);
+			$('#area_id').val(rows[0].areaId);
+			$('#id').val(rows[0].id);
+			$('#username').val(rows[0].username);
+			this.LoadModalRoleSelect(rows[0].roleId);
+			this.LoadModalAreaSelect(rows[0].areaId);
 		}
 
+	},
+	//添加编辑数据方法 提交表单
+	btnOk: function() {
+		var role_id = $.trim($('#role_id option:selected').val());
+		var area_id = $.trim($('#area_id option:selected').val());
+		var username = $.trim($('#username').val());
+		var id = $('#id').val();
+		var url;
+		if(id == null || id == undefined || id == "") { //用户添加
+			url = '/user/insert';
+			var user = {
+				"username": username,
+				"area_id": area_id,
+				"role_id": role_id
+			}
+
+		} else {
+			url = '/user/update';
+			var user = {
+				"id": id,
+				"username": username,
+				"area_id": area_id,
+				"role_id": role_id
+			}
+		}
+		Ter.getApi({
+				apiname: url,
+				params: user
+			},
+			function(res) {
+				if(res.errCode == "SUCCESS") {
+					layer.alert(res.errMsg);
+					$('#myModal').modal('hide');
+					areaPage.loadSlect();
+					areaPage.loadTableData();
+
+				}
+
+			})
 	},
 	//实现删除数据的方法
 	btnDelete: function() {

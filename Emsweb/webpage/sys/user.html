@@ -26,8 +26,9 @@
 							<div class="form-group">
 								<label class="control-label" style="width: 80px; padding-left: 0;">角色：</label>
 								<select class="form-control" id="usertype">
-									<option selected="selected" value="1">管理员</option>
-									<option value="2">普通用户</option>
+									<option value="1">管理员</option>
+									<option value="2">练铁厂</option>
+									<option value="3">炼钢厂</option>
 								</select>
 							</div>
 							<button type="button" id="btn btn-search" class="btn btn-search" onclick="userpage.btnSearch()">
@@ -74,7 +75,7 @@
 										<div class="form-group">
 											<label class="col-sm-2 control-label"><font color="black">用户名:</font></label>
 											<div class="col-sm-10">
-												<input type="text" class="form-control" id="usrname" placeholder="请输入用户名">
+												<input type="text" class="form-control" id="username" placeholder="请输入用户名">
 											</div>
 										</div>			
 										<div class="form-group">
@@ -85,11 +86,19 @@
 												</select>
 											</div>
 										</div>
+										<div class="form-group">
+											<label class="col-sm-2 control-label"><font color="black">所属区域:</font></label>
+											<div class="col-sm-10">
+												<select class="form-control" id="area_id">
+													<option>-请选择-</option>													
+												</select>
+											</div>
+										</div>
 									</form>
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-									<button type="button" class="btn btn-primary" onclick=" ">确定</button>
+									<button type="button" class="btn btn-primary" onclick="userpage.btnOk()">确定</button>
 								</div>
 							</div>
 						</div>
