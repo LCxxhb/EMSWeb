@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<!--引入插件css的地方-->
+		<title>页面</title>
+	</head>
+
+	<body>
+		<div class="iframe-wrapper" style="overflow-x: hidden; position: relative;">
+			<div class="page-container">
+				<!--页面主体内容部分-->
+				<div class="content-wrapper">
+					<!--功能区域-->
+					<div class="page-btns-box clearfix" style="margin: 0; padding: 10px">
+						<form class="form-inline pumpRunCount-search pull-right">
+							<!--增删改按钮部分-->
+							<button class="btn btn-add" type="button" onclick="rolesPage.btnadd()">
+                        <span class="glyphicon glyphicon-plus"></span>添加
+                   </button>
+							<button class="btn btn-del" type="button" onclick="rolesPage.btnDelete()">
+                        <span class="glyphicon glyphicon-trash"></span>删除
+                   </button>
+                    </button>
+						</form>
+					</div>
+					<!--图表-->
+					<div class="PressureData">
+						<!--列表-->
+						<div class="pressureList">
+							<div class="page-main-box clearfix" id="preInstantTable" style="width: 100%; margin: 0 auto; padding-bottom: 10px;">
+								<table class="table" id="mytable"></table>
+							</div>
+						</div>
+					</div>
+
+					<!--模态框（Modal）-->
+					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+								<div class="modal-header bg-primary">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h4 class="modal-title" v-if="btnState == 0">新增角色</h4>
+								</div>
+								<div class="modal-body">
+									<form class="form-horizontal" role="form" id="addcontent" action=" " method="post">
+										<!--隐藏域放区域id-->
+										<input type="hidden" id="id">
+
+										<div class="form-group">
+											<label class="col-sm-2 control-label"><font color="black">角色名称:</font></label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="username" placeholder="请输入菜单名称">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-2 control-label"><font color="black">角色描述:</font></label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="username" placeholder="请进行角色描述">
+											</div>
+										</div>									
+									</form>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+									<button type="button" class="btn btn-primary" onclick="rolesPage.btnOk()">确定</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<script src="../../js/Site1.js"></script>
+			<script src="../../lib/ztree/js/jquery.ztree.exhide.js"></script>
+			<script src="../../lib/ztree/js/fuzzysearch.js"></script>
+			<script src="../../lib/echarts/echarts.min.js"></script>
+			<script src="../../js/ter.js"></script>
+			<script src="../../js/sys/roles.js"></script>
+		</div>
+	</body>
+
+</html>
