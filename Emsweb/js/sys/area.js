@@ -175,8 +175,8 @@
 	btnEdit: function(parm) {
 		if(parm == 0) {
 			$("#myModal").modal("show");
-			$('#aName').val();
-			$('#aid').val();
+			$('#aName').val('');
+			$('#aid').val('');
 			this.LoadModalSelect("");
 
 		} else {

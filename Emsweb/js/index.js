@@ -3,7 +3,7 @@ var indexPage = {
     init: function () {
         this.modifyPassword();
         this.loginOut();
-        //this.getPageData();
+        this.getPageData();
         this.updatePwd();  //用户修改密码
         //$("#userName").html(Ter.userInfo.uname);//登录用户
     },

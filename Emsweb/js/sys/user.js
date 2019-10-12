@@ -1,6 +1,7 @@
 var userpage = {
 	init: function() {
 		userpage.loadTable(); //加载table
+		userpage.loadSlect(); //加载下拉框
 	},
 	loadTable: function() {
 		$('#mytable').bootstrapTable({
@@ -10,59 +11,79 @@ var userpage = {
 				checkbox: true,
 				visible: true
 			}, {
-				field: 'id',
-				title: 'ID',				
+				field: 'ID',
+				title: 'ID',
 			}, {
-				field: 'username',
+				field: 'USERNAME',
 				title: '用户名称'
 			}, {
-				field: 'roleId',
-				title: '角色',
-				formatter: function(value,row,index){
-                         //通过formatter可以自定义列显示的内容
-                         //value：当前field的值，即id
-                         //row：当前行的数据
-                         if (0==value) {
-                         	return "管理员";
-                         } else{
-                         	return "用户";
-                         }  
-                    } ,
+				field: 'ROLE_ID',
+				title: '角色ID',
+				//				formatter: function(value, row, index) {
+				//					//通过formatter可以自定义列显示的内容
+				//					//value：当前field的值，即id
+				//					//row：当前行的数据
+				//					if(0 == value) {
+				//						return "管理员";
+				//					} else {
+				//						return "用户";
+				//					}
+				//				},
 			}, {
-				field: 'areaId',
-				title: '区域id',
-				visible: false,
+				field: 'ROLENAME',
+				title: '角色名称',
 			}, {
-				field: 'status',
+				field: 'AREA_ID',
+				title: '所属区域ID',
+
+			}, {
+				field: 'ANAME',
+				title: '所属区域',
+
+			}, {
+				field: 'STATUS',
 				title: '状态',
 			}, {
-				field: 'create_by',
-				title: '创建人',
-			}, {
-				field: 'create_date',
-				title: '创建时间',
-			}, {
-				field: 'last_update_by',
-				title: '最后更新人',
-			}, {
-				field: 'last_update_date',
-				title: '最后更新时间',
+				field: 'cz',
+				title: '操作',
+				formatter: userpage.action,
+				align: 'center'
 			}]
 		});
 		this.loadTableData();
 	},
-	
-	//加载搜索条件下拉框
+
+	//操作方法
+	action: function(value, row, index) {
+		var col = '<a class="ter-visibleBtn" data-power="密码重置" onclick=userpage.permission("' + row.ID + '")>密码重置</ a>';
+		return col;
+	},
+	//密碼重置
+	permission: function(id) {
+		var params = {
+			"id": id
+		};
+		Ter.getApi({
+				apiname: '/user/resetPassword',
+				params: params
+			},
+			function(res) {
+				if(res) {
+					layer.alert(res.errMsg);
+				}
+			})
+	},
+	//加载搜索条件角色下拉框
 	loadSlect: function() {
 		Ter.getApi({
-				apiname: '',
+				apiname: '/roles/findAll',
 			},
 			function(res) {
 				if(res.result) {
 					var select = $("#usertype");
 					for(var i = 0; i < res.result.length; i++) {
 						select.append("<option value='" + res.result[i].id + "'>" +
-							res.result[i].name + "</option>");
+							res.result[i].rolename + "</option>");
 					}
 				}
 			})
@@ -71,7 +92,7 @@ var userpage = {
 	LoadModalRoleSelect: function(id) {
 		$("#role_id").empty();
 		Ter.getApi({
-				apiname: " "
+				apiname: "/roles/findAll"
 			},
 			function(res) {
 				if(res.result) {
@@ -79,10 +100,10 @@ var userpage = {
 					for(var i = 0; i < res.result.length; i++) {
 						if(id == res.result[i].id) {
 							select.append("<option value='" + res.result[i].id + "' selected='selected'>" +
-								res.result[i].name + "</option>");
+								res.result[i].rolename + "</option>");
 						} else {
 							select.append("<option value='" + res.result[i].id + "'>" +
-								res.result[i].name + "</option>");
+								res.result[i].rolename + "</option>");
 						}
 					}
 				}
@@ -116,11 +137,11 @@ var userpage = {
 	//加载table数据
 	loadTableData: function() {
 		var role_id = $.trim($('#usertype option:selected').val());
-		var username =$.trim($('#role_id').val());
-		var params={
-			"roleId":role_id,
-			"username":username,
-		};	
+		var username = $.trim($('#name').val());
+		var params = {
+			"roleId": role_id,
+			"username": username,
+		};
 		var url = '/user/findAll';
 		Ter.getApi({
 				apiname: url,
@@ -137,10 +158,10 @@ var userpage = {
 	btnEdit: function(parm) {
 		if(parm == 0) {
 			$("#myModal").modal("show");
-			$('#role_id').val();
-			$('#area_id').val();
-			$('#id').val();
-			$('#username').val();
+			$('#role_id').val('');
+			$('#area_id').val('');
+			$('#id').val('');
+			$('#username').val('');
 			this.LoadModalRoleSelect("");
 			this.LoadModalAreaSelect("");
 		} else {
@@ -151,12 +172,12 @@ var userpage = {
 			}
 			//会显选中的用户信息
 			$("#myModal").modal("show");
-			$('#role_id').val(rows[0].roleId);
-			$('#area_id').val(rows[0].areaId);
-			$('#id').val(rows[0].id);
-			$('#username').val(rows[0].username);
-			this.LoadModalRoleSelect(rows[0].roleId);
-			this.LoadModalAreaSelect(rows[0].areaId);
+			$('#role_id').val(rows[0].ROLE_ID);
+			$('#area_id').val(rows[0].AREA_ID);
+			$('#id').val(rows[0].ID);
+			$('#username').val(rows[0].USERNAME);
+			this.LoadModalRoleSelect(rows[0].ROLE_ID);
+			this.LoadModalAreaSelect(rows[0].AREA_ID);
 		}
 
 	},
@@ -171,17 +192,18 @@ var userpage = {
 			url = '/user/insert';
 			var user = {
 				"username": username,
-				"area_id": area_id,
-				"role_id": role_id
+				"areaId": area_id,
+				"roleId": role_id,
+				"password": '000000'
 			}
-
 		} else {
 			url = '/user/update';
 			var user = {
 				"id": id,
 				"username": username,
-				"area_id": area_id,
-				"role_id": role_id
+				"areaId": area_id,
+				"roleId": role_id,
+				"password": '000000'
 			}
 		}
 		Ter.getApi({
@@ -192,13 +214,12 @@ var userpage = {
 				if(res.errCode == "SUCCESS") {
 					layer.alert(res.errMsg);
 					$('#myModal').modal('hide');
-					areaPage.loadSlect();
-					areaPage.loadTableData();
-
+					userpage.loadTableData();
 				}
 
 			})
 	},
+
 	//实现删除数据的方法
 	btnDelete: function() {
 		var ids = ""; //得到用户选择的数据的ID
@@ -214,7 +235,7 @@ var userpage = {
 			},
 			function() {
 				for(var i = 0; i < rows.length; i++) {
-					ids += rows[i].id + ',';
+					ids += rows[i].ID + ',';
 				}
 				ids = ids.substring(0, ids.length - 1);
 				var dataStr = {
@@ -227,15 +248,14 @@ var userpage = {
 					function(res) {
 						if(res.errCode == "SUCCESS") {
 							layer.alert(res.errMsg)
-							//							userpage.loadSlect();
 							userpage.loadTableData();
 						}
 
 					})
 			}
 		)
-
 	}
+
 }
 $(function() {
 	userpage.init();
