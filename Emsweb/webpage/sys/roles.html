@@ -18,29 +18,13 @@
 					<!--功能区域-->
 					<div class="page-btns-box clearfix" style="margin: 0; padding: 10px">
 						<form class="form-inline pumpRunCount-search pull-left">
-							<!--查询条件及按钮-->
-							<div class="form-group">
-								<label class="control-label" style="width: 80px; padding-left: 0;">用户名：</label>
-								<input type="text" id="name">
-							</div>
-							<div class="form-group">
-								<label class="control-label" style="width: 80px; padding-left: 0;">角色：</label>
-								<select class="form-control" id="usertype">
-									<option value="">-请选择-</option>
-								</select>
-							</div>
-							<button type="button" id="btn btn-search" class="btn btn-search" onclick="userpage.btnSearch()">
-								<span class="glyphicon glyphicon-search"></span>查询
-							</button>
 							<!--增删改按钮部分-->
-							<button class="btn btn-add" type="button" onclick="userpage.btnEdit(0)">
-								<span class="glyphicon glyphicon-plus"></span>添加
-							</button>
-							<button class="btn btn-edit" type="button" onclick="userpage.btnEdit(1)">
-								<span class="glyphicon glyphicon-edit"></span>修改
-							</button>
-							<button class="btn btn-del" type="button" onclick="userpage.btnDelete()">
-								<span class="glyphicon glyphicon-trash"></span>删除
+							<button class="btn btn-add" type="button" onclick="rolesPage.btnadd()">
+                        <span class="glyphicon glyphicon-plus"></span>添加
+                   </button>
+							<button class="btn btn-del" type="button" onclick="rolesPage.btnDelete()">
+                        <span class="glyphicon glyphicon-trash"></span>删除
+                   </button>
 							</button>
 						</form>
 					</div>
@@ -49,20 +33,18 @@
 						<!--列表-->
 						<div class="pressureList">
 							<div class="page-main-box clearfix" id="preInstantTable" style="width: 100%; margin: 0 auto; padding-bottom: 10px;">
-
 								<table class="table" id="mytable"></table>
 							</div>
-
 						</div>
 					</div>
 
-					<!--用户添加模态框（Modal）-->
+					<!--新增模态框（Modal）-->
 					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog modal-dialog-centered">
 							<div class="modal-content">
 								<div class="modal-header bg-primary">
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title" v-if="btnState == 0">新增用户</h4>
+									<h4 class="modal-title" v-if="btnState == 0">新增角色</h4>
 								</div>
 								<div class="modal-body">
 									<form class="form-horizontal" role="form" id="addcontent" action=" " method="post">
@@ -70,40 +52,50 @@
 										<input type="hidden" id="id">
 
 										<div class="form-group">
-											<label class="col-sm-2 control-label">
-												<font color="black">用户名:</font>
-											</label>
+											<label class="col-sm-2 control-label"><font color="black">角色名称:</font></label>
 											<div class="col-sm-10">
-												<input type="text" class="form-control" id="username" placeholder="请输入用户名">
+												<input type="text" class="form-control" id="rolename" placeholder="请输入角色名称">
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-2 control-label">
-												<font color="black">用户角色:</font>
-											</label>
+											<label class="col-sm-2 control-label"><font color="black">角色描述:</font></label>
 											<div class="col-sm-10">
-												<select class="form-control" id="role_id">
-													<option>-请选择-</option>
-												</select>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-2 control-label"><font color="black">所属区域:</font></label>
-											<div class="col-sm-10">
-												<select class="form-control" id="area_id">
-													<option>-请选择-</option>													
-												</select>
+												<input type="text" class="form-control" id="roledesc" placeholder="请输入角色描述">
 											</div>
 										</div>
 									</form>
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-									<button type="button" class="btn btn-primary" onclick="userpage.btnOk()">确定</button>
+									<button type="button" class="btn btn-primary" onclick="rolesPage.btnSave()">确定</button>
 								</div>
 							</div>
 						</div>
 					</div>
+
+					<!-- 权限分配模态框（permissionModal） -->
+					<div  class="modal fade" id="permissionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header bg-primary">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h4 class="modal-title" v-if="btnState == 0">权限分配菜单列表</h4>
+								</div>
+								<div class="modal-body">
+									<!--角色id隐藏域-->
+									<input type="hidden" id="roleid"/>
+									<!--权限id隐藏域-->
+									<input type="hidden" id="permissionIds"/>
+									<div id="menuTree" class="ztree"></div>	
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+									<button type="button" class="btn btn-primary" onclick="rolesPage.btnOk()">保存</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 			<script src="../../js/Site1.js"></script>
@@ -111,9 +103,8 @@
 			<script src="../../lib/ztree/js/fuzzysearch.js"></script>
 			<script src="../../lib/echarts/echarts.min.js"></script>
 			<script src="../../js/ter.js"></script>
-			<script src="../../js/sys/user.js"></script>
+			<script src="../../js/sys/roles.js"></script>
 		</div>
 	</body>
-	
 
 </html>

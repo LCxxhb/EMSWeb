@@ -14,24 +14,20 @@
                 var username = $("#UserName").val();
                 var pwd = $("#Password").val();
                 Ter.getApi({
-                    apiname: 'main/SysUser/CheckLogin',
+                    apiname: '/user/login',
                     params: {
-                        UserName: username,
-                        UserPwd: pwd,
+                        username: username,
+                        password: pwd,
                         KeyFrom: 'web'
                     }
-                }, function (res) {
-                    res = res.Result;
-                    var message = '登陆成功';
-                    if (res.state != '正常') {
-                        message = res.state == '' ? '用户名或密码不对' : '账户被锁定';
+                }, function (res) {               
+                    if (res.errCode != 'SUCCESS') {
+                        message = '用户名或密码不正确！';
                         layer.alert(message, {
                             title: '提示'
                         });
-                    }                   
-                    if (message.indexOf('成功') > -1) {
-                        localStorage.setItem('userInfo', JSON.stringify(res));
-                        location.href = 'index.html';
+                    }else{
+                    	 location.href = 'index.html';
                     }
                 });
             }

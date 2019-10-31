@@ -161,6 +161,22 @@
 									<div class="trans-name">用户管理</div>
 								</a>
 							</li>
+							<li class="sidebar-trans-item" id="4" data-url="sys/roles.html">
+								<a href="javascript:;">
+									<div class="trans-icon">
+										<i class="fa fa-address-book"></i>
+									</div>
+									<div class="trans-name">角色管理</div>
+								</a>
+							</li>
+							<li class="sidebar-trans-item" id="4" data-url="sys/menu.html">
+								<a href="javascript:;">
+									<div class="trans-icon">
+										<i class="fa fa-address-book"></i>
+									</div>
+									<div class="trans-name">菜单管理</div>
+								</a>
+							</li>
 							<li class="sidebar-trans-item" id="5" data-url="sys/area.html">
 								<a href="javascript:;">
 									<div class="trans-icon">
@@ -180,7 +196,8 @@
 						</ul>
 					</div>
 				</div>
-				<span class="ter-tool">缩小后的小气泡提示</span>
+				<span class="ter-tool">缩小后的小气泡提示</span>-->
+
 			</div>
 
 			<!--功能区-->
@@ -194,9 +211,9 @@
 		<div class="modal fade" id="password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document" style="width: 450px;">
 				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">修改密码</h4>
+					<div class="modal-header bg-primary">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" v-if="btnState == 0" id="myModalLabel">修改密码</h4>
 					</div>
 					<div class="modal-body">
 						<div class="modal-form">
