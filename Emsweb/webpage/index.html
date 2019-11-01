@@ -81,7 +81,7 @@
 				</div>
 				<!--菜单-->
 				<div class="sidebar-navList">
-					<!--<div class="sidebar-navItem">
+					<div class="sidebar-navItem">
 						<div class="sidebar-title">
 							<span class="title-icon"></span>
 							<span class="title-name">煤气报表</span>
@@ -197,7 +197,7 @@
 					</div>
 				</div>
 				<span class="ter-tool">缩小后的小气泡提示</span>-->
-				
+
 			</div>
 
 			<!--功能区-->
@@ -211,9 +211,9 @@
 		<div class="modal fade" id="password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document" style="width: 450px;">
 				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">修改密码</h4>
+					<div class="modal-header bg-primary">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" v-if="btnState == 0" id="myModalLabel">修改密码</h4>
 					</div>
 					<div class="modal-body">
 						<div class="modal-form">

@@ -8,6 +8,7 @@ var waterReport = {
         //this.reportType();//报表类型切换
         this.initTable();
         this.calcTableHeight();
+        this.getFactory();
     },
     initDate: function () {
         var self = this;
@@ -16,14 +17,16 @@ var waterReport = {
             onClose: false,
             isinitVal: true,
             isClear: false,
-            initDate: [{ DD: "-3" }, true],
-            maxDate: jeDate.nowDate(-1),
+            /*initDate: [{ DD: "-3" }, true],
+            maxDate: jeDate.nowDate(-1),*/
+            initDate: jeDate.nowDate(),
+            maxDate: jeDate.nowDate(),
             theme: { bgcolor: "#0196c9", pnColor: "#00CCFF" },//主题色
             format: "YYYY-MM-DD",
             zIndex: 3000,
             isTime: true,
         });
-        //日结束
+        /*//日结束
         jeDate("#endInstantDate", {
             onClose: false,
             isinitVal: true,
@@ -84,14 +87,14 @@ var waterReport = {
             maxDate: jeDate.nowDate(),
             zIndex: 9000,
             isTime: true
-        });
+        });*/
     },
     calcTableHeight: function () {
         var t_height = $(".content-wrapper").height() - $(".page-btns-box").outerHeight() - 60;
         $(".page-main-box").outerHeight(t_height);
         return t_height - 50;
     },
-    //报表类型
+    /*//报表类型
     reportType: function () {
         $("#reportType").on("change", function () {
             var reportTypeVal = $(this).val();
@@ -509,7 +512,7 @@ var waterReport = {
         window.onresize = function () {
             instantChart.resize();
         }
-    },
+    },*/
     //日平均压力、月平均压力列表
     initTable: function () {
         var self = this;
@@ -518,52 +521,93 @@ var waterReport = {
             height: self.calcTableHeight(),
             striped: true,//隔行变色
             columns: [{
-                field: 'id',
-                title: 'ID',
-                align: 'center',
+            	field: 'factory',
+                title: '分厂',
+                align: 'center'
             }, {
-                field: 'name',
-                title: 'Item Name',
-                align: 'center',
+                field: 'area',
+                title: '区域',
+                align: 'center'
+            }, {
+				field: 'point',
+				title: '采集点',
+				align: 'center'
+			}, {
+				field: 'describe',
+				title: '采集点描述',
+				align: 'center'
+			},{
+                field: 'medium',
+                title: '介质类型',
+                align: 'center'
+            },  {
+                field: 'type',
+                title: '产出/消耗',
+                align: 'center'
+            }, {
+                field: 'value',
+                title: '产出/消耗量',
+                align: 'center'
+            }, {
+                field: 'time',
+                title: '日期',
+                align: 'center'
             }],
             data: [{
-                id: '0',
-                name: 'item0'
+            	factory:'炼铁厂',
+                area: '煤气液化炉',
+                point: '',
+				describe: '',
+				medium: '',
+				type: '',
+				value: '',
+				time: ''
             }, {
-                id: '1',
-                name: 'item'
-            }, {
-                id: '2',
-                name: 'item2'
-            }, {
-                id: '3',
-                name: 'item3'
-            }, {
-                id: '4',
-                name: 'item4'
-            }, {
-                id: '5',
-                name: 'item5'
-            }, {
-                id: '6',
-                name: 'item6'
-            }, {
-                id: '7',
-                name: 'item7'
-            }, {
-                id: '8',
-                name: 'item8'
-            }, {
-                id: '9',
-                name: 'item9'
-            }, {
-                id: '10',
-                name: 'item10'
-            }],//
-            
+            	factory:'炼铁厂',
+                area: '1#高炉',
+                point: '',
+				describe: '',
+				medium: '',
+				type: '',
+				value: '',
+				time: ''
+            }],
         });
     },
-}
+    getFactory:function(){
+    	var factorys=["炼铁厂","炼钢厂","轧钢厂","能源部"];  	
+    	window.onload=start;
+    	var wf=document.getElementById("waterFactory");
+    	function start()
+    	{
+    		for(var i=0;i<factorys.length;i++)
+    		{
+    			var op=document.createElement("option");
+    		    op.innerHTML=factorys[i];
+    		    wf.appendChild(op);
+    	    }
+    	}   	   	
+    	/*var a=document.getElementById("waterArea");
+    	var s=document.getElementById("waterShop");*/    	
+    },
+    getArea:function(){
+    	var areas=[["球团","炼铁新区"],
+    	["连铸作业区","炼钢作业区","供辅作业区"],
+    	["3350轧钢作业区","3800轧钢作业区","热处理"],
+    	["供水作业区","制氧站"]];
+    	var wf=document.getElementById("waterFactory");
+    	var wa=document.getElementById("waterArea");   	
+    	var fl=wf.selectedIndex;
+    	var fa=areas[fl-1];
+    	wa.length=1;
+    	for(var j=0;j<fa.length;j++)
+    	{
+    		var op1=document.createElement("option");
+    		    op1.innerHTML=fa[j];
+    		    wa.appendChild(op1);
+    	}
+    },   
+};
 //初始化
 $(function () {
     waterReport.init();
