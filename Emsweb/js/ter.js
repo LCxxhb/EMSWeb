@@ -231,9 +231,11 @@ var Ter = {
         if ($(".tree-wrapper").hasClass("treeCollapse")) {
             $(".page-container").addClass("hasTree");
             $(".tree-wrapper").removeClass("treeCollapse");
+			$(".tree-head").show();
         } else {
             $(".page-container").removeClass("hasTree");
             $(".tree-wrapper").addClass("treeCollapse");
+			$(".tree-head").hide();
         }
     },
     goLogin: function (errMsg) {
