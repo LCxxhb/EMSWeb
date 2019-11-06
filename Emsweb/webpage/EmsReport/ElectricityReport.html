@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="../../css/tab.css">
+		<style>
+
+			.pumpRunCount-search .dateinput {
+            width: 120px;
+            float: none;
+        }
+        .endTime {
+            margin-left:10px;
+        }
+        .tree-wrapper .tree-icon {            
+            color: #fff;           
+        }
+        .tree-wrapper .tree-shape {            
+            border-right: 13px solid #0075c7;            
+        }
+        .tree-wrapper.treeCollapse .tree-shape {            
+            border-left: 13px solid #0075c7;            
+        }
+		.tree-head{
+			height: 50px;width: 270px;		
+		}
+		.tree-head-jz{
+			height: 50px;width: 134px;float:left;line-height: 50px;text-align: center;color: white;cursor:pointer;
+		}
+		.tree-hleft{
+			background-color: #00629B;
+		}
+		.tree-hright{
+			background-color: #596572;
+		}
+		
+		</style>
+	</head>
+	<body>
+		<div class="iframe-wrapper" style="overflow-x: hidden; position: relative;">
+			<div class="page-container hasTree">
+				<!--tree-wrapper包含树的结构，如果页面不需要树结构，只需要将这段代码删除-->
+				<div class="tree-wrapper">
+					<div class="tree-head">
+						<div class="tree-head-jz tree-hleft">介质</div>
+						<div class="tree-head-jz tree-hright">区域</div>
+					</div>
+					<div class="tree-content">
+						<ul id="treeDemo" class="ztree"></ul>
+						<ul id="treeArea" class="ztree" style="display: none;"></ul>
+					</div>
+					<div class="tree-toggle" onclick="Ter.treeToggle('')">
+						<i class="fa fa-outdent tree-icon"></i>
+						<div class="tree-shape"></div>
+					</div>
+				</div>
+				<!--页面主体内容部分-->
+				<div class="waterSource-wrapper">
+					<div class="water-tab-card">
+						<div class="water-tab-content" style="height: 100%;">
+							<!--功能区域-->
+							<div class="page-btns-box clearfix" style="margin: 0;padding:10px">
+								<form class="form-inline pumpRunCount-search pull-left">
+									<!--条件查询区域-->
+									<div class="form-group">
+										<label class="control-label" style="width:80px;padding-left:0;">报表类型：</label>
+										<select class="form-control" id="reportType">
+											<option selected="selected" value="1">日用电量</option>
+											<option value="2">月用电量</option>
+
+										</select>
+									</div>
+									<!--日期选择-->
+									<div class="form-group">
+										<div class="input-group dayTime">
+											<label class="control-label">开始日期：</label>
+											<input class="dateinput dateicon startDate dateTime" id="startDayDate" type="text" readonly>
+											<label class="control-label endTime">结束日期：</label>
+											<input class="dateinput dateicon endDate dateTime" id="endDayDate" type="text" readonly>
+										</div>
+										<div class="input-group monthTime" style="display:none">
+											<label class="control-label">开始日期：</label>
+											<input class="dateinput dateicon startDate" id="startMonthDate" type="text" readonly>
+											<label class="control-label endTime">结束日期：</label>
+											<input class="dateinput dateicon endDate" id="endMonthDate" type="text" readonly>
+										</div>
+										<div class="input-group yearTime" style="display:none">
+											<label class="control-label">开始日期：</label>
+											<input class="dateinput dateicon startDate" id="startYearDate" type="text" readonly>
+											<label class="control-label endTime">结束日期：</label>
+											<input class="dateinput dateicon endDate" id="endYearDate" type="text" readonly>
+										</div>
+									</div>
+									<button type="button" id="btn-search" class="btn btn-search" onclick="">查询</button>
+								</form>
+							</div>
+							<div class="water-tab-item">
+								<div class="content-wrapper" style="position:relative">
+									<div class="content">
+										<div class="ter-tab-card" style="margin:0;border:none">
+											<ul class="ter-tab-head">
+												<li class="active">数据列表</li>
+												<li class="">图表视图</li>
+											</ul>
+											<div class="ter-tab-content">
+												<div class="ter-tab-item active">
+													<div class="page-main-box">
+														<table class="table" id="table"></table>
+													</div>
+												</div>
+												<div class="ter-tab-item" style="padding-bottom:50px">
+													<!-- <div class="chart">
+														<div>
+															<p style="margin-top:40px">用电量曲线图</p>
+															<div class="item-chart" id="electricityChart"></div>
+														</div>
+													</div> -->
+
+													<div class="charts" style="width:95%;margin:0 auto;padding-top:10px;">
+														<div id="electricityChart" style="width:1000px;height:500px;"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../../js/Site1.js"></script>
+		<script src="../../lib/ztree/js/jquery.ztree.exhide.js"></script>
+		<script src="../../lib/ztree/js/fuzzysearch.js"></script>
+		<script src="../../lib/echarts/echarts.min.js"></script>
+		<script src="../../js/EmsReport/ElectricityReport.js"></script>
+	</body>
+</html>

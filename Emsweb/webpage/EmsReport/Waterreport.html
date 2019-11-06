@@ -1,41 +1,48 @@
 <!DOCTYPE html>
 
 <html>
-<head>
- <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--引入插件css的地方-->
-    <title>XXX报表</title>
-    <!--页面上的css-->
-    <style>
-        .PressureData {
-            background: #fff;
-            width: 100%;
-        }
-        .pumpRunCount-search .dateinput {
-            width: 120px;
-            float: none;
-        }
-        .endTime {
-            margin-left: 10px;
-        }
-        .tree-wrapper .tree-icon {            
-            color: #fff;           
-        }
-        .tree-wrapper .tree-shape {            
-            border-right: 13px solid #0075c7;            
-        }
-        .tree-wrapper.treeCollapse .tree-shape {            
-            border-left: 13px solid #0075c7;            
-        }
-    </style>
-</head>
-<body>
-<div class="iframe-wrapper" style="overflow-x: hidden; position: relative;">
-        <div class="page-container">
-            <!--tree-wrapper包含树的结构，如果页面不需要树结构，只需要将这段代码删除-->
-			<!--
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<!--引入插件css的地方-->
+		<title>水报表</title>
+		<!--页面上的css-->
+		<style>
+			.PressureData {
+				background: #fff;
+				width: 100%;
+			}
+			
+			.pumpRunCount-search .dateinput {
+				width: 120px;
+				float: none;
+			}
+			
+			.endTime {
+				margin-left: 10px;
+			}
+			
+			.tree-wrapper .tree-icon {
+				color: #fff;
+			}
+			
+			.tree-wrapper .tree-shape {
+				border-right: 13px solid #0075c7;
+			}
+			
+			.tree-wrapper.treeCollapse .tree-shape {
+				border-left: 13px solid #0075c7;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="iframe-wrapper" style="overflow-x: hidden; position: relative;">
+			<div class="page-container">
+				<!--tree-wrapper包含树的结构，如果页面不需要树结构，只需要将这段代码删除-->
+				<!--
             <div class="tree-wrapper">
                 <div class="input-group tree-search-box">
                     <input type="text" class="form-control" id="keywords" name="keywords">
@@ -53,113 +60,130 @@
                     <div class="tree-shape"></div>
                 </div>
             </div>-->
-            <!--页面主体内容部分-->
-            <div class="content-wrapper">
-                <!--功能区域-->
-                <div class="page-btns-box clearfix" style="margin: 0; padding: 10px">
-                    <form class="form-inline pumpRunCount-search pull-left">
-                        <!--条件查询区域-->
-                      <!--  <div class="form-group">
+				<!--页面主体内容部分-->
+				<div class="content-wrapper">
+					<!--功能区域-->
+					<div class="page-btns-box clearfix" style="margin: 0; padding: 10px">
+						<form class="form-inline pumpRunCount-search pull-left">
+							<!--条件查询区域-->
+							<!--  <div class="form-group">
                             <label class="control-label" style="width: 80px; padding-left: 0;">压力类型：</label>
                             <select class="form-control" id="pressureType">
                                 <option selected="selected" value="jsyl">进水压力</option>
                                 <option value="csyl1">出水压力</option>
                             </select>
                         </div>-->
-                        <div class="form-group">
-                            <label class="control-label" style="width: 80px; padding-left: 0;">报表类型：</label>
-                            <select class="form-control" id="reportType">
-                                <option selected="selected" value="1">日用水量</option>
-                             <!--   <option value="2">日平均压力</option>-->
-                                <option value="3">月用水量</option>
-                            </select>
-                        </div>
-                        <!--日期选择-->
-                        <div class="form-group">
-                            <div class="input-group dayGroup-box">
-                                <label class="control-label">开始日期：</label>
-                                <input class="dateinput dateicon startDate dateTime" id="startInstantDate" type="text" readonly>
-                                <label class="control-label endTime">结束日期：</label>
-                                <input class="dateinput dateicon endDate dateTime" id="endInstantDate" type="text" readonly>
-                            </div>
-                            <div class="input-group monthGroup-box" style="display: none">
-                                <label class="control-label">开始日期：</label>
-                                <input class="dateinput dateicon startDate" id="startDayDate" type="text" readonly>
-                                <label class="control-label endTime">结束日期：</label>
-                                <input class="dateinput dateicon endDate" id="endDayDate" type="text" readonly>
-                            </div>
-                            <div class="input-group yearGroup-box" style="display: none">
-                                <label class="control-label">开始日期：</label>
-                                <input class="dateinput dateicon startDate" id="startMonthDate" type="text" readonly>
-                                <label class="control-label endTime">结束日期：</label>
-                                <input class="dateinput dateicon endDate" id="endMonthDate" type="text" readonly>
-                            </div>
-                        </div>
-                        <button type="button" id="btn-search" class="btn btn-search" onclick="">查询</button>
-                    </form>
-                </div>
-        <div class="page-btns-box clearfix">
-            <button class="btn btn-del btn-margin js-alert-show pull-right" type="button">
-                <span class="glyphicon glyphicon-trash"></span>删除
-            </button>
-            <button class="btn btn-edit btn-margin pull-right" type="button">
-                <span class="glyphicon glyphicon-edit"></span>修改
-            </button>
-            <button class="btn btn-add btn-margin pull-right" type="button" data-toggle="modal" data-target="#myModal">
-                <span class="glyphicon glyphicon-plus"></span>添加
-            </button>
+							<div class="form-group">
+								<label class="control-label">分厂：</label>
+								<select class="form-control" id="waterFactory" onchange="waterReport.getArea()" ;>
+									<option>--请选择--</option>									
+								</select>
+							</div>
+							<div class="form-group">
+								<label class="control-label">区域：</label>
+								<select class="form-control" id="waterArea";>
+									<option>--请选择--</option>									
+								</select>
+							</div>
+							<!--<div class="form-group">
+								<label class="control-label">车间：</label>
+								<select class="form-control" id="waterShop">
+									<option>--请选择--</option>
+								</select>
+							</div>-->
+							<div class="form-group">
+								<label class="control-label">报表类型：</label>
+								<select class="form-control">
+									<option selected="selected" value="1">--请选择--</option>
+									<option value="2">4小时报</option>
+									<option value="3">班报表</option>
+									<option value="4">日报表</option>
+									<option value="5">周报表</option>
+									<option value="6">半月报表</option>
+									<option value="7">月报表</option>
+								</select>
+							</div>
+							<!--日期选择-->
+							<div class="form-group">
+								<div class="input-group dayGroup-box">
+									<label class="control-label">开始日期：</label>
+									<input class="dateinput dateicon startDate dateTime" id="startInstantDate" type="text" readonly>
+									<!--<label class="control-label endTime">结束日期：</label>
+									<input class="dateinput dateicon endDate dateTime" id="endInstantDate" type="text" readonly>-->
+								</div>
+								<!--<div class="input-group monthGroup-box" style="display: none">
+									<label class="control-label">开始日期：</label>
+									<input class="dateinput dateicon startDate" id="startDayDate" type="text" readonly>
+									<label class="control-label endTime">结束日期：</label>
+									<input class="dateinput dateicon endDate" id="endDayDate" type="text" readonly>
+								</div>
+								<div class="input-group yearGroup-box" style="display: none">
+									<label class="control-label">开始日期：</label>
+									<input class="dateinput dateicon startDate" id="startMonthDate" type="text" readonly>
+									<label class="control-label endTime">结束日期：</label>
+									<input class="dateinput dateicon endDate" id="endMonthDate" type="text" readonly>
+								</div>-->
+							</div>
+							<button type="button" id="btn-search" class="btn btn-search" onclick="">
+								<span class="glyphicon glyphicon-search"></span>查询
+							</button>
+						</form>
 
-            <button class="btn btn-search btn-margin" type="button">
-                <span class="glyphicon glyphicon-search"></span>查询
-            </button>
-            <button class="btn btn-sure btn-margin" type="button">
-                <span class="glyphicon glyphicon-ok"></span>确定
-            </button>
-            <button class="btn btn-cancel btn-margin" type="button">
-                <span class="glyphicon glyphicon-remove"></span>取消
-            </button>
-            <button class="btn btn-reset btn-margin" type="button">
-                <span class="glyphicon glyphicon-repeat"></span>重置
-            </button>
-            <button class="btn btn-black-link btn-margin" type="button">
-                <span class="glyphicon glyphicon-export"></span>导出excel
-            </button>
-            <button class="btn btn-black-link btn-margin" type="button">
-                <span class="glyphicon glyphicon-import"></span>导入excel
-            </button>
-            <button class="btn btn-black-link btn-margin" type="button">
-                <span class="glyphicon glyphicon-print"></span>打印
-            </button>
-            <button class="btn btn-black-link btn-margin" type="button">
-                <span class="glyphicon glyphicon-cloud-upload"></span>上传
-            </button>
-        </div>
-
-                <!--图表 列表-->
-                <div class="PressureData">
-                    <!--图表-->
-                 <!--   <div class="charts" style="width: 100%; margin: 0 auto; padding-top: 10px">
+					</div>
+					<!--<div class="page-btns-box clearfix">
+						<button class="btn btn-del btn-margin js-alert-show pull-right" type="button">
+							<span class="glyphicon glyphicon-trash"></span>删除
+						</button>
+						<button class="btn btn-edit btn-margin pull-right" type="button"><span class="glyphicon glyphicon-edit"></span>修改</button>
+						<button class="btn btn-add btn-margin pull-right" type="button" data-toggle="modal" data-target="#myModal">
+							<span class="glyphicon glyphicon-plus"></span>添加
+						</button>
+						<button class="btn btn-search btn-margin" type="button"><span class="glyphicon glyphicon-search"></span>查询</button>
+						<button class="btn btn-sure btn-margin" type="button"><span class="glyphicon glyphicon-ok"></span>确定</button>
+						<button class="btn btn-cancel btn-margin" type="button"><span class="glyphicon glyphicon-remove"></span>取消</button>
+						<button class="btn btn-reset btn-margin" type="button"><span class="glyphicon glyphicon-repeat"></span>重置</button>
+						<button class="btn btn-black-link btn-margin" type="button"><span class="glyphicon glyphicon-export"></span>导出excel</button>
+						<button class="btn btn-black-link btn-margin" type="button"><span class="glyphicon glyphicon-import"></span>导入excel</button>
+						<button class="btn btn-black-link btn-margin" type="button"><span class="glyphicon glyphicon-print"></span>打印</button>
+						<button class="btn btn-black-link btn-margin" type="button"><span class="glyphicon glyphicon-cloud-upload"></span>上传</button>
+					</div>-->
+					<div class="page-btns-box clearfix">
+						<button class="btn btn-search btn-margin" type="button" onclick="">新水</button>
+						<button class="btn btn-search btn-margin" type="button" onclick="">循环水</button>
+						<button class="btn btn-search btn-margin" type="button" onclick="" style="margin-right: 50px;">软水</button>
+						<button class="btn btn-black-link btn-margin" type="button" style="margin-top: 10px; margin-right: 15px;">
+					    	<span class="glyphicon glyphicon-export"></span>导出excel
+					    </button>
+						<button class="btn btn-black-link btn-margin" type="button" style="margin-top: 10px; margin-right: 15px;">
+					    	<span class="glyphicon glyphicon-import"></span>导入excel
+					    </button>
+					</div>
+					<!--图表 列表-->
+					<div class="PressureData">
+						<!--图表-->
+						<!--   <div class="charts" style="width: 100%; margin: 0 auto; padding-top: 10px">
                         <div id="instantChart" style="height: 500px;"></div>
                         <div id="averageChart" style="display: none; height: 500px;"></div>
                     </div>--!>
                     <!--列表-->
-                    <div class="pressureList">
-                        <div class="page-main-box clearfix" id="preInstantTable" style="width: 100%; margin: 0 auto; padding-bottom: 10px;">
-                            <table class="table" id="instantTable"></table>
-                        </div>
-                        <div class="page-main-box clearfix" id="preAverageTable" style="display: none; width: 95%; margin: 0 auto; padding-bottom: 10px;">
-                            <table class="table" id="table"></table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="../../js/Site1.js"></script>
-    <script src="../../lib/ztree/js/jquery.ztree.exhide.js"></script>
-    <script src="../../lib/ztree/js/fuzzysearch.js"></script>
-    <script src="../../lib/echarts/echarts.min.js"></script>
-    <script src="../../js/EmsReport/WaterReport.js"></script>
-    
-</body>
+						<div class="pressureList">
+							<!--<div class="page-main-box clearfix" id="preInstantTable" style="width: 100%; margin: 0 auto; padding-bottom: 10px;">
+								<table class="table" id="instantTable"></table>
+							</div>-->
+							<div class="page-main-box clearfix" id="preAverageTable" style="display: none; width: 95%; margin: 0 auto; padding-bottom: 10px;">
+								<table class="table" id="table"></table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/Site1.js"></script>
+		<script src="../../lib/ztree/js/jquery.ztree.exhide.js"></script>
+		<script src="../../lib/ztree/js/fuzzysearch.js"></script>
+		<script src="../../lib/echarts/echarts.min.js"></script>
+		<script src="../../js/EmsReport/WaterReport.js"></script>
+
+	</body>
+
 </html>
