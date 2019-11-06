@@ -8,7 +8,7 @@ var electricityReport = {
 		this.reportType();
 		this.initTable();
 		this.chart();
-		this.tabChange();   
+		this.tabChange();
 		this.calcTableHeight();
 	},
 	initDate: function() {
@@ -28,6 +28,10 @@ var electricityReport = {
 			format: "YYYY-MM-DD",
 			zIndex: 3000,
 			isTime: true,
+			donefun: function(obj) {
+				console.log(obj.val);
+				$("#endDayDate").val(electricityReport.addDate(obj.val, 3));
+			},
 		});
 		//日结束
 		jeDate("#endDayDate", {
@@ -88,6 +92,29 @@ var electricityReport = {
 		});
 
 	},
+	addDate: function(date, days) {
+		if (days == undefined || days == '') {
+			days = 1;
+		}
+		var date = new Date(date);
+		date.setDate(date.getDate() + days);
+		var month = date.getMonth() + 1;
+		var day = date.getDate();
+		return date.getFullYear() + '-' + electricityReport.getFormatDate(month) + '-' + electricityReport.getFormatDate(day);
+	},
+	// 日期月份/天的显示，如果是1位数，则在前面加上'0'
+	getFormatDate: function(arg) {
+		if (arg == undefined || arg == '') {
+			return '';
+		}
+
+		var re = arg + '';
+		if (re.length < 2) {
+			re = '0' + re;
+		}
+
+		return re;
+	},
 	reportType: function() {
 		$("#reportType").on("change", function() {
 			var reportTypeVal = $(this).val();
@@ -114,7 +141,7 @@ var electricityReport = {
 	},
 	calcTableHeight: function() {
 		var sc_height = $(".water-tab-content").height();
-        return sc_height-40-70-44;//表格高度;
+		return sc_height - 40 - 70 - 44; //表格高度;
 	},
 	initTree: function() {
 		var self = this;
@@ -231,7 +258,7 @@ var electricityReport = {
 				pId: 2,
 				name: "净环水"
 			},
-			
+
 			{
 				id: 3,
 				pId: 0,
@@ -265,15 +292,15 @@ var electricityReport = {
 			}
 		];
 
-		
+
 		// if (zNodes.length == 0) return;
 		// var num1_id = zNodes[0].id;
 		// self.treeId = num1_id;
 		$.fn.zTree.init($("#treeDemo"), setting, zNodes);
-		
-		
+
+
 	},
-	initAreaTree:function(){
+	initAreaTree: function() {
 		var setting = {
 			view: {
 				addHoverDom: false,
@@ -300,7 +327,7 @@ var electricityReport = {
 				}
 			}
 		};
-		
+
 		var zNodes = [{
 				id: 0,
 				name: "能源管理系统",
@@ -530,7 +557,7 @@ var electricityReport = {
 			$(".ter-tab-item").eq(index).show().siblings().hide();
 			//$("#table").bootstrapTable("resetView");
 		});
-		
+
 		$(".tree-head-jz").on("click", function() {
 			var index = $(this).index();
 			$(this).addClass("tree-hleft").siblings().addClass("tree-hright");
@@ -538,7 +565,7 @@ var electricityReport = {
 			$(".ztree").eq(index).show().siblings().hide();
 			//$("#table").bootstrapTable("resetView");
 		});
-		
+
 	}
 }
 $(function() {
