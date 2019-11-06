@@ -1,8 +1,10 @@
 var collection = {
     init: function () {
         this.LoadPatchSelect();//加载采集点数据下拉框
-        this.loadSelect();//加载介质下拉框
+       /* this.loadSelect();//加载介质下拉框*/
         this.loadTable();//加载表格
+        this.loadMediaOneSelect();
+        //this.loadmediaTwoSlect();
     },
     // 表结构
     loadTable: function () {
@@ -123,55 +125,60 @@ var collection = {
         }
     },
 
-   /* //加载模态框分厂一级下拉框
-    loadMediaOneSelect:function(id) {
-        $("#factoryMenu").empty();
+   //加载模态框一级介质下拉框
+    loadMediaOneSelect:function() {
+        $("#mediaOne").empty();
         Ter.getApi({
-                apiname: "/region/findByOneTwoRegion"
+                apiname: "/Media/findByOneMedia"
             },
             function(res) {
+                console.log(res.result);
                 if(res.result) {
-                    var select = $("#factoryMenu");
+                    var select = $("#mediaOne");
+                    select.append("<option value=''>-请选择-</option>");
                     for(var i = 0; i < res.result.length; i++) {
-                        if(id == res.result[i].aid) {
-                            select.append("<option value='" + res.result[i].aid + "' selected='selected'>" +
-                                res.result[i].aname + "</option>");
-                        } else {
-                            select.append("<option value='" + res.result[i].aid + "'>" +
-                                res.result[i].aname + "</option>");
-                        }
+                        // if(id == res.result[i].id) {
+                        //     select.append("<option value='" + res.result[i].id + "' selected='selected'>" +
+                        //         res.result[i].mediaName + "</option>");
+                        // } else {
+                            select.append("<option value='" + res.result[i].id + "'>" +
+                                res.result[i].mediaName + "</option>");
+                        // }
                     }
                 }
             })
+        //collection.loadmediaTwoSlect();
     },
-    //加载模态框区域二级下拉框
-    loadChildSlect:function(){
-        $("#areaMenu").empty(); //重置下拉框
-        var aid = $.trim($('#factoryMenu option:selected').val()); //获取选中的区域
-        if(aid==""){
-            layer.alert("请先选择分厂！")
+    //加载模态框二级介质下拉框
+    loadmediaTwoSlect:function(){
+        $("#mediaTwo").empty(); //重置下拉框
+        var pid = $.trim($('#mediaOne option:selected').val()); //获取选中的区域
+        if(pid==""){
+            layer.alert("请先选择一级介质！")
             return;
         }
 
         Ter.getApi({
-                apiname:'/region/findByPid',
+                apiname:'/Media/findByPidMedia',
                 params: {
-                    "pid": aid
+                    "pid": pid
                 }
             },
             function(res) {
                 console.log(res);
                 if(res.result) {
-                    var select = $("#areaMenu");
+                    var select = $("#mediaTwo");
+                    select.append("<option value=''>-请选择-</option>");
                     for(var i = 0; i < res.result.length; i++) {
-                        select.append("<option value='" + res.result[i].aid + "'>" +
-                            res.result[i].aname + "</option>");
+
+                        select.append("<option value='" + res.result[i].id + "'>" +
+                            res.result[i].mediaName + "</option>");
                     }
                 }
             })
 
-    },*/
-    loadSelect: function () {
+    },
+   /* loadSelect: function () {
         $.ajax({
             method: "post",
             url: 'http://10.1.11.112:8888/Media/findByOneMedia',
@@ -206,7 +213,7 @@ var collection = {
                 }
             });
         });
-    },
+    },*/
     // 加载采集点数据
     LoadPatchSelect: function () {
         $("#patchName1").empty();
