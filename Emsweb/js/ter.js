@@ -27,14 +27,10 @@ var Ter = {
 			async: opt.async,
 			contentType: opt.contentType,
 			processData: opt.processData,
-						headers: {
-							Token: Ter.userInfo,
-							Source: 'web'
-						},
-//			xhrFields: {
-//				withCredentials: true
-//			},
-
+			headers: {
+				Token: Ter.userInfo.key,
+				Source: 'web'
+			},
 			data: opt.params,
 			beforeSend: function() {
 				if(opt.showLoading) {
@@ -259,7 +255,7 @@ var Ter = {
 };
 Ter.base = {
 	ajaxHeader: {
-		Token: Ter.userInfo.id,
+		Token: Ter.userInfo.key,
 		Source: 'web'
 	},
 };

@@ -12,7 +12,7 @@
 			}, {
 				field: 'id',
 				title: 'ID',
-				visible: true
+				visible: false
 			}, {
 				field: 'rolename',
 				title: '角色名称'
