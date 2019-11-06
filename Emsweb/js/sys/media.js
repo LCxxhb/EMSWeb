@@ -45,7 +45,7 @@ var quality = {
         };
         var zNodes1=[];
         Ter.getApi({
-           apiname: "Media/findAllMedia"
+           apiname:  "/Media/findAllMedia"
         }, function (res) {
             zNodes1=res.result;
             //console.log(zNodes1);
@@ -122,7 +122,7 @@ var quality = {
                 })
         }else {
 
-            url="MediaOrProject/findByMidMediaOrProject";
+            url="/MediaOrProject/findByMidMediaOrProject";
             parms = {mid:treeId};
             Ter.getApi({
                     apiname: url,
@@ -265,7 +265,7 @@ var quality = {
     LoadModalSelect: function() {
         $("#mediaOne").empty();
         Ter.getApi({
-                apiname: "Media/findByOneMedia"
+                apiname: "/Media/findByOneMedia"
             },
             function(res) {
                 if(res.result) {
@@ -286,7 +286,7 @@ var quality = {
     LoadModalMediaSelect: function(id) {
         $("#mediaNameTwo1").empty();
         Ter.getApi({
-                apiname: "Media/findByTwoMedia"
+                apiname: "/Media/findByTwoMedia"
             },
             function(res) {
                 if(res.result) {

@@ -214,7 +214,7 @@ var collection = {
             });
         });
     },*/
-    // 加载采集点数据
+    // 加载采集点数据  
     LoadPatchSelect: function () {
         $("#patchName1").empty();
         Ter.getApi({

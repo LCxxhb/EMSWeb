@@ -211,45 +211,7 @@ var mediaTable = {
 			})
 	},
 	
-	
-	
-	//copy朱玲待修改
-	/*loadSelect: function () {
-    $.ajax({
-        method: "post",
-        url: 'http://10.1.11.112:8888/Media/findByOneMedia',
-        dataType: "json",
-        async: true,
-        success: function (res) {
-            var result = res.result;
-            var str = '<option value="">--请选择--</option>';
-            for (var i = 0; i < result.length; i++) {
-                str += '<option value=' + result[i].id + '>' + result[i].mediaName + '</option>';
-            }
-            $("#mediaOne").html(str);
-        }
-    });
 
-    $("#mediaOne").change(function () {
-        var pid = $("#mediaOne").val();
-        $.ajax({
-            method: "post",
-            dataType: "json",
-            url: 'http://10.1.11.112:8888/Media/findByPidMedia',
-            data: {
-                pid: pid
-            },
-            success: function (result1) {
-                var res = result1.result;
-                var str = '';
-                for (var i = 0; i < res.length; i++) {
-                    str += '<option value=' + res[i].id + '>' + res[i].mediaName + '</option>';
-                }
-                $("#mediaTwo").html(str);
-            }
-        });
-    });
-},*/
 	//加载模态框分厂一级下拉框
 	LoadModalAreaSelect:function(id) {
 		$("#factoryMenu").empty();
@@ -264,7 +226,7 @@ var mediaTable = {
 							select.append("<option value='" + res.result[i].aid + "' selected='selected'>" +
 								res.result[i].aname + "</option>");
 						} else {
-							select.append("<option value='" + res.result[i].aid + "'>" +
+							select.append("<option value='" +  res.result[i].aid + "'>" +
 								res.result[i].aname + "</option>");
 						}
 					}
