@@ -85,12 +85,6 @@
 									<option>--请选择--</option>									
 								</select>
 							</div>
-							<!--<div class="form-group">
-								<label class="control-label">车间：</label>
-								<select class="form-control" id="waterShop">
-									<option>--请选择--</option>
-								</select>
-							</div>-->
 							<div class="form-group">
 								<label class="control-label">报表类型：</label>
 								<select class="form-control">
@@ -148,32 +142,33 @@
 						<button class="btn btn-black-link btn-margin" type="button"><span class="glyphicon glyphicon-cloud-upload"></span>上传</button>
 					</div>-->
 					<div class="page-btns-box clearfix">
-						<button class="btn btn-search btn-margin" type="button" onclick="">新水</button>
-						<button class="btn btn-search btn-margin" type="button" onclick="">循环水</button>
+						<button class="btn btn-search btn-margin" type="button" onclick="" style="margin-right: 50px;">原水</button>
 						<button class="btn btn-search btn-margin" type="button" onclick="" style="margin-right: 50px;">软水</button>
-						<button class="btn btn-black-link btn-margin" type="button" style="margin-top: 10px; margin-right: 15px;">
+						<button class="btn btn-search btn-margin" type="button" onclick="" style="margin-right: 50px;">静环水</button>
+						<button class="btn btn-search btn-margin" type="button" onclick="" style="margin-right: 50px;">浊环水</button>
+						<button class="btn btn-black-link btn-margin pull-right" type="button" style="margin-top: 10px; margin-right: 15px;">
 					    	<span class="glyphicon glyphicon-export"></span>导出excel
-					    </button>
-						<button class="btn btn-black-link btn-margin" type="button" style="margin-top: 10px; margin-right: 15px;">
-					    	<span class="glyphicon glyphicon-import"></span>导入excel
-					    </button>
+					    </button>						
 					</div>
-					<!--图表 列表-->
+					<!--列表 图表-->
 					<div class="PressureData">
-						<!--图表-->
-						<!--   <div class="charts" style="width: 100%; margin: 0 auto; padding-top: 10px">
-                        <div id="instantChart" style="height: 500px;"></div>
-                        <div id="averageChart" style="display: none; height: 500px;"></div>
-                    </div>--!>
-                    <!--列表-->
-						<div class="pressureList">
-							<!--<div class="page-main-box clearfix" id="preInstantTable" style="width: 100%; margin: 0 auto; padding-bottom: 10px;">
-								<table class="table" id="instantTable"></table>
-							</div>-->
-							<div class="page-main-box clearfix" id="preAverageTable" style="display: none; width: 95%; margin: 0 auto; padding-bottom: 10px;">
-								<table class="table" id="table"></table>
+						<ul class="ter-tab-head">
+							<li class="active">数据列表</li>
+							<li class="">图表视图</li>
+						</ul>
+						<div class="ter-tab-content">
+							<div class="ter-tab-item active">
+								<div class="page-main-box" id="preInstantTable" style="width: 100%; margin: 0 auto;padding-bottom: 10px;">
+									<table class="table" id="instantTable"></table>
+								</div>
+							</div>
+							<div class="ter-tab-item" style="padding-bottom:50px">													
+								<div class="charts" style="width:95%;margin:0 auto;padding-top:10px;">
+									<div id="instantChart" style="width:1000px;height:500px;"></div>
+								</div>
 							</div>
 						</div>
+						 
 					</div>
 				</div>
 			</div>
