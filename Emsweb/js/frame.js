@@ -16,7 +16,7 @@ var Terframe = {
         this.closeTab();
         this.refreshTab();
         this.pageResize();
-		this.menuInit();
+		//this.menuInit();
     },
     //初始化值
     initVal: function () {
@@ -81,7 +81,9 @@ var Terframe = {
         (t_height - realHeight) < 80 ? this.left_scroll_height = 80 + 'px' : this.left_scroll_height = (t_height - realHeight) + 'px'
     },
 	menuInit:function(){
-		$(".sidebar-title")[0].click();
+		if($(".sidebar-title")[0]!=undefined){
+			$(".sidebar-title")[0].click();
+		}
 	},
     ////展开二级目录事件
     menuOpen: function () {

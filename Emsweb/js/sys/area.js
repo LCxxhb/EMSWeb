@@ -175,6 +175,7 @@
 	btnEdit: function(parm) {
 		if(parm == 0) {
 			$("#myModal").modal("show");
+			$('#title').html('新增区域');
 			$('#aName').val('');
 			$('#aid').val('');
 			this.LoadModalSelect("");
@@ -187,6 +188,7 @@
 			}
 			//会显选中的数据	
 			$("#myModal").modal("show");
+			$('#title').html('编辑区域');
 			$('#aName').val(rows[0].aname);
 			$('#aid').val(rows[0].aid);
 
