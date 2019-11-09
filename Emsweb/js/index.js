@@ -1,4 +1,4 @@
-﻿var indexPage = {
+var indexPage = {
 	init: function() {
 		this.modifyPassword();
 		this.loginOut();
