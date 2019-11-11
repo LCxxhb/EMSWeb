@@ -4,6 +4,8 @@ var GasReport = {
 		this.calcTableHeight();
 		this.initTable();
 		this.getFactory();
+		this.chart();
+		this.tabChange();
 	},
 	initDate: function() {
 		//日开始
@@ -44,11 +46,11 @@ var GasReport = {
 	initTable: function() {
 		var self = this;
 		$('#instantTable').bootstrapTable({
-			height: self.calcTableHeight(),
-			/*search: false,
+
+			search: false,
 			pagination: true,
-			pageSize: 15,
-			pageNumber: 1, //初始化加载第一页，默认第一页,并记录*/
+			pageSize: 10,
+			pageList: [5, 10, 15, 20],
 			striped: true, //隔行变色
 			columns: [{
 				field: 'factory',
@@ -250,6 +252,88 @@ var GasReport = {
 			gs.appendChild(op2);
 		}
 	},*/
+	chart: function() {
+		var instantChart = echarts.init($('#instantChart')[0]);
+		option = {
+		    title: {
+		        text: '气体用量折线图'
+		    },
+		    tooltip: {
+		        trigger: 'axis'
+		    },
+		    legend: {
+		        data:['煤气','氧气','氮气','氩气','压缩空气']
+		    },
+		    grid: {
+		        left: '3%',
+		        right: '4%',
+		        bottom: '3%',
+		        containLabel: true
+		    },
+		    toolbox: {
+		        feature: {
+		            saveAsImage: {}
+		        }
+		    },
+		    xAxis: {
+		        type: 'category',
+		        boundaryGap: false,
+		        data: ['周一','周二','周三','周四','周五','周六','周日']
+		    },
+		    yAxis: {
+		        type: 'value'
+		    },
+		    series: [
+		        {
+		            name:'煤气',
+		            type:'line',
+		            stack: '总量',
+		            data:[120, 132, 101, 134, 90, 230, 210]
+		        },
+		        {
+		            name:'氧气',
+		            type:'line',
+		            stack: '总量',
+		            data:[220, 182, 191, 234, 290, 330, 310]
+		        },
+		        {
+		            name:'氮气',
+		            type:'line',
+		            stack: '总量',
+		            data:[150, 232, 201, 154, 190, 330, 410]
+		        },
+		        {
+		            name:'氩气',
+		            type:'line',
+		            stack: '总量',
+		            data:[320, 332, 301, 334, 390, 330, 320]
+		        },{
+					name:'压缩空气',
+					type:'line',
+					stack: '总量',
+					data:[820, 932, 901, 934, 1290, 1330, 1320],
+					}]
+		};
+		instantChart.setOption(option, true);
+	},
+	tabChange: function() {
+		$(".ter-tab-head li").on("click", function() {
+			position: absolute;
+			var index = $(this).index();
+			$(this).addClass("active").siblings().removeClass("active");
+			$(".ter-tab-item").eq(index).show().siblings().hide();
+			//$("#table").bootstrapTable("resetView");
+		});
+	
+		/* $(".tree-head-jz").on("click", function() {
+			var index = $(this).index();
+			$(this).addClass("tree-hleft").siblings().addClass("tree-hright");
+			$(this).removeClass("tree-hright").siblings().addClass("tree-hright");
+			$(".ztree").eq(index).show().siblings().hide();
+			//$("#table").bootstrapTable("resetView");
+		}); */
+	
+	}
 };
 $(function() {
 	GasReport.init();

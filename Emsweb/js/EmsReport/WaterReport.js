@@ -1,4 +1,4 @@
-﻿/***用水报表****/
+/***用水报表****/
 var reportType = "", startDate = "", endDate = "";
 var waterReport = {
     init: function () {
@@ -9,6 +9,8 @@ var waterReport = {
         this.initTable();
         this.calcTableHeight();
         this.getFactory();
+		this.chart();
+		this.tabChange();
     },
     initDate: function () {
         var self = this;
@@ -516,9 +518,13 @@ var waterReport = {
     //日平均压力、月平均压力列表
     initTable: function () {
         var self = this;
-        $("#preAverageTable").show().siblings().hide();
-        $("#table").bootstrapTable({
-            height: self.calcTableHeight(),
+        $("#preInstantTable").show().siblings().hide();
+        $("#instantTable").bootstrapTable({
+            /* height: self.calcTableHeight(), */
+			search: false,
+			pagination: true,
+			pageSize: 10,
+			pageList: [5, 10, 15, 20],
             striped: true,//隔行变色
             columns: [{
             	field: 'factory',
@@ -586,9 +592,7 @@ var waterReport = {
     		    op.innerHTML=factorys[i];
     		    wf.appendChild(op);
     	    }
-    	}   	   	
-    	/*var a=document.getElementById("waterArea");
-    	var s=document.getElementById("waterShop");*/    	
+    	}
     },
     getArea:function(){
     	var areas=[["球团","炼铁新区"],
@@ -607,6 +611,82 @@ var waterReport = {
     		    wa.appendChild(op1);
     	}
     },   
+	chart: function() {
+		var instantChart = echarts.init($('#instantChart')[0]);
+		option = {
+		    title: {
+		        text: '水用量折线图'
+		    },
+		    tooltip: {
+		        trigger: 'axis'
+		    },
+		    legend: {
+		        data:['原水','软水','净环水','浊环水']
+		    },
+		    grid: {
+		        left: '3%',
+		        right: '4%',
+		        bottom: '3%',
+		        containLabel: true
+		    },
+		    toolbox: {
+		        feature: {
+		            saveAsImage: {}
+		        }
+		    },
+		    xAxis: {
+		        type: 'category',
+		        boundaryGap: false,
+		        data: ['周一','周二','周三','周四','周五','周六','周日']
+		    },
+		    yAxis: {
+		        type: 'value'
+		    },
+		    series: [
+		        {
+		            name:'原水',
+		            type:'line',
+		            stack: '总量',
+		            data:[120, 132, 101, 134, 90, 230, 210]
+		        },
+		        {
+		            name:'软水',
+		            type:'line',
+		            stack: '总量',
+		            data:[220, 182, 191, 234, 290, 330, 310]
+		        },
+		        {
+		            name:'净环水',
+		            type:'line',
+		            stack: '总量',
+		            data:[150, 232, 201, 154, 190, 330, 410]
+		        },
+		        {
+		            name:'浊环水',
+		            type:'line',
+		            stack: '总量',
+		            data:[320, 332, 301, 334, 390, 330, 320]
+		        }]
+		};
+		instantChart.setOption(option, true);
+	},
+	tabChange: function() {
+		$(".ter-tab-head li").on("click", function() {
+			var index = $(this).index();
+			$(this).addClass("active").siblings().removeClass("active");
+			$(".ter-tab-item").eq(index).show().siblings().hide();
+			//$("#table").bootstrapTable("resetView");
+		});
+	
+		/* $(".tree-head-jz").on("click", function() {
+			var index = $(this).index();
+			$(this).addClass("tree-hleft").siblings().addClass("tree-hright");
+			$(this).removeClass("tree-hright").siblings().addClass("tree-hright");
+			$(".ztree").eq(index).show().siblings().hide();
+			//$("#table").bootstrapTable("resetView");
+		}); */
+	
+	}
 };
 //初始化
 $(function () {
