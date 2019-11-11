@@ -147,7 +147,7 @@ var Terframe = {
         this.tabNum++;
         $(".iframe-wrapper iframe").hide();//先将其它的iframe都隐藏掉
         $(".navbar-tab-box .navbar-tab-item").removeClass('active');
-        var t_iframe = '<iframe class="embed-responsive-item" id="iframe' + name + '" src=' + url + ' frameborder="0" style="width:100%;height:100%;"></iframe>';
+        var t_iframe = '<iframe class="embed-responsive-item" id="iframe' + name + '" src="' + url + '" frameborder="0" style="width:100%;height:100%;"></iframe>';
         var t_tab = '<div class="navbar-tab-item active" id="tab' + name + '"><div class="tabText">' + name + '</div><a class="tabClose" href="javascript:;"><i class="add-icon close-icon"></i></a></div>';
         $(".iframe-wrapper").append(t_iframe);
         $(".navbar-tab-box").append(t_tab);
