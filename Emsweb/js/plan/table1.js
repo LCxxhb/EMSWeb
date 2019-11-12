@@ -11,6 +11,18 @@ var planPage = {
 		$('#planTable').bootstrapTable({
 			pagination: true, //是否显示分页（*）
 			striped: true, //隔行变色
+			
+			showExport: true, 
+            exportDataType: "all", 
+            exportTypes: ['excel', 'xlsx'], 
+            //exportButton: $('#btn_export'),
+            exportOptions: {
+                //ignoreColumn: [0,0],            
+                fileName: '能源计划统计', 
+                worksheetName: 'Sheet1',
+                excelstyles: ['background-color', 'color', 'font-size', 'font-weight'],
+            },
+			
 			columns: [{
 				checkbox: true,//添加复选框
 				visible: true //设置复选框可见
@@ -26,10 +38,11 @@ var planPage = {
 				visible: false //设置该元素不可见
 			}, {
 				field: 'startTime',
-				title: '开始时间'
+				title: '计划开始时间'
 			}, {
 				field: 'areaId',
 				title: '区域id',
+				
 				visible: false //设置该元素不可见
 			}, {
 				field: 'area',
@@ -67,11 +80,15 @@ var planPage = {
 			}, {
 				field: 'createDate',
 				title: '创建时间',
-				visible: false //设置该元素不可见
+				//visible: false //设置该元素不可见
 			}, {
 				field: 'updateTime',
 				title: '编辑时间',
-				visible: false //设置该元素不可见
+				//visible: false //设置该元素不可见
+			},{
+				field: 'updateBy',
+				title: '编辑人',
+				//visible: false //设置该元素不可见
 			}]
 		});
 		this.loadTableData();
@@ -123,24 +140,23 @@ var planPage = {
 	initDate: function() {
 		//日开始
 		jeDate("#startDayDate", {
-			onClose: false,
-			isinitVal: false,
+			onClose: false,//选中日期后关闭弹层
+			isinitVal: false,//不初始化时间
 			theme: {
 				bgcolor: "#0196c9",
 				pnColor: "#00CCFF"
 			}, //主题色
 			format: "YYYY-MM-DD",
-			zIndex: 3000,
-			clearfun:function(elem, val) {
-	
-			},
+			zIndex: 3000,//弹出层的层级高度
+			clearfun:function(elem, val) {},//清除日期后的回调, elem当前输入框ID, val当前选择的值	
 		});
+		
 		//日结束
 		jeDate("#endDayDate", {
 			onClose: false,
 			isinitVal: false,
 			theme: {
-				bgcolor: "#0196c9",
+				bgcolor: "#0196c9",//背景颜色
 				pnColor: "#00CCFF"
 			}, //主题色
 			format: "YYYY-MM-DD",
@@ -171,7 +187,13 @@ var planPage = {
 		var reportType = $.trim($('#reportType option:selected').val());
 		var startDayDate = $.trim($('#startDayDate').val());
 		var endDayDate = $.trim($('#endDayDate').val());
-		//查询前开始日期结束日期做判断
+		
+		
+		
+		//查询前开始日期结束日期做判断（待做）
+		
+		
+		
 		
 		var params = {
 			"mediaId": mediaid,
@@ -193,7 +215,10 @@ var planPage = {
 				}
 			})
 	},
-	//导出按钮
+	
+	
+	
+	//导出按钮（待做）
 btnExport: function() {
 	alert("导出")
 //		Ter.getApi({
@@ -207,6 +232,8 @@ btnExport: function() {
 //			})
 	},
 	
+	
+	
 	//加载模态框介质类型下拉框
 	loadModelMediaSlect: function(id) {
 		$("#modelMedia").empty();
@@ -214,7 +241,7 @@ btnExport: function() {
 				apiname: "/Media/findAllMedia"
 			},
 			function(res) {
-				console.log(res.result);
+				//console.log(res.result);
 				if(res.result) {
 					var select = $("#modelMedia");
 					select.append("<option value=''>-请选择-</option>");
@@ -230,18 +257,23 @@ btnExport: function() {
 				}
 			})
 	},
-	//计划类型
+	//加载计划类型
 	loadPlantypeSlect: function(id) {
 		
 var numbers = $("#planType").find("option"); //获取select下拉框的所有值
      for (var j = 1; j < numbers.length; j++) {
-        if ($(numbers[j]).val() == id) {
+     	if(""==id){
+     		$(numbers[0]).attr("selected", "selected");
+     		return;
+     	}
+        else if($(numbers[j]).val() == id) {
              $(numbers[j]).attr("selected", "selected");
            }
      }
 	
 		
 	},
+	
 	//加载模态框区域下拉框
 	loadModalAreaSelect: function(id) {
 		$("#modelArea").empty();
@@ -269,7 +301,7 @@ var numbers = $("#planType").find("option"); //获取select下拉框的所有值
 	btnEdit: function(parm) {
 		if(parm == 0) {
 			$("#name").html("新增计划");		
-			$("#planModal").modal("show");
+			$("#planModal").modal("show");//显示模态框
 			$('#planId').val();
 			$('#modelStartDayDate').val('');
 			$('#danwei').val('');
@@ -277,7 +309,8 @@ var numbers = $("#planType").find("option"); //获取select下拉框的所有值
 			$('#planOutputTotal').val(''); //新增时使模态框置空
 			this.loadModalAreaSelect(""); //加载模态框区域下拉框
 			this.loadModelMediaSlect(""); //加载模态框介质下拉框
-			this.loadPlantypeSlect(""); //加载计划类型
+			//this.loadPlantypeSlect(""); //加载计划类型
+			$("#planType").val("");
 
 		} else {
 			var rows = $('#planTable').bootstrapTable('getSelections');
@@ -287,13 +320,13 @@ var numbers = $("#planType").find("option"); //获取select下拉框的所有值
 			}
 			console.log(rows[0])
 			$("#name").html("编辑计划");
-			//会显示选中的用户信息
+			//显示table中被选中的用户信息
 			$("#planModal").modal("show");
 			$('#planId').val(rows[0].id);
 			$('#modelStartDayDate').val(rows[0].startTime);
 			$('#danwei').val(rows[0].measureMent);
 			$('#planUseTotal').val(rows[0].planUseTotal);
-			$('#planOutputTotal').val(rows[0].planOutputTotal);
+			$('#planOutputTotal').val(rows[0].planOutputTotal);//将model值传给后台
 			this.loadModalAreaSelect(rows[0].areaId); //加载区域下拉框
 			this.loadModelMediaSlect(rows[0].mediaId); //加载介质下拉框
 			this.loadPlantypeSlect(rows[0].planType); //加载计划类型
@@ -309,7 +342,7 @@ var numbers = $("#planType").find("option"); //获取select下拉框的所有值
 		var planUseTotal = $('#planUseTotal').val();
 		var planOutputTotal = $('#planOutputTotal').val();
 		var planTypeId = $.trim($('#planType option:selected').val());
-		var planType = $.trim($('#planType option:selected').text());
+		var planType = $.trim($('#planType option:selected').text());//下拉框ID和文本
 		var modelAreaId = $.trim($('#modelArea option:selected').val());
 		var modelArea = $.trim($('#modelArea option:selected').text());
 		var modelMediaId = $.trim($('#modelMedia option:selected').val());
@@ -369,7 +402,7 @@ var numbers = $("#planType").find("option"); //获取select下拉框的所有值
 						planPage.loadTableData();
 					}
 				})
-		} else {
+		} else {       //编辑计划
 
 			url = '/plan/update';
 			Ter.getApi({
