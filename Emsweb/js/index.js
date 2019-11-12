@@ -64,11 +64,11 @@ var indexPage = {
 	},
 	getPageData: function() {
 		//				$(".sidebar-navList").prepend(template('sideMenu', Ter.userInfo.power));
-		console.log(Ter.userInfo.roleId);
+		console.log(Ter.userInfo.user.roleId);
 		Ter.getApi({
 			apiname: '/roles/findMenuByRoleId',
 			params: {
-				"id": Ter.userInfo.roleId
+				"id": Ter.userInfo.user.roleId
 			}
 		}, function(res) {
 			console.log(res);

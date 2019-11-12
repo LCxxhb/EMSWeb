@@ -1,8 +1,9 @@
 //全局变量Ter
 var loadIndex, loadFlag = true;
 var load_arr = [];
+var prefixStr="Bearer ";
 var Ter = {
-	server: "http://10.1.11.112:8888/", //(globalConfig.webApiUrl == "" ? window.location.protocol + "//" + window.location.host : globalConfig.webApiUrl) +"/ltswapi/smartwater/",
+	server: "http://10.1.11.117:8888", //(globalConfig.webApiUrl == "" ? window.location.protocol + "//" + window.location.host : globalConfig.webApiUrl) +"/ltswapi/smartwater/",
 	version: "1.0", //版本号
 	userInfo: localStorage.getItem('userInfo') == undefined ? {
 		key: ""
@@ -14,7 +15,7 @@ var Ter = {
 			type: 'post',
 			params: '',
 			async: true,
-			contentType: 'application/x-www-form-urlencoded',
+			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 			processData: true,
 			showLoading: true,
 		}
@@ -27,10 +28,7 @@ var Ter = {
 			async: opt.async,
 			contentType: opt.contentType,
 			processData: opt.processData,
-			headers: {
-				Token: Ter.userInfo.key,
-				Source: 'web'
-			},
+			headers: Ter.base.ajaxHeader,
 			data: opt.params,
 			beforeSend: function() {
 				if(opt.showLoading) {
@@ -257,7 +255,7 @@ var Ter = {
 };
 Ter.base = {
 	ajaxHeader: {
-		Token: Ter.userInfo.key,
+		Authorization: prefixStr+Ter.userInfo.token,
 		Source: 'web'
 	},
 };
