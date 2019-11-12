@@ -236,7 +236,9 @@ var Ter = {
 		if($(".tree-wrapper").hasClass("treeCollapse")) {
 			$(".page-container").addClass("hasTree");
 			$(".tree-wrapper").removeClass("treeCollapse");
+			$(".tree-head").show();
 		} else {
+			$(".tree-head").hide();
 			$(".page-container").removeClass("hasTree");
 			$(".tree-wrapper").addClass("treeCollapse");
 		}
