@@ -20,17 +20,17 @@
 					<form class="form-inline pumpRunCount-search pull-left">
 						<!--条件查询区域-->
 						<div class="form-group">
-							<label class="control-label">分厂：</label>
-							<select class="form-control" id="gasFactory" onchange="GasReport.getArea()";>
-								<option>--请选择--</option>							
-							</select>
-						</div>
-						<div class="form-group">
-							<label class="control-label">区域：</label>
-							<select class="form-control" id="gasArea";>
-								<option>--请选择--</option>							
-							</select>
-						</div>						
+								<label class="control-label" style="width: 60px; padding-left: 0;">分厂：</label>
+								<select class="form-control" id="gasFactory" onchange="GasReport.loadChildSlect()">
+									<option value="">-请选择-</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label class="control-label" style="width: 60px; padding-left: 0;">区域：</label>
+								<select class="form-control" id="gasArea" >
+									<option value="">--请选择--</option>
+								</select>
+							</div>				
 						<div class="form-group">
 							<label class="control-label">报表类型：</label>
 							<select class="form-control">
@@ -52,7 +52,7 @@
                                 <input class="dateinput dateicon endDate dateTime" id="endInstantDate" type="text" readonly>-->
 							</div>
 						</div>
-						<button class="btn btn-search btn-margin" type="button">
+						<button class="btn btn-search btn-margin" type="button" onclick="GasReport.loadTableData()">
 							<span class="glyphicon glyphicon-search"></span>查询
 						</button>
 					</form>					

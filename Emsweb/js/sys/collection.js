@@ -178,43 +178,7 @@ var collection = {
             })
 
     },
-   /* loadSelect: function () {
-        $.ajax({
-            method: "post",
-            url: 'http://10.1.11.112:8888/Media/findByOneMedia',
-            dataType: "json",
-            async: true,
-            success: function (res) {
-                var result = res.result;
-                var str = '<option value="">--请选择--</option>';
-                for (var i = 0; i < result.length; i++) {
-                    str += '<option value=' + result[i].id + '>' + result[i].mediaName + '</option>';
-                }
-                $("#mediaOne").html(str);
-            }
-        });
-
-        $("#mediaOne").change(function () {
-            var pid = $("#mediaOne").val();
-            $.ajax({
-                method: "post",
-                dataType: "json",
-                url: 'http://10.1.11.112:8888/Media/findByPidMedia',
-                data: {
-                    pid: pid
-                },
-                success: function (result1) {
-                    var res = result1.result;
-                    var str = '';
-                    for (var i = 0; i < res.length; i++) {
-                        str += '<option value=' + res[i].id + '>' + res[i].mediaName + '</option>';
-                    }
-                    $("#mediaTwo").html(str);
-                }
-            });
-        });
-    },*/
-    // 加载采集点数据  
+    // 加载采集点数据
     LoadPatchSelect: function () {
         $("#patchName1").empty();
         Ter.getApi({
