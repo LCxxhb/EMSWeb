@@ -19,16 +19,6 @@ var userpage = {
 			}, {
 				field: 'ROLE_ID',
 				title: '角色ID',
-				//				formatter: function(value, row, index) {
-				//					//通过formatter可以自定义列显示的内容
-				//					//value：当前field的值，即id
-				//					//row：当前行的数据
-				//					if(0 == value) {
-				//						return "管理员";
-				//					} else {
-				//						return "用户";
-				//					}
-				//				},
 			}, {
 				field: 'ROLENAME',
 				title: '角色名称',
@@ -43,6 +33,16 @@ var userpage = {
 			}, {
 				field: 'STATUS',
 				title: '状态',
+				formatter: function(value, row, index) {
+					//通过formatter可以自定义列显示的内容
+					//value：当前field的值，即id
+					//row：当前行的数据
+					if(0 == value) {
+						return "禁用";
+					} else if(1 == value) {
+						return "启用";
+					}
+				},
 			}, {
 				field: 'cz',
 				title: '操作',
@@ -60,17 +60,23 @@ var userpage = {
 	},
 	//密碼重置
 	permission: function(id) {
-		var params = {
-			"id": id
-		};
-		Ter.getApi({
-				apiname: '/user/resetPassword',
-				params: params
+		layer.confirm("确认要密码重置？", {
+				btn: ['确定', '取消'],
+				title: "提示"
 			},
-			function(res) {
-				if(res) {
-					layer.alert(res.errMsg);
-				}
+			function() {
+				var params = {
+					"id": id
+				};
+				Ter.getApi({
+						apiname: '/user/resetPassword',
+						params: params
+					},
+					function(res) {
+						if(res) {
+							layer.alert(res.errMsg);
+						}
+					})
 			})
 	},
 	//加载搜索条件角色下拉框
@@ -148,7 +154,7 @@ var userpage = {
 				params: params
 			},
 			function(res) {
-				if(res.result) {
+				if(res) {
 					//加载表格
 					$("#mytable").bootstrapTable('load', res.result);
 				}
@@ -158,8 +164,7 @@ var userpage = {
 	btnEdit: function(parm) {
 		if(parm == 0) {
 			$("#myModal").modal("show");
-			$('#role_id').val('');
-			$('#area_id').val('');
+			$('#title').html('新增用户');
 			$('#id').val('');
 			$('#username').val('');
 			this.LoadModalRoleSelect("");
@@ -172,8 +177,7 @@ var userpage = {
 			}
 			//会显选中的用户信息
 			$("#myModal").modal("show");
-			$('#role_id').val(rows[0].ROLE_ID);
-			$('#area_id').val(rows[0].AREA_ID);
+			$('#title').html('编辑用户');
 			$('#id').val(rows[0].ID);
 			$('#username').val(rows[0].USERNAME);
 			this.LoadModalRoleSelect(rows[0].ROLE_ID);
@@ -220,6 +224,49 @@ var userpage = {
 			})
 	},
 
+	//用户启用禁用
+	btnFalse: function(param) {
+		var ids = ""; //得到用户选择的数据的ID
+		var rows = $('#mytable').bootstrapTable('getSelections');
+		if(rows.length == 0) {
+			if(param == 0)
+				layer.alert("请选择要禁用的数据！");
+			else
+				layer.alert("请选择要启用的数据！");
+			return;
+		};
+		if(param == 0) {
+			var message = "确定要禁用？";
+			var status = "0";
+		} else {
+			var message = "确定要启用？";
+			var status = "1";
+		}
+		layer.confirm(message, {
+				btn: ['确定', '取消'],
+				title: "提示"
+			},
+			function() {
+				for(var i = 0; i < rows.length; i++) {
+					ids += rows[i].ID + ',';
+				}
+				ids = ids.substring(0, ids.length - 1);
+				Ter.getApi({
+						apiname: '/user/isuse',
+						params: {
+							"ids": ids,
+							"status": status
+						}
+					},
+					function(res) {
+						if(res.errCode == "SUCCESS") {
+							layer.alert(res.errMsg)
+							userpage.loadTableData();
+						}
+					})
+			}
+		)
+	},
 	//实现删除数据的方法
 	btnDelete: function() {
 		var ids = ""; //得到用户选择的数据的ID

@@ -16,6 +16,7 @@ var Terframe = {
         this.closeTab();
         this.refreshTab();
         this.pageResize();
+		//this.menuInit();
     },
     //初始化值
     initVal: function () {
@@ -58,7 +59,9 @@ var Terframe = {
         // //二级菜单hover事件
         $(".sidebar-navList").on("mouseover", ".sidebar-trans-item", function () {
             menuHover($(this));
+			$(this).addClass('active');//将自身状态激活
         }).on("mouseout", ".sidebar-trans-item", function () {
+			$(this).removeClass('active');//将自身状态激活
             $(".ter-tool").hide();
         });
         //鼠标移入事件
@@ -77,6 +80,11 @@ var Terframe = {
         //得到展开的时候可用的最大高度
         (t_height - realHeight) < 80 ? this.left_scroll_height = 80 + 'px' : this.left_scroll_height = (t_height - realHeight) + 'px'
     },
+	menuInit:function(){
+		if($(".sidebar-title")[0]!=undefined){
+			$(".sidebar-title")[0].click();
+		}
+	},
     ////展开二级目录事件
     menuOpen: function () {
         $(".sidebar-navList").on('click', '.sidebar-title', function (e) {
@@ -139,7 +147,7 @@ var Terframe = {
         this.tabNum++;
         $(".iframe-wrapper iframe").hide();//先将其它的iframe都隐藏掉
         $(".navbar-tab-box .navbar-tab-item").removeClass('active');
-        var t_iframe = '<iframe class="embed-responsive-item" id="iframe' + name + '" src=' + url + ' frameborder="0" style="width:100%;height:100%;"></iframe>';
+        var t_iframe = '<iframe class="embed-responsive-item" id="iframe' + name + '" src="' + url + '" frameborder="0" style="width:100%;height:100%;"></iframe>';
         var t_tab = '<div class="navbar-tab-item active" id="tab' + name + '"><div class="tabText">' + name + '</div><a class="tabClose" href="javascript:;"><i class="add-icon close-icon"></i></a></div>';
         $(".iframe-wrapper").append(t_iframe);
         $(".navbar-tab-box").append(t_tab);
@@ -179,7 +187,10 @@ var Terframe = {
             self.calcTab();
             self.tabNum--;//打开的标签页数量减少
             self.switchFrame(prev_name);//前一个显示
-            self.frames_arr.remove(del_name);//从已经激活的选项卡数组的将其删除
+			
+            var pos=$.inArray(del_name,self.frames_arr);
+            self.frames_arr.splice(pos,1);
+            //self.frames_arr.remove(del_name);//从已经激活的选项卡数组的将其删除
         })
     },
     //刷新标签页

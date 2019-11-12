@@ -34,6 +34,9 @@
 				color: #fff;
 				padding-left: 2px;
 			}
+			.menuheight{
+				max-height: 0px;
+			}
 		</style>
 
 	</head>
@@ -65,7 +68,7 @@
 						</ul>
 						<div class="navbar-tabs">
 							<div class="navbar-tab-box clearFix">
-								<div class="navbar-tab-item active" id="tab0" data-url="../tree.html">
+								<div class="navbar-tab-item active" id="tab0" data-url="main.html">
 									<div class="tabText">首页</div>
 								</div>
 							</div>
@@ -81,8 +84,152 @@
 				</div>
 				<!--菜单-->
 				<div class="sidebar-navList" id="sideMenu">
+					<!--
+					<div class="sidebar-navItem">
+						<div class="sidebar-title">
+							<span class="title-icon"></span>
+							<span class="title-name">能源实绩</span>
+						</div>
+						<ul class="sidebar-trans-list">
+							<li class="sidebar-trans-item" id="5" data-url="Erdate/Erdate_index.html">
+								<a href="javascript:;">
+									<div class="trans-icon">
+										<i class="fa fa-address-book"></i>
+									</div>
+									<div class="trans-name">实绩查询</div>
+								</a>
+							</li>
 
+						</ul>
+					</div>
+					<div class="sidebar-navItem">
+						<div class="sidebar-title">
+							<span class="title-icon"></span>
+							<span class="title-name">计划管理</span>
+						</div>
+						<ul class="sidebar-trans-list">
+							<li class="sidebar-trans-item" id="4" data-url="EmsReport/table1.html">
+								<a href="javascript:;">
+									<div class="trans-icon">
+										<i class="fa fa-address-book"></i>
+									</div>
+									<div class="trans-name">计划管理</div>
+								</a>
+							</li>
+
+						</ul>
+					</div>
+					<div class="sidebar-navItem">
+						<div class="sidebar-title">
+							<span class="title-icon"></span>
+							<span class="title-name">质量管理</span>
+						</div>
+						<ul class="sidebar-trans-list mCustomScrollbar">
+
+							<li class="sidebar-trans-item" id="2" data-url="sys/media.html">
+								<a href="javascript:;">
+									<div class="trans-icon">
+										<i class="fa fa-address-book"></i>
+									</div>
+									<div class="trans-name">介质管理</div>
+								</a>
+							</li>
+							<li class="sidebar-trans-item" id="3" data-url="sys/collection.html">
+								<a href="javascript:;">
+									<div class="trans-icon">
+										<i class="fa fa-address-book"></i>
+									</div>
+									<div class="trans-name">质量管理</div>
+								</a>
+							</li>
+
+
+						</ul>
+					</div>
+					<div class="sidebar-navItem">
+						<div class="sidebar-title">
+							<span class="title-icon"></span>
+							<span class="title-name">报表管理</span>
+						</div>
+						<ul class="sidebar-trans-list">
+							<li class="sidebar-trans-item" id="6" data-url="EmsReport/GasReport.html">
+								<a href="javascript:;">
+									<div class="trans-icon">
+										<i class="fa fa-address-book"></i>
+									</div>
+									<div class="trans-name">能源气体报表</div>
+								</a>
+							</li>
+							<li class="sidebar-trans-item" id="7" data-url="EmsReport/ElectricityReport.html">
+								<a href="javascript:;">
+									<div class="trans-icon">
+										<i class="fa fa-address-book"></i>
+									</div>
+									<div class="trans-name">电力计量报表</div>
+								</a>
+							</li>
+							<li class="sidebar-trans-item" id="8" data-url="EmsReport/Waterreport.html">
+								<a href="javascript:;">
+									<div class="trans-icon">
+										<i class="fa fa-address-book"></i>
+									</div>
+									<div class="trans-name">用水量报表</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="sidebar-navItem">
+						<div class="sidebar-title">
+							<span class="title-icon"></span>
+							<span class="title-name">系统管理</span>
+						</div>
+						<ul class="sidebar-trans-list">
+							<li class="sidebar-trans-item" id="9" data-url="sys/user.html">
+								<a href="javascript:;">
+									<div class="trans-icon">
+										<i class="fa fa-address-book"></i>
+									</div>
+									<div class="trans-name">用户管理</div>
+								</a>
+							</li>
+							<li class="sidebar-trans-item" id="10" data-url="sys/roles.html">
+								<a href="javascript:;">
+									<div class="trans-icon">
+										<i class="fa fa-address-book"></i>
+									</div>
+									<div class="trans-name">角色管理</div>
+								</a>
+							</li>
+							<li class="sidebar-trans-item" id="11" data-url="sys/menu.html">
+								<a href="javascript:;">
+									<div class="trans-icon">
+										<i class="fa fa-address-book"></i>
+									</div>
+									<div class="trans-name">菜单管理</div>
+								</a>
+							</li>
+							<li class="sidebar-trans-item" id="12" data-url="sys/area.html">
+								<a href="javascript:;">
+									<div class="trans-icon">
+										<i class="fa fa-address-book"></i>
+									</div>
+									<div class="trans-name">区域管理</div>
+								</a>
+							</li>
+							<li class="sidebar-trans-item" id="13" data-url="sys/area.html">
+								<a href="javascript:;">
+									<div class="trans-icon">
+										<i class="fa fa-address-book"></i>
+									</div>
+									<div class="trans-name">日志管理</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+					-->
 				</div>
+				<span class="ter-tool">缩小后的小气泡提示</span>
+
 			</div>
 
 			<!--功能区-->
@@ -132,6 +279,29 @@
 				</div>
 			</div>
 		</div>
+		<!--左侧功能菜单-->
+		<script id="sideMenu" type="text/html">
+			{{each $data}}
+			<div class="sidebar-navItem">
+				<div class="sidebar-title">
+					<span class="title-icon"></span>
+					<span class="title-name">{{$value.MenuName}}</span>
+				</div>
+				<ul class="sidebar-trans-list mCustomScrollbar">
+					{{each $value.FunNames}}
+					<li class="sidebar-trans-item" data-url="{{$value.MenuUrl}}">
+						<a href="javascript:;">
+							<div class="trans-icon">
+								<i class="iconfont {{$value.Icon}}"></i>
+							</div>
+							<div class="trans-name">{{$value.FunName}}</div>
+						</a>
+					</li>
+					{{/each}}
+				</ul>
+			</div>
+			{{/each}}
+		</script>
 
 		<script src="../js/Site2.js"></script>
 

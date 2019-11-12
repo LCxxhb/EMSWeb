@@ -109,7 +109,7 @@ var quality = {
         var url;
         if (treeId=="")
         {
-            url="MediaOrProject/findAllMediaOrProject";
+            url="/MediaOrProject/findAllMediaOrProject";
             Ter.getApi({
                     apiname: url
                 },
@@ -167,14 +167,14 @@ var quality = {
         var params={};
         if(1==parm){
             var mediaName = $.trim($('#mediaNameOne').val());
-            url = 'Media/insert';
+            url = '/Media/insert';
             params = {
                 "mediaName": mediaName
             }
         }else if(2==parm){
             var pid = $.trim($('#mediaOne option:selected').val());
             var mediaName =$.trim($('#mediaNameTwo').val());
-            url = 'Media/insert';
+            url = '/Media/insert';
             params = {
                 "pid": pid,
                 "mediaName": mediaName
@@ -271,13 +271,8 @@ var quality = {
                 if(res.result) {
                     var select = $("#mediaOne");
                     for(var i = 0; i < res.result.length; i++) {
-                        /*if(pid == res.result[i].id) {
-                            select.append("<opti    on value='" + res.result[i].id + "' selected='selected'>" +
-                                res.result[i].mediaName + "</option>");
-                        } else {}*/
                             select.append("<option value='" + res.result[i].id + "'>" +
                                 res.result[i].mediaName + "</option>");
-
                     }
                 }
             })
@@ -292,10 +287,6 @@ var quality = {
                 if(res.result) {
                     var select = $("#mediaNameTwo1");
                     for(var i = 0; i < res.result.length; i++) {
-                        /*if(pid == res.result[i].id) {
-                            select.append("<opti    on value='" + res.result[i].id + "' selected='selected'>" +
-                                res.result[i].mediaName + "</option>");
-                        } else {}*/
                         select.append("<option value='" + res.result[i].id + "'>" +
                             res.result[i].mediaName + "</option>");
 
@@ -313,10 +304,6 @@ var quality = {
                 if(res.result) {
                     var select = $("#projectName");
                     for(var i = 0; i < res.result.length; i++) {
-                        /*if(pid == res.result[i].id) {
-                            select.append("<opti    on value='" + res.result[i].id + "' selected='selected'>" +
-                                res.result[i].mediaName + "</option>");
-                        } else {}*/
                         select.append("<option value='" + res.result[i].projectName + "'>" +
                             res.result[i].projectName + "</option>");
 
@@ -334,10 +321,6 @@ var quality = {
                 if(res.result) {
                     var select = $("#unitName");
                     for(var i = 0; i < res.result.length; i++) {
-                        /*if(pid == res.result[i].id) {
-                            select.append("<opti    on value='" + res.result[i].id + "' selected='selected'>" +
-                                res.result[i].mediaName + "</option>");
-                        } else {}*/
                         select.append("<option value='" + res.result[i].unitName + "'>" +
                             res.result[i].unitName+ "</option>");
 

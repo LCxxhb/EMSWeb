@@ -1,4 +1,4 @@
-﻿var indexPage = {
+var indexPage = {
 	init: function() {
 		this.modifyPassword();
 		this.loginOut();
@@ -79,10 +79,10 @@
                         <span class="title-name">${item1.menuname}</span>
                     </div>`;
 				if(item1.childMenus.length === 0) break;
-				html += `<ul class="sidebar-trans-list">`;
+				html += `<ul class="sidebar-trans-list menuheight">`;
 				for(var item2 of item1.childMenus) {
 					console.log(item2);
-					html += `<li class="sidebar-trans-item" id="4" data-url=${item2.munuurl}>
+					html += `<li class="sidebar-trans-item"  data-url=${item2.munuurl}>
                 <a href="javascript:;">
                     <div class="trans-icon">
                         <i class="fa fa-address-book"></i>

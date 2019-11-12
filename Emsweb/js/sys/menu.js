@@ -21,7 +21,8 @@
 				},
 				{
 					field: 'pid',
-					title: '父级菜单'
+					title: '父级菜单',
+					visible: false
 				}, {
 					field: 'lastupdateby',
 					title: '更新人'
@@ -74,6 +75,7 @@
 	btnEdit: function(parm) {
 		if(parm == 0) {		
 			$("#myModal").modal("show");
+			$('#title').html('新增菜单');
 			$('#menuname').val('');
 			$('#menuurl').val('');
 			$('#id').val('');
@@ -85,8 +87,9 @@
 				return;
 			}
 			console.log(rows[0])
-			//会显选中的用户信息
+			//会显选中的菜单信息
 			$("#myModal").modal("show");
+			$('#title').html('编辑菜单');
 			$('#menuname').val(rows[0].menuname);
 			$('#menuurl').val(rows[0].munuurl);
 			$('#id').val(rows[0].id);
