@@ -104,6 +104,7 @@ var quality = {
         var col = '<a style="cursor: pointer; text-decoration: none!important;" href="javascript:void(0)" class="ter-visibleBtn" data-power="修改" onclick="quality.btnEdit('+JSON.stringify(row).replace(/\"/g,"'")+');">修改</ a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="cursor: pointer;text-decoration: none!important;" class="ter-visibleBtn" data-power="删除" onclick=quality.btnDelete("'+row.id+'")>删除</ a>';
         return col;
     },
+    // 加载表格数据
     loadTableData:function(treeId)
     {
         var parms;
@@ -122,7 +123,6 @@ var quality = {
 
                 })
         }else {
-
             url="/MediaOrProject/findByMidMediaOrProject";
             parms = {mid:treeId};
             Ter.getApi({
@@ -137,17 +137,18 @@ var quality = {
 
                 })
         }
-
-
-
     },
-    //添加一级和二级介质
+    //添加属性配置
     btnAdd: function () {
             $("#myModal1").modal("show");
+            $("#minimum").val("");
+            $("#maximum").val("");
+            $("#state").val("");
             this.LoadModalMediaSelect("");
             this.LoadModalProjectSelect("");
             this.LoadModalUnitSelect("");
     },
+    // 添加和修改页面表单提交确定按钮
     btnOk:function(parm){
         var url;
         var params={};
@@ -194,18 +195,14 @@ var quality = {
                 //console.log(res);
                 if (res.errCode == "SUCCESS") {
                     layer.alert(res.errMsg);
-
                 };
                 if(1==parm){
                     $('#myModal1').modal('hide');
                     quality.loadTableData(media12);
-
                 }else if(2==parm){
                     $('#myModal2').modal('hide');
-
                     quality.loadTableData(media12);
                 }
-
             })
     },
     //加载添加介质属性配置模态框中的二级介质名下拉框
@@ -217,8 +214,6 @@ var quality = {
             function(res) {
                 if(res.result) {
                     var select = $("#mediaNameTwo1");
-                    // select.append("<option value='" +media12+ "'>" +
-                    //     media11 + "</option>");
                     for(var i = 0; i < res.result.length; i++) {
                         if(res.result[i].id == media12){
                             select.append("<option value='" + res.result[i].id + "' selected='selected'>" +
@@ -227,8 +222,6 @@ var quality = {
                             select.append("<option value='" + res.result[i].id + "'>" +
                                 res.result[i].mediaName + "</option>");
                         }
-
-
                     }
                 }
             })
@@ -245,7 +238,6 @@ var quality = {
                     for(var i = 0; i < res.result.length; i++) {
                         select.append("<option value='" + res.result[i].projectName + "'>" +
                             res.result[i].projectName + "</option>");
-
                     }
                 }
             })
@@ -292,7 +284,6 @@ var quality = {
 
     },
     btnEdit:function(MediaOrProject){
-
         var row = MediaOrProject;
         console.log(row);
         $("#myModal2").modal("show");
