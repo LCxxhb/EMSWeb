@@ -101,7 +101,6 @@ var quality = {
         console.log(row);
         var col = '<a style="cursor: pointer; text-decoration: none!important;" href="javascript:void(0)" class="ter-visibleBtn" data-power="修改" onclick="quality.btnEdit('+JSON.stringify(row).replace(/\"/g,"'")+');">修改</ a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="cursor: pointer;text-decoration: none!important;" class="ter-visibleBtn" data-power="删除" onclick=quality.btnDelete("'+row.id+'")>删除</ a>';
         return col;
-        //onclick="eidtField('+JSON.stringify(row).replace(/\"/g,"'")+')"
     },
     loadTableData:function(treeId)
     {
@@ -142,21 +141,14 @@ var quality = {
     },
     //添加一级和二级介质
     btnAdd: function (parm) {
-        if (1==parm) {
+       if(1==parm){
             $("#myModal1").modal("show");
-            $("#mediaName").val("");
-        } else if (2==parm) {
-            $("#myModal2").modal("show");
-            $("#mediaNameTwo").val("");
-            this.LoadModalSelect("");
-        } else if(3==parm){
-            $("#myModal3").modal("show");
             $("#projectName1").val("");
-        }else if(4==parm){
-            $("#myModal4").modal("show");
+        }else if(2==parm){
+            $("#myModal2").modal("show");
             $("#unitName1").val("");
-        }else if(5==parm){
-            $("#myModal5").modal("show");
+        }else if(3==parm){
+            $("#myModal3").modal("show");
             this.LoadModalMediaSelect("");
             this.LoadModalProjectSelect("");
             this.LoadModalUnitSelect("");
@@ -166,33 +158,18 @@ var quality = {
         var url;
         var params={};
         if(1==parm){
-            var mediaName = $.trim($('#mediaNameOne').val());
-            url = '/Media/insert';
-            params = {
-                "mediaName": mediaName
-            }
-        }else if(2==parm){
-            var pid = $.trim($('#mediaOne option:selected').val());
-            var mediaName =$.trim($('#mediaNameTwo').val());
-            url = '/Media/insert';
-            params = {
-                "pid": pid,
-                "mediaName": mediaName
-            }
-
-        } else if(3==parm){
             var projectName= $.trim($('#projectName1').val());
             url = '/Project/insert';
             params = {
                 "projectName": projectName
             }
-        }else if(4==parm){
+        }else if(2==parm){
             var unitName= $.trim($('#unitName1').val());
             url = '/Unit/insert';
             params = {
                 "unitName": unitName
             }
-        }else if(5==parm){
+        }else if(3==parm){
             var mid = $.trim($('#mediaNameTwo1 option:selected').val());
             var projectName = $.trim($('#projectName option:selected').val());
             var minimum=$.trim($('#minimum').val());
@@ -208,7 +185,7 @@ var quality = {
                 "unitName": unitName,
                 "state": state
             }
-        }else if(6==parm){
+        }else if(4==parm){
             var id=$.trim($('#hdMid').val())
             var mid = $.trim($('#mid').val());
             var projectName = $.trim($('#projectName2').val());
@@ -239,11 +216,9 @@ var quality = {
                 };
                 if(1==parm){
                     $('#myModal1').modal('hide');
-                    quality.initTree();
                     quality.loadTable();
                 }else if(2==parm){
                     $('#myModal2').modal('hide');
-                    quality.initTree();
                     quality.loadTable();
                 }else if(3==parm){
                     $('#myModal3').modal('hide');
@@ -251,33 +226,11 @@ var quality = {
                 }else if(4==parm){
                     $('#myModal4').modal('hide');
                     quality.loadTable();
-                }else if(5==parm){
-                    $('#myModal5').modal('hide');
-                    quality.loadTable();
-                }else if(6==parm){
-                    $('#myModal6').modal('hide');
-                    quality.loadTable();
                 }
 
             })
     },
-    //加载添加二级介质模态框中的下拉框
-    LoadModalSelect: function() {
-        $("#mediaOne").empty();
-        Ter.getApi({
-                apiname: "/Media/findByOneMedia"
-            },
-            function(res) {
-                if(res.result) {
-                    var select = $("#mediaOne");
-                    for(var i = 0; i < res.result.length; i++) {
-                            select.append("<option value='" + res.result[i].id + "'>" +
-                                res.result[i].mediaName + "</option>");
-                    }
-                }
-            })
-    },
-    //加载添加介质属性配置模态框中的介质名下拉框
+    //加载添加介质属性配置模态框中的二级介质名下拉框
     LoadModalMediaSelect: function(id) {
         $("#mediaNameTwo1").empty();
         Ter.getApi({
@@ -353,11 +306,10 @@ var quality = {
 
     },
     btnEdit:function(MediaOrProject){
-        //alert(obj.id);
 
         var row = MediaOrProject;
         console.log(row);
-        $("#myModal6").modal("show");
+        $("#myModal4").modal("show");
         $('#hdMid').val(row.id);
         $('#mid').val(row.mid);
         $('#mediaName').val(row.mediaName);
