@@ -19,7 +19,7 @@ var GasReport = {
 				bgcolor: "#0196c9",
 				pnColor: "#00CCFF"
 			}, //主题色
-			format: "YYYY-MM-DD hh:mm:ss",
+			format: "YYYY-MM-DD hh",
 			zIndex: 3000,
 			isTime: true
 		});
@@ -52,6 +52,25 @@ var GasReport = {
 			pageSize: 10,
 			pageList: [5, 10, 15, 20],
 			striped: true, //隔行变色
+			search: true,                     //是否显示表格搜索，此搜索是客户端搜索，不会进服务端
+			strictSearch: false,		  //是否全局匹配,false模糊匹配
+			showColumns: true,                  //是否显示所有的列
+			showRefresh: true,                  //是否显示刷新按钮
+			clickToSelect: false,               //是否启用点击选中行
+			showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+			cardView: false,                    //是否显示详细视图
+			detailView: false,                  //是否显示父子表
+			//导出excel表格设置
+			showExport: true,//是否显示导出按钮(此方法是自己写的目的是判断终端是电脑还是手机,电脑则返回true,手机返回falsee,手机不显示按钮)
+			exportDataType: "all",              //basic', 'all', 'selected'.
+			exportTypes:['excel','xlsx'],	    //导出类型
+			exportOptions: {
+				//ignoreColumn: [0,0],            //忽略某一列的索引
+				fileName: '气体报表',              //文件名称设置
+				worksheetName: 'Sheet1',          //表格工作区名称
+				tableName: '气体报表',
+				//excelstyles: ['background-color', 'color', 'font-size', 'font-weight'],
+			},
 			columns: [{
 				field: 'areaname',
 				title: '分厂',
@@ -90,13 +109,13 @@ var GasReport = {
 	},
 	//加载模态框区域以及下拉框
 	LoadModalAreaSelect: function(id) {
-		$("#gasFactory").empty();
+		$("#gasArea").empty();
 		Ter.getApi({
 				apiname: "/region/findByTwoRegion"
 			},
 			function(res) {
 				if(res.result) {
-					var select = $("#gasFactory");
+					var select = $("#gasArea");
 					select.append("<option value=''>--请选择--</option>")
 					for(var i = 0; i < res.result.length; i++) {
 						if(id == res.result[i].aid) {
@@ -112,9 +131,9 @@ var GasReport = {
 	},
 	//加载模态框区域二级下拉框
 	loadChildSlect: function() {
-		$("#gasArea").empty(); //重置下拉框
-		var aid = $.trim($('#gasFactory option:selected').val()); //获取选中的区域
-		var select = $("#gasArea");
+		$("#gasFactory").empty(); //重置下拉框
+		var aid = $.trim($('#gasArea option:selected').val()); //获取选中的区域
+		var select = $("#gasFactory");
 		select.append("<option value=''>--请选择--</option>")
 		if(aid == "") {
 			layer.alert("请先选择分厂！")
@@ -139,7 +158,7 @@ var GasReport = {
 	//按分厂查询数据绑定
 	loadTableData: function() {
 		var url = "/report/findByAreaname";
-		var factoryName = $("#gasFactory option:checked").text();
+		var factoryName = $("#gasArea option:checked").text();
 		Ter.getApi({
 				apiname: url,
 				params: {
@@ -154,7 +173,7 @@ var GasReport = {
 				}
 			});
 		//		var areaUrl = "/report/findByBranchfactory";
-		//		var branchfactory = $("#gasArea option:checked").text();
+		//		var branchfactory = $("#Factory option:checked").text();
 		//		Ter.getApi({
 		//				apiname: areaUrl,
 		//				params: {
@@ -169,7 +188,7 @@ var GasReport = {
 		//				}
 		//			})
 	},
-	LoadMediumTypeButton: function(id) {
+	/* LoadMediumTypeButton: function(id) {
 		$("#MediumType").empty();
 		var url = "/report/findByTag";
 		//		var mediumName = document.getElementById(MediumType).valueOf();
@@ -184,7 +203,7 @@ var GasReport = {
 
 				}
 			})
-	},
+	}, */
 	chart: function() {
 		var instantChart = echarts.init($('#instantChart')[0]);
 		option = {
@@ -251,7 +270,7 @@ var GasReport = {
 	},
 	tabChange: function() {
 		$(".ter-tab-head li").on("click", function() {
-			position: absolute;
+			//position: absolute;
 			var index = $(this).index();
 			$(this).addClass("active").siblings().removeClass("active");
 			$(".ter-tab-item").eq(index).show().siblings().hide();

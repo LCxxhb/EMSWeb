@@ -41,19 +41,13 @@
             <div class="page-btns-box clearfix" style="margin: 0; padding: 10px">
                 <form class="form-inline pumpRunCount-search pu0ll-left">
                     <!--添加功能区域-->
-                    <button type="button" id="btn btn-add1" class="btn btn-add1 btn-primary" onclick="quality.btnAdd(1)">
-                        <span class="glyphicon glyphicon-plus"></span>添加一级介质
-                    </button>
-                    <button type="button" id="btn btn-add2" class="btn btn-add2 btn-warning" onclick="quality.btnAdd(2)">
-                        <span class="glyphicon glyphicon-plus"></span>添加二级介质
-                    </button>
-                    <button type="button" id="btn btn-add3" class="btn btn-add3 btn-success" onclick="quality.btnAdd(3)">
+                    <button type="button" id="btn btn-add3" class="btn btn-add3 btn-success" onclick="quality.btnAdd(1)">
                         <span class="glyphicon glyphicon-plus"></span>添加属性
                     </button>
-                    <button type="button" id="btn btn-add4" class="btn btn-add3 btn-success" onclick="quality.btnAdd(4)">
+                    <button type="button" id="btn btn-add4" class="btn btn-add3 btn-success" onclick="quality.btnAdd(2)">
                         <span class="glyphicon glyphicon-plus"></span>添加单位
                     </button>
-                    <button type="button" id="btn btn-add5" class="btn btn-add3 btn-success" onclick="quality.btnAdd(5)">
+                    <button type="button" id="btn btn-add5" class="btn btn-add3 btn-success" onclick="quality.btnAdd(3)">
                         <span class="glyphicon glyphicon-plus"></span>添加属性配置
                     </button>
                 </form>
@@ -67,68 +61,8 @@
                     </div>
                 </div>
             </div>
-            <!--添加一级介质模态框（myModal1）-->
+            <!--添加属性(myModal1)-->
             <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="Label"
-                 aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header bg-primary">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" v-if="btnState == 0">添加一级介质</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form class="form-horizontal" role="form" id="addOneMedia" action=" " method="post">
-                                <!--隐藏域放用户id-->
-                                <!--<input type="hidden" id="id">-->
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label"><font color="black">介质名称:</font></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="mediaNameOne" placeholder="请输入一级介质名">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                            <button type="button" class="btn btn-primary" onclick="quality.btnOk(1)">确定</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 添加二级介质模态框（myModal2）-->
-            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header bg-primary">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" v-if="btnState == 0">添加二级介质</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form class="form-horizontal" role="form" id="addTwoMedia" action=" " method="post">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">一级介质:</label>
-                                    <div class="col-sm-10 input-box">
-                                        <select class="form-control" id="mediaOne" ></select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label"><font color="black">介质名称:</font></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="mediaNameTwo" placeholder="请输入二级介质名">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                            <button type="button" class="btn btn-primary" onclick="quality.btnOk(2)">确定</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--添加属性(myModal3)-->
-            <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="Label"
                  aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -151,13 +85,13 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                            <button type="button" class="btn btn-primary" onclick="quality.btnOk(3)">确定</button>
+                            <button type="button" class="btn btn-primary" onclick="quality.btnOk(1)">确定</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--添加单位(myModal4)-->
-            <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="Label"
+            <!--添加单位(myModal2)-->
+            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="Label"
                  aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -180,13 +114,13 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                            <button type="button" class="btn btn-primary" onclick="quality.btnOk(4)">确定</button>
+                            <button type="button" class="btn btn-primary" onclick="quality.btnOk(2)">确定</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--添加介质模态框（myModal5）-->
-            <div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
+            <!--添加介质模态框（myModal3）-->
+            <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header bg-primary">
@@ -235,13 +169,13 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                            <button type="button" class="btn btn-primary" onclick="quality.btnOk(5)">确定</button>
+                            <button type="button" class="btn btn-primary" onclick="quality.btnOk(3)">确定</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--修改介质属性模态框（myModal6）-->
-            <div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
+            <!--修改介质属性模态框（myModal4）-->
+            <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header bg-primary">
@@ -292,7 +226,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                            <button type="button" class="btn btn-primary" onclick="quality.btnOk(6)">确定</button>
+                            <button type="button" class="btn btn-primary" onclick="quality.btnOk(4)">确定</button>
                         </div>
                     </div>
                 </div>
@@ -304,7 +238,7 @@
 <script src="../../lib/ztree/js/jquery.ztree.exhide.js"></script>
 <script src="../../lib/ztree/js/fuzzysearch.js"></script>
 <script src="../../lib/echarts/echarts.min.js"></script>
-<script src="../../js/sys/media.js"></script>
+<script src="../../js/media/media.js"></script>
 
 </body>
 </html>

@@ -6,8 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--引入插件css的地方-->
-    <title>页面</title>
+    <title>介质属性</title>
 </head>
 
 <body>
@@ -15,17 +14,6 @@
     <div class="page-container">
         <!--页面主体内容部分-->
         <div class="content-wrapper">
-            <!--功能区域-->
-            <div class="page-btns-box clearfix" style="margin: 0; padding: 10px">
-                <form class="form-inline pumpRunCount-search pull-left">
-                    <button type="button" id="btn btn-search1" class="btn btn-add1 btn-primary" onclick="mediaDetails.btnSearch1()">
-                        <span class="glyphicon glyphicon-search"></span>一级介质查询
-                    </button>
-                    <button type="button" id="btn btn-search2" class="btn btn-add2 btn-warning" onclick="mediaDetails.btnSearch2()">
-                        <span class="glyphicon glyphicon-search"></span>二级介质查询
-                    </button>
-                </form>
-            </div>
             <!--图表-->
             <div class="PressureData">
                 <!--列表-->
@@ -37,42 +25,39 @@
             </div>
         </div>
     </div>
-
-    <!--添加一级介质模态框（myModal1）-->
+    <!--修改介质属性（myModal1）-->
     <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="Label"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header bg-primary">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" v-if="btnState == 0">修改介质信息</h4>
+                    <h4 class="modal-title" v-if="btnState == 0">修改介质属性</h4>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal" role="form" id="addOneMedia" action=" " method="post">
                         <!--隐藏域放用户id-->
                         <input type="hidden" id="id">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label"><font color="black">介质名称:</font></label>
+                            <label class="col-sm-2 control-label"><font color="black">属性名:</font></label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="mediaNameOne" placeholder="请输入介质名">
+                                <input type="text" class="form-control" id="projectName" placeholder="请输入属性名">
                             </div>
                         </div>
                     </form>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary" onclick="mediaDetails.btnOK()">确定</button>
+                    <button type="button" class="btn btn-primary" onclick="project.btnOk()">确定</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-    <script src="../../js/Site1.js"></script>
-    <script src="../../lib/ztree/js/jquery.ztree.exhide.js"></script>
-    <script src="../../lib/ztree/js/fuzzysearch.js"></script>
-    <script src="../../lib/echarts/echarts.min.js"></script>
-    <script src="../../js/ter.js"></script>
-    <script src="../../js/sys/mediaDetails.js"></script>
+<script src="../../js/Site1.js"></script>
+<script src="../../js/ter.js"></script>
+<script src="../../js/media/project.js"></script>
 </body>
 
 

@@ -8,104 +8,47 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<!--引入插件css的地方-->
 		<title>水报表</title>
-		<!--页面上的css-->
-		<style>
-			.PressureData {
-				background: #fff;
-				width: 100%;
-			}
-			
-			.pumpRunCount-search .dateinput {
-				width: 120px;
-				float: none;
-			}
-			
-			.endTime {
-				margin-left: 10px;
-			}
-			
-			.tree-wrapper .tree-icon {
-				color: #fff;
-			}
-			
-			.tree-wrapper .tree-shape {
-				border-right: 13px solid #0075c7;
-			}
-			
-			.tree-wrapper.treeCollapse .tree-shape {
-				border-left: 13px solid #0075c7;
-			}
-		</style>
 	</head>
 
 	<body>
-		<div class="iframe-wrapper" style="overflow-x: hidden; position: relative;">
+		<div class="iframe-wrapper" style="overflow-x: hidden; position: relative;overflow-y: auto;">
 			<div class="page-container">
-				<!--tree-wrapper包含树的结构，如果页面不需要树结构，只需要将这段代码删除-->
-				<!--
-            <div class="tree-wrapper">
-                <div class="input-group tree-search-box">
-                    <input type="text" class="form-control" id="keywords" name="keywords">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" id="treesearch" name="treesearch">
-                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                        </button>
-                    </span>
-                </div>
-                <div class="tree-content">
-                    <ul id="treeDemo" class="ztree"></ul>
-                </div>
-                <div class="tree-toggle" onclick="Ter.treeToggle('')">
-                    <i class="fa fa-outdent tree-icon"></i>
-                    <div class="tree-shape"></div>
-                </div>
-            </div>-->
 				<!--页面主体内容部分-->
-				<div class="content-wrapper">
-					<!--功能区域-->
-					<div class="page-btns-box clearfix" style="margin: 0; padding: 10px">
-						<form class="form-inline pumpRunCount-search pull-left">
-							<!--条件查询区域-->
-							<!--  <div class="form-group">
-                            <label class="control-label" style="width: 80px; padding-left: 0;">压力类型：</label>
-                            <select class="form-control" id="pressureType">
-                                <option selected="selected" value="jsyl">进水压力</option>
-                                <option value="csyl1">出水压力</option>
-                            </select>
-                        </div>-->
-							<div class="form-group">
-								<label class="control-label">分厂：</label>
-								<select class="form-control" id="waterFactory" onchange="waterReport.getArea()" ;>
-									<option>--请选择--</option>									
-								</select>
-							</div>
-							<div class="form-group">
-								<label class="control-label">区域：</label>
-								<select class="form-control" id="waterArea";>
-									<option>--请选择--</option>									
-								</select>
-							</div>
-							<div class="form-group">
-								<label class="control-label">报表类型：</label>
-								<select class="form-control">
-									<option selected="selected" value="1">--请选择--</option>
-									<option value="2">4小时报</option>
-									<option value="3">班报表</option>
-									<option value="4">日报表</option>
-									<option value="5">周报表</option>
-									<option value="6">半月报表</option>
-									<option value="7">月报表</option>
-								</select>
-							</div>
-							<!--日期选择-->
-							<div class="form-group">
-								<div class="input-group dayGroup-box">
-									<label class="control-label">开始日期：</label>
-									<input class="dateinput dateicon startDate dateTime" id="startInstantDate" type="text" readonly>
-									<!--<label class="control-label endTime">结束日期：</label>
+				<div class="page-btns-box clearfix" style="margin: 0; padding: 10px">
+					<form class="form-inline pumpRunCount-search pull-left">
+						<div class="form-group">
+							<label class="control-label">分厂：</label>
+							<select class="form-control" id="waterArea" onchange="waterReport.loadChildSlect()" ;>
+								<option>--请选择--</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="control-label">区域：</label>
+							<select class="form-control" id="waterFactory" ;>
+								<option>--请选择--</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="control-label">报表类型：</label>
+							<select class="form-control">
+								<option selected="selected" value="1">--请选择--</option>
+								<option value="2">4小时报</option>
+								<option value="3">班报表</option>
+								<option value="4">日报表</option>
+								<option value="5">周报表</option>
+								<option value="6">半月报表</option>
+								<option value="7">月报表</option>
+							</select>
+						</div>
+						<!--日期选择-->
+						<div class="form-group">
+							<div class="input-group dayGroup-box">
+								<label class="control-label">开始日期：</label>
+								<input class="dateinput dateicon startDate dateTime" id="startInstantDate" type="text" readonly>
+								<!--<label class="control-label endTime">结束日期：</label>
 									<input class="dateinput dateicon endDate dateTime" id="endInstantDate" type="text" readonly>-->
-								</div>
-								<!--<div class="input-group monthGroup-box" style="display: none">
+							</div>
+							<!--<div class="input-group monthGroup-box" style="display: none">
 									<label class="control-label">开始日期：</label>
 									<input class="dateinput dateicon startDate" id="startDayDate" type="text" readonly>
 									<label class="control-label endTime">结束日期：</label>
@@ -117,31 +60,14 @@
 									<label class="control-label endTime">结束日期：</label>
 									<input class="dateinput dateicon endDate" id="endMonthDate" type="text" readonly>
 								</div>-->
-							</div>
-							<button type="button" id="btn-search" class="btn btn-search" onclick="">
-								<span class="glyphicon glyphicon-search"></span>查询
-							</button>
-						</form>
+						</div>
+						<button type="button" id="btn-search" class="btn btn-search" onclick="waterReport.loadTableData()">
+							<span class="glyphicon glyphicon-search"></span>查询
+						</button>
+					</form>
 
-					</div>
-					<!--<div class="page-btns-box clearfix">
-						<button class="btn btn-del btn-margin js-alert-show pull-right" type="button">
-							<span class="glyphicon glyphicon-trash"></span>删除
-						</button>
-						<button class="btn btn-edit btn-margin pull-right" type="button"><span class="glyphicon glyphicon-edit"></span>修改</button>
-						<button class="btn btn-add btn-margin pull-right" type="button" data-toggle="modal" data-target="#myModal">
-							<span class="glyphicon glyphicon-plus"></span>添加
-						</button>
-						<button class="btn btn-search btn-margin" type="button"><span class="glyphicon glyphicon-search"></span>查询</button>
-						<button class="btn btn-sure btn-margin" type="button"><span class="glyphicon glyphicon-ok"></span>确定</button>
-						<button class="btn btn-cancel btn-margin" type="button"><span class="glyphicon glyphicon-remove"></span>取消</button>
-						<button class="btn btn-reset btn-margin" type="button"><span class="glyphicon glyphicon-repeat"></span>重置</button>
-						<button class="btn btn-black-link btn-margin" type="button"><span class="glyphicon glyphicon-export"></span>导出excel</button>
-						<button class="btn btn-black-link btn-margin" type="button"><span class="glyphicon glyphicon-import"></span>导入excel</button>
-						<button class="btn btn-black-link btn-margin" type="button"><span class="glyphicon glyphicon-print"></span>打印</button>
-						<button class="btn btn-black-link btn-margin" type="button"><span class="glyphicon glyphicon-cloud-upload"></span>上传</button>
-					</div>-->
-					<div class="page-btns-box clearfix">
+				</div>
+				<!-- <div class="page-btns-box clearfix">
 						<button class="btn btn-search btn-margin" type="button" onclick="" style="margin-right: 50px;">原水</button>
 						<button class="btn btn-search btn-margin" type="button" onclick="" style="margin-right: 50px;">软水</button>
 						<button class="btn btn-search btn-margin" type="button" onclick="" style="margin-right: 50px;">静环水</button>
@@ -149,9 +75,11 @@
 						<button class="btn btn-black-link btn-margin pull-right" type="button" style="margin-top: 10px; margin-right: 15px;">
 					    	<span class="glyphicon glyphicon-export"></span>导出excel
 					    </button>						
-					</div>
-					<!--列表 图表-->
+					</div> -->
+				<div class="content-wrapper">
+					<!--功能区域-->
 					<div class="PressureData">
+						<!--列表 图表-->
 						<ul class="ter-tab-head">
 							<li class="active">数据列表</li>
 							<li class="">图表视图</li>
@@ -162,13 +90,13 @@
 									<table class="table" id="instantTable"></table>
 								</div>
 							</div>
-							<div class="ter-tab-item" style="padding-bottom:50px">													
+							<div class="ter-tab-item" style="padding-bottom:50px">
 								<div class="charts" style="width:95%;margin:0 auto;padding-top:10px;">
 									<div id="instantChart" style="width:1000px;height:500px;"></div>
 								</div>
 							</div>
 						</div>
-						 
+
 					</div>
 				</div>
 			</div>
