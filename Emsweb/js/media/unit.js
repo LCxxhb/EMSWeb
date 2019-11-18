@@ -25,7 +25,7 @@ var unit = {
         this.loadTableData("");
     },
     action: function (value, row, project) {
-        console.log(row);
+       // console.log(row);
         var col = '<a style="cursor: pointer; text-decoration: none!important;" href="javascript:void(0)" class="ter-visibleBtn" data-power="修改" onclick="unit.btnEdit(' + JSON.stringify(row).replace(/\"/g, "'") + ');">修改</ a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="cursor: pointer;text-decoration: none!important;" class="ter-visibleBtn" data-power="删除" onclick=unit.btnDelete("' + row.id + '")>删除</ a>';
         return col;
     },
@@ -37,11 +37,15 @@ var unit = {
             },
             function (res) {
                 if (res.result) {
-                    console.log(res.result);
+                   // console.log(res.result);
                     //加载表格
                     $("#mytable").bootstrapTable('load', res.result);
                 }
             })
+    },
+    btnAdd :function(){
+        $("#myModal1").modal("show");
+        $("#unitName1").val("");
     },
     //修改按钮触发
     btnEdit: function (project) {
@@ -51,23 +55,38 @@ var unit = {
         $('#id').val(row.id);
         $('#unitName').val(row.unitName);
     },
-    btnOk: function () {
-        var id = $.trim($('#id').val());
-        var unitName = $.trim($('#unitName').val());
-        var url = '/Unit/update';
-        params = {
-            "id": id,
-            "unitName": unitName,
+    btnOk: function (parm) {
+        var url;
+        var params={};
+        if (1==parm){
+            var unitName= $.trim($('#unitName1').val());
+            url = '/Unit/insert';
+            params = {
+                "unitName": unitName
+            }
+        }else{
+            var id = $.trim($('#id').val());
+            var unitName = $.trim($('#unitName').val());
+            url = '/Unit/update';
+            params = {
+                "id": id,
+                "unitName": unitName,
+            }
         }
+
         Ter.getApi({
                 apiname: url,
                 params: params
             },
             function (res) {
-                console.log(res);
+              //  console.log(res);
                 if (res.errCode == "SUCCESS") {
                     layer.alert(res.errMsg);
-                    $("#myModal1").modal("hide");
+                    if(1==parm){
+                        $("#myModal1").modal("hide");
+                    }else{
+                        $("#myModal2").modal("hide");
+                    }
                     unit.loadTable("");
                 }
                 ;

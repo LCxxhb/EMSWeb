@@ -25,7 +25,7 @@ var mediaDetails = {
         this.loadTableData("");
     },
     action: function (value, row, mediaDetails)  {
-        console.log(row);
+        //console.log(row);
         var col = '<a style="cursor: pointer; text-decoration: none!important;" href="javascript:void(0)" class="ter-visibleBtn" data-power="修改" onclick="mediaDetails.btnEdit(' + JSON.stringify(row).replace(/\"/g, "'")+');">修改</ a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="cursor: pointer;text-decoration: none!important;" class="ter-visibleBtn" data-power="删除" onclick=mediaDetails.btnDelete("' + row.id+ '","'+row.pid+'")>删除</ a>';
         return col;
     },
@@ -36,7 +36,7 @@ var mediaDetails = {
             },
             function (res) {
                 if (res.result) {
-                    console.log(res.result);
+                   // console.log(res.result);
                     //加载表格
                     $("#mytable").bootstrapTable('load', res.result);
                 }
@@ -93,7 +93,7 @@ var mediaDetails = {
                     params: params
                 },
                 function (res) {
-                    console.log(res);
+                    //console.log(res);
                     if (res.errCode == "SUCCESS") {
                         layer.alert(res.errMsg);
                         if(1==parm){
@@ -161,7 +161,7 @@ var mediaDetails = {
             },
             function (res) {
                 if (res.result) {
-                    console.log(res.result);
+                  //  console.log(res.result);
                     //加载表格
                     $("#mytable").bootstrapTable('load', res.result);
                 }
@@ -174,7 +174,7 @@ var mediaDetails = {
             },
             function (res) {
                 if (res.result) {
-                    console.log(res.result);
+                  //  console.log(res.result);
                     //加载表格
                     $("#mytable").bootstrapTable('load', res.result);
                 }

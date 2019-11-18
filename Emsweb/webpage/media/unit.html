@@ -11,6 +11,14 @@
     <div class="page-container">
         <!--页面主体内容部分-->
         <div class="content-wrapper">
+            <div class="page-btns-box clearfix" style="margin: 0; padding: 10px">
+                <form class="form-inline pumpRunCount-search pu0ll-left">
+                    <!--添加功能区域-->
+                    <button type="button" id="btn btn-add3" class="btn btn-add3 btn-success" onclick="unit.btnAdd()">
+                        <span class="glyphicon glyphicon-plus"></span>添加单位
+                    </button>
+                </form>
+            </div>
             <!--图表-->
             <div class="PressureData">
                 <!--列表-->
@@ -22,8 +30,36 @@
             </div>
         </div>
     </div>
-    <!--修改属性单位（myModal1）-->
+    <!--添加单位(myModal1)-->
     <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="Label"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" v-if="btnState == 0">添加属性单位</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" id="addUnit" action=" " method="post">
+                        <!--隐藏域放用户id-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><font color="black">单位名称:</font></label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="unitName1" placeholder="请输入单位名称">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" onclick="unit.btnOk(1)">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--修改属性单位（myModal1）-->
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="Label"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -46,7 +82,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary" onclick="unit.btnOk()">确定</button>
+                    <button type="button" class="btn btn-primary" onclick="unit.btnOk(2)">确定</button>
                 </div>
             </div>
         </div>

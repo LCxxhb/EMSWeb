@@ -1,3 +1,4 @@
+var media12;
 var quality = {
     init: function () {
         this.initTree();//目录树
@@ -30,6 +31,7 @@ var quality = {
                 onClick: function (event, treeId, treeNode) {
                     console.log(treeNode.id);
                     quality.loadTableData(treeNode.id);
+                    media12 = treeNode.id;
                 },
                 onCheck: function (event, treeId, treeNode) {
                     var zTree = $.fn.zTree.getZTreeObj("treeDemo");
@@ -98,7 +100,7 @@ var quality = {
         this.loadTableData("");
     },
     action: function (value, row, quality) {
-        console.log(row);
+        //console.log(row);
         var col = '<a style="cursor: pointer; text-decoration: none!important;" href="javascript:void(0)" class="ter-visibleBtn" data-power="修改" onclick="quality.btnEdit('+JSON.stringify(row).replace(/\"/g,"'")+');">修改</ a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="cursor: pointer;text-decoration: none!important;" class="ter-visibleBtn" data-power="删除" onclick=quality.btnDelete("'+row.id+'")>删除</ a>';
         return col;
     },
@@ -106,14 +108,14 @@ var quality = {
     {
         var parms;
         var url;
-        if (treeId=="")
+        if (treeId=="" || treeId==undefined)
         {
             url="/MediaOrProject/findAllMediaOrProject";
             Ter.getApi({
                     apiname: url
                 },
                 function (res) {
-                    console.log(res);
+                   // console.log(res);
                     if (res.errCode == "SUCCESS") {
                         $("#mytable").bootstrapTable('load', res.result);
                     }
@@ -128,7 +130,7 @@ var quality = {
                     params: parms
                 },
                 function (res) {
-                    console.log(res);
+                    //console.log(res);
                     if (res.errCode == "SUCCESS") {
                         $("#mytable").bootstrapTable('load', res.result);
                     }
@@ -140,36 +142,16 @@ var quality = {
 
     },
     //添加一级和二级介质
-    btnAdd: function (parm) {
-       if(1==parm){
+    btnAdd: function () {
             $("#myModal1").modal("show");
-            $("#projectName1").val("");
-        }else if(2==parm){
-            $("#myModal2").modal("show");
-            $("#unitName1").val("");
-        }else if(3==parm){
-            $("#myModal3").modal("show");
             this.LoadModalMediaSelect("");
             this.LoadModalProjectSelect("");
             this.LoadModalUnitSelect("");
-        }
     },
     btnOk:function(parm){
         var url;
         var params={};
         if(1==parm){
-            var projectName= $.trim($('#projectName1').val());
-            url = '/Project/insert';
-            params = {
-                "projectName": projectName
-            }
-        }else if(2==parm){
-            var unitName= $.trim($('#unitName1').val());
-            url = '/Unit/insert';
-            params = {
-                "unitName": unitName
-            }
-        }else if(3==parm){
             var mid = $.trim($('#mediaNameTwo1 option:selected').val());
             var projectName = $.trim($('#projectName option:selected').val());
             var minimum=$.trim($('#minimum').val());
@@ -185,7 +167,7 @@ var quality = {
                 "unitName": unitName,
                 "state": state
             }
-        }else if(4==parm){
+        }else if(2==parm){
             var id=$.trim($('#hdMid').val())
             var mid = $.trim($('#mid').val());
             var projectName = $.trim($('#projectName2').val());
@@ -209,23 +191,19 @@ var quality = {
                 params: params
             },
             function (res) {
-                console.log(res);
+                //console.log(res);
                 if (res.errCode == "SUCCESS") {
                     layer.alert(res.errMsg);
 
                 };
                 if(1==parm){
                     $('#myModal1').modal('hide');
-                    quality.loadTable();
+                    quality.loadTableData(media12);
+
                 }else if(2==parm){
                     $('#myModal2').modal('hide');
-                    quality.loadTable();
-                }else if(3==parm){
-                    $('#myModal3').modal('hide');
-                    quality.loadTable();
-                }else if(4==parm){
-                    $('#myModal4').modal('hide');
-                    quality.loadTable();
+
+                    quality.loadTableData(media12);
                 }
 
             })
@@ -239,9 +217,17 @@ var quality = {
             function(res) {
                 if(res.result) {
                     var select = $("#mediaNameTwo1");
+                    // select.append("<option value='" +media12+ "'>" +
+                    //     media11 + "</option>");
                     for(var i = 0; i < res.result.length; i++) {
-                        select.append("<option value='" + res.result[i].id + "'>" +
-                            res.result[i].mediaName + "</option>");
+                        if(res.result[i].id == media12){
+                            select.append("<option value='" + res.result[i].id + "' selected='selected'>" +
+                                res.result[i].mediaName + "</option>");
+                        }else {
+                            select.append("<option value='" + res.result[i].id + "'>" +
+                                res.result[i].mediaName + "</option>");
+                        }
+
 
                     }
                 }
@@ -297,8 +283,8 @@ var quality = {
                     function(res) {
                         if(res.errCode == "SUCCESS") {
                             layer.alert(res.errMsg)
-                            window.location.reload();
-                            quality.loadTableData();
+                            //window.location.reload();
+                            quality.loadTableData(media12);
                         }
                     })
             }
@@ -309,7 +295,7 @@ var quality = {
 
         var row = MediaOrProject;
         console.log(row);
-        $("#myModal4").modal("show");
+        $("#myModal2").modal("show");
         $('#hdMid').val(row.id);
         $('#mid').val(row.mid);
         $('#mediaName').val(row.mediaName);

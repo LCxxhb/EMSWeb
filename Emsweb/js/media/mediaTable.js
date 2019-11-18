@@ -131,7 +131,7 @@ var mediaTable = {
 			},
 			function(res) {
 				if(res.result) {
-					console.log(res.result);
+					//console.log(res.result);
 					var result = res.result;
 					//加载表格
 					$("#mytable").bootstrapTable('load', res.result);
@@ -220,7 +220,7 @@ var mediaTable = {
 			},
 			function(res) {
 				if(res.result) {
-					console.log(res.result);
+				//	console.log(res.result);
 					//加载表格
 					$("#mytable").bootstrapTable('load', res.result);
 				}
@@ -262,7 +262,7 @@ var mediaTable = {
 				apiname: "/Media/findByOneMedia"
 			},
 			function(res) {
-				console.log(res.result);
+				//console.log(res.result);
 				if(res.result) {
 					var select = $("#mediaOne");
 					select.append("<option value='0'>-请选择-</option>");
@@ -291,7 +291,7 @@ var mediaTable = {
 				}
 			},
 			function(res) {
-				console.log(res);
+			//	console.log(res);
 				if(res.result) {
 					//select.append("<option value='0'>-请选择-</option>");
 					for(var i = 0; i < res.result.length; i++) {
