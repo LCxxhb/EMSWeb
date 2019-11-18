@@ -119,6 +119,20 @@ var mediaTable = {
 		var spare1 = $("#spare1").val();
 		var startTime = $("#startTime").val();
 		var endTime =  $("#endTime").val();
+		if(endTime == ""){
+			var date = new Date();
+			var seperator1 = "-";
+			var year = date.getFullYear();
+			var month = date.getMonth() + 1;
+			var strDate = date.getDate();
+			if (month >= 1 && month <= 9) {
+				month = "0" + month;
+			}
+			if (strDate >= 0 && strDate <= 9) {
+				strDate = "0" + strDate;
+			}
+			endTime = year + seperator1 + month + seperator1 + strDate;
+		}
 		Ter.getApi({
 				apiname: url,
 				params: {

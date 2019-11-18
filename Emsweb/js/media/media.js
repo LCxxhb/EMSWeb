@@ -29,8 +29,14 @@ var quality = {
             },
             callback: {
                 onClick: function (event, treeId, treeNode) {
-                    console.log(treeNode.id);
-                    quality.loadTableData(treeNode.id);
+                    console.log(treeNode);
+                    if(treeNode.pid == 0){
+                        quality.loadTableData1(treeNode.mediaName);
+                    }else{
+                        quality.loadTableData(treeNode.id);
+                    }
+
+
                     media12 = treeNode.id;
                 },
                 onCheck: function (event, treeId, treeNode) {
@@ -103,6 +109,24 @@ var quality = {
         //console.log(row);
         var col = '<a style="cursor: pointer; text-decoration: none!important;" href="javascript:void(0)" class="ter-visibleBtn" data-power="修改" onclick="quality.btnEdit('+JSON.stringify(row).replace(/\"/g,"'")+');">修改</ a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="cursor: pointer;text-decoration: none!important;" class="ter-visibleBtn" data-power="删除" onclick=quality.btnDelete("'+row.id+'")>删除</ a>';
         return col;
+    },
+
+    loadTableData1:function(mediaName){
+        var parms;
+        var url;
+        url="/MediaOrProject/findByMediaNameMediaOrProject";
+        parms = {mediaName:mediaName};
+        Ter.getApi({
+                apiname: url,
+                params: parms
+            },
+            function (res) {
+                //console.log(res);
+                if (res.errCode == "SUCCESS") {
+                    $("#mytable").bootstrapTable('load', res.result);
+                }
+
+            })
     },
     // 加载表格数据
     loadTableData:function(treeId)
