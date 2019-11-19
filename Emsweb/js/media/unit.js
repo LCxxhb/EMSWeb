@@ -48,10 +48,10 @@ var unit = {
         $("#unitName1").val("");
     },
     //修改按钮触发
-    btnEdit: function (project) {
-        var row = project;
+    btnEdit: function (unit) {
+        var row = unit;
         //会显选中的用户信息
-        $("#myModal1").modal("show");
+        $("#myModal2").modal("show");
         $('#id').val(row.id);
         $('#unitName').val(row.unitName);
     },
