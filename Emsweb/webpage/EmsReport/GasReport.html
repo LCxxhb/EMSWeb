@@ -4,13 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>能源气体报表</title>
-		<script src="../../js/Site1.js"></script>
-		<script src="../../lib/ztree/js/jquery.ztree.exhide.js"></script>
-		<script src="../../lib/ztree/js/fuzzysearch.js"></script>
-		<script src="../../lib/echarts/echarts.min.js"></script>
-		<script src="../../js/EmsReport/GasReport.js"></script>
 	</head>
-
 	<body>
 		<div class="iframe-wrapper" style="overflow-x: hidden; position: relative; overflow-y: auto;">
 			<div class="page-container">
@@ -31,15 +25,15 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<label class="control-label">报表类型：</label>
+							<label class="control-label" id="reportType">报表类型：</label>
 							<select class="form-control">
-								<option selected="selected" value="1">--请选择--</option>
-								<option value="2">4小时报</option>
-								<option value="3">班报表</option>
-								<option value="4">日报表</option>
-								<option value="5">周报表</option>
-								<option value="6">半月报表</option>
-								<option value="7">月报表</option>
+								<option selected="selected" value="0">--请选择--</option>
+								<option value="1">4小时报</option>
+								<option value="2">班报表</option>
+								<option value="3">日报表</option>
+								<option value="4">周报表</option>
+								<option value="5">半月报表</option>
+								<option value="6">月报表</option>
 							</select>
 						</div>
 						<!--日期选择-->
@@ -47,8 +41,6 @@
 							<div class="input-group dayGroup-box">
 								<label class="control-label">开始日期：</label>
 								<input class="dateinput dateicon startDate dateTime" id="startInstantDate" type="text" readonly>
-								<!--<label class="control-label endTime" style="margin-left: 15px;">结束日期：</label>
-                                <input class="dateinput dateicon endDate dateTime" id="endInstantDate" type="text" readonly>-->
 							</div>
 						</div>
 						<button class="btn btn-search btn-margin" type="button" onclick="GasReport.loadTableData()">
@@ -56,17 +48,6 @@
 						</button>
 					</form>
 				</div>
-				<!-- <div class="page-btns-box clearfix">
-					<button class="btn btn-search btn-margin" type="button" style="margin-right: 50px;">煤气</button>
-					<button class="btn btn-search btn-margin" type="button" style="margin-right: 50px;">氧气</button>
-					<button class="btn btn-search btn-margin" type="button" style="margin-right: 50px;">氮气</button>
-					<button class="btn btn-search btn-margin" type="button" style="margin-right: 50px;">氩气</button>
-					<button class="btn btn-search btn-margin" type="button" style="margin-right: 50px;">压缩空气</button>
-					<button class="btn btn-search btn-margin" type="button" style="margin-right: 50px;">天然气</button>
-					<button class="btn btn-black-link btn-margin pull-right" type="button" style="margin-top: 10px;">
-						<span class="glyphicon glyphicon-export"></span>导出excel
-					</button>
-				</div> -->
 				<div class="content-wrapper">
 					<!--功能区域-->
 					<div class="PressureData">
@@ -78,12 +59,12 @@
 						<div class="ter-tab-content">
 							<div class="ter-tab-item active">
 								<div class="page-main-box">
-									<table class="table" id="instantTable"></table>
+									<table class="table" id="gasTable"></table>
 								</div>
 							</div>
 							<div class="ter-tab-item" style="padding-bottom:50px">
 								<div class="charts" style="width:95%;margin:0 auto;padding-top:10px;">
-									<div id="instantChart" style="width:1000px;height:500px;"></div>
+									<div id="gasChart" style="width:1000px;height:500px;"></div>
 								</div>
 							</div>
 						</div>
@@ -91,5 +72,11 @@
 				</div>
 			</div>
 		</div>
+		<script src="../../js/Site1.js"></script>
+		<script src="../../lib/ztree/js/jquery.ztree.exhide.js"></script>
+		<script src="../../lib/ztree/js/fuzzysearch.js"></script>
+		<script src="../../lib/echarts/echarts.min.js"></script>
+		<script src="../../lib/bootstrap/js/bootstrap-table-export.min.js"></script>
+		<script src="../../js/EmsReport/GasReport.js"></script>
 	</body>
 </html>
