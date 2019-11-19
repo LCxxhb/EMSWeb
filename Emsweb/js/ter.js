@@ -2,7 +2,7 @@
 var loadIndex, loadFlag = true;
 var load_arr = [];
 var Ter = {
-	server: "http://10.1.11.112:8888/", //(globalConfig.webApiUrl == "" ? window.location.protocol + "//" + window.location.host : globalConfig.webApiUrl) +"/ltswapi/smartwater/",
+	server: "http://10.1.11.130:8888/", //(globalConfig.webApiUrl == "" ? window.location.protocol + "//" + window.location.host : globalConfig.webApiUrl) +"/ltswapi/smartwater/",
 	version: "1.0", //版本号
 	userInfo: localStorage.getItem('userInfo') == undefined ? {
 		key: ""

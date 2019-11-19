@@ -28,20 +28,20 @@
                 <!--条件查询区域-->
                 <div class="form-group">
                     <div class="form-group">
-                        <label class="control-label" style="width: 90px; padding-left: 0;">一级介质：</label>
+                        <label class="control-label" style="width: 70px; padding-left: 0;">一级介质：</label>
                         <select class="form-control" id="mediaOne" onchange="mediaTable.loadmediaTwoSlect()"
                                 style="width: 100px">
                             <option value="0" selected="selected">-请选择-</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" style="width: 90px; padding-left: 0;">二级介质：</label>
+                        <label class="control-label" style="width: 70px; padding-left: 0;">二级介质：</label>
                         <select class="form-control" id="mediaTwo">
                             <option value="0">-请选择-</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" style="width: 90px; padding-left: 0;">采集点：</label>
+                        <label class="control-label" style="width: 60px; padding-left: 0;">采集点：</label>
                         <select class="form-control" id="patchName">
                             <option value="0">-请选择-</option>
                         </select>
@@ -69,10 +69,6 @@
                     </button>
                 </div>
             </form>
-            <button class="btn btn-black-link btn-margin pull-right" type="button"
-                    style="margin-top: 10px; margin-right: 15px;">
-                <span class="glyphicon glyphicon-export" id="btn_export"></span>导出excel
-            </button>
         </div>
         <div style="color: red;float: left">
             注：红色为超过标准，蓝色为低于标准，绿色为达到标准
@@ -83,18 +79,26 @@
                 <div class="page-main-box clearfix" id="preInstantTable" style="width: 100%; margin: 0 auto;
                 padding-bottom: 10px;">
                     <table class="table" id="mytable"></table>
+                    <div class="panel-body" style="margin-top: 20px;position: center">
+                    <h3 class="panel-title"style="margin-left: 40%"><i class="fa fa-br-chatt-o fa-fw"></i>饼状图(如果想看饼状图，请只选择介质和采集点进行查询)</h3>
+                        <!--放置图表的容器-->
+                        <div id="chart1" style="margin-left:40%;margin-top:10px;width: 400px;height: 350px"></div>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
+
 </div>
 
 </body>
 
 <script src="../../js/Site1.js"></script>
-<script src="../../js/sys/mediaTable.js"></script>
+<script src="../../js/media/mediaTable.js"></script>
 <script src="../../lib/bootstrap/js/bootstrap-table-export.min.js"></script>
 <script src="../../lib/bootstrap/js/tableExport.min.js"></script>
 <script src="../../js/xlsx.core.min.js"></script>
 <script src="../../js/FileSaver.min.js"></script>
+<script src="../../lib/echarts/echarts.min.js"></script>
 </html>

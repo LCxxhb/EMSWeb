@@ -34,7 +34,7 @@
 									<!--条件查询区域-->
 
 									<div class="form-group">
-										<label class="control-label">介质类型：</label>
+										<label class="control-label">介质名称：</label>
 										<select class="form-control" id="jzType">
 										<!--	<option selected="selected">--请选择--</option>
 										 	<option value="101">天然气</option>
@@ -47,20 +47,34 @@
 											
 										</select>
 									</div>
+									<div class="form-group">
+										<label class="control-label">介质类型：</label>
+										<select class="form-control" id="jzleix">
+										<option selected="selected">--请选择--</option>
+										 	<option value="101">压力</option>
+											<option value="102">温度</option><!-- 
+											<option value="104">氧气</option>
+											<option value="201">原水</option>
+											<option value="202">软水</option>
+											<option value="203">浊环水</option>
+											<option value="204">净环水</option> -->
+											
+										</select>
+									</div>
 
 									<div class="form-group">
 										<label class="control-label">分厂：</label>
-										<select class="form-control" id="ErFactory" onchange="ErDate.getArea()" ;>
-											<option>--请选择--</option>
+										<select class="form-control" id="ErFactory" onchange="Erhistory.getArea()" ;>
+											<!-- <option>--请选择--</option> -->
 										</select>
 									</div>
 									<div class="form-group">
 										<label class="control-label">区域：</label>
 										<select class="form-control" id="ErArea" ;>
-											<option>--请选择--</option>
+											 <option>--请选择--</option>
 										</select>
 									</div>
-
+<!-- 
 									<div class="form-group">
 										<label class="control-label">报表类型：</label>
 										<select class="form-control" id="reportType">
@@ -70,9 +84,9 @@
 											<option value="4">周报表</option>
 											<option value="5">季度报表</option>
 										</select>
-									</div>
+									</div> -->
 									<!--日期选择-->
-									<div class="form-group">
+									<!-- <div class="form-group">
 										<label class="control-label">时间分类：</label>
 										<select class="form-control" id="GroupType"  onchange="Erhistory.GroupType()">
 											<option selected="selected" value="1">--请选择--</option>
@@ -83,50 +97,50 @@
 											<option value="6">月</option>
 											<option value="7">季度</option>
 										</select>
-									</div>
+									</div> -->
 									<div class="form-group">
 										<!--小时-->
-										<div class="input-group dayTime datehour" style="display:none">
+										<!-- <div class="input-group dayTime datehour" style="display:none">
 											<label class="control-label">开始日期：</label>
 											<input class="dateinput dateicon startDate dateTime" id="startHourDate" type="text" readonly>
 											<label class="control-label endTime">结束日期：</label>
 											<input class="dateinput dateicon endDate dateTime" id="endHourDate" type="text" readonly>
-										</div>
+										</div> -->
 										<!--班组-->
-										<div class="input-group dayTime dategroup" style="display:none">
+										<!-- <div class="input-group dayTime dategroup" style="display:none">
 											<label class="control-label">开始日期：</label>
 											<input class="dateinput dateicon startDate dateTime" id="startGroupDate" type="text" readonly>
 											<label class="control-label endTime">结束日期：</label>
 											<input class="dateinput dateicon endDate dateTime" id="endGroupDate" type="text" readonly>
-										</div>
+										</div> -->
 										<!--天-->
 										<div class="input-group dayTime dateday">
 											<label class="control-label">开始日期：</label>
-											<input class="dateinput dateicon startDate dateTime" id="startDayDate" type="text" readonly>
+											<input class="dateinput dateicon startDate dateTime" style="width: 200px;" id="startDayDate" type="text" readonly>
 											<label class="control-label endTime">结束日期：</label>
-											<input class="dateinput dateicon endDate dateTime" id="endDayDate" type="text" readonly>
+											<input class="dateinput dateicon endDate dateTime" style="width: 200px;" id="endDayDate" type="text" readonly>
 										</div>
 										<!--周-->
-										<div class="input-group dayTime dateweek" style="display:none">
+										<!-- <div class="input-group dayTime dateweek" style="display:none">
 											<label class="control-label">开始日期：</label>
 											<input class="dateinput dateicon startDate dateTime" id="startWeekDate" type="text" readonly>
 											<label class="control-label endTime">结束日期：</label>
 											<input class="dateinput dateicon endDate dateTime" id="endWeekDate" type="text" readonly>
-										</div>
+										</div> -->
 										<!--月-->
-										<div class="input-group monthTime datemonth" style="display:none">
+										<!-- <div class="input-group monthTime datemonth" style="display:none">
 											<label class="control-label">开始日期：</label>
 											<input class="dateinput dateicon startDate" id="startMonthDate" type="text" readonly>
 											<label class="control-label endTime">结束日期：</label>
 											<input class="dateinput dateicon endDate" id="endMonthDate" type="text" readonly>
-										</div>
+										</div> -->
 										<!--季度-->
-										<div class="input-group monthTime dateseason" style="display:none">
+										<!-- <div class="input-group monthTime dateseason" style="display:none">
 											<label class="control-label">开始日期：</label>
 											<input class="dateinput dateicon startDate" id="startSeasonDate" type="text" readonly>
 											<label class="control-label endTime">结束日期：</label>
 											<input class="dateinput dateicon endDate" id="endSeasonDate" type="text" readonly>
-										</div>
+										</div> -->
 									</div>
 									
 									
@@ -134,7 +148,7 @@
 									
 									
 
-									<button class="btn btn-search btn-margin" type="button" onclick="ErDate.eleReportSearch()">
+									<button class="btn btn-search btn-margin" type="button" onclick="Erhistory.eleReportSearch()">
 										<span class="glyphicon glyphicon-search"></span>查询
 									</button>
 									<!-- <button class="btn btn-black-link btn-margin pull-right" type="button">
@@ -160,8 +174,8 @@
 													<div class="page-main-box">
 														
 														<!-- 这一行开始的div为copy -->
-														<div class="charts" style="width:95%;margin:0 auto;padding-top:10px; display: flex;">
-															<div id="electricityChart" style="width:900px;height:600px; "></div>
+														<div class="charts" style="width:95%; height:800px;margin:0 auto;padding-top:10px;">
+															<div id="electricityChart" style="width:95%;height:100%; "></div>
 															<!-- <div id="electricityChart" style="width:900px;height:600px; ">
 																<div class="form-group">
 																	<label class="control-label">瞬时值：</label>
@@ -366,7 +380,7 @@
 	<script src="../../lib/bootstrap/js/tableExport.min.js"></script>
 	<script src="../../lib/bootstrap/js/xlsx.core.min.js"></script>
 	<script src="../../lib/bootstrap/js/FileSaver.min.js"></script>
-	<script src="../../js/Ern/EeD.js"></script>
+	<!-- <script src="../../js/Ern/EeD.js"></script> -->
 	<script src="../../js/Ern/HistoryData.js"></script>
 	<script src="../../lib/echarts/echarts.min.js"></script>
 
