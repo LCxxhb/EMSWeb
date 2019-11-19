@@ -1,10 +1,8 @@
 var collection = {
     init: function () {
         this.LoadPatchSelect();//加载采集点数据下拉框
-       /* this.loadSelect();//加载介质下拉框*/
         this.loadTable();//加载表格
         this.loadMediaOneSelect();
-        //this.loadmediaTwoSlect();
     },
     // 表结构
     loadTable: function () {
@@ -189,12 +187,12 @@ var collection = {
                 }
             })
     },
-    // 添加采集点按钮
+   /* // 添加采集点按钮
     btnAdd: function () {
         $("#myModal1").modal("show");
         $("#patchName").val("");
-    },
-    // 添加采集点表单提交确定按钮
+    },*/
+  /*  // 添加采集点表单提交确定按钮
     btnOk: function () {
         var patchName = $.trim($('#patchName').val());
         var url = '/Patch/insert';
@@ -214,7 +212,7 @@ var collection = {
                     }
                     ;
                 })
-    }
+    }*/
 }
 //初始化
 $(function () {
