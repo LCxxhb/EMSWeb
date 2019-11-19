@@ -25,15 +25,6 @@
     <div class="page-container">
         <!--页面主体部分-->
         <div class="content-wrapper">
-            <!--功能区域-->
-            <div class="page-btns-box clearfix" style="margin: 0; padding: 10px">
-                <form class="form-inline pumpRunCount-search pu0ll-left">
-                    <!--添加功能区域-->
-                    <button type="button" id="btn btn-add1" class="btn btn-add1 btn-primary" onclick="collection.btnAdd()">
-                        <span class="glyphicon glyphicon-plus"></span>添加采集点
-                    </button>
-                </form>
-            </div>
             <!--下拉菜单区域-->
            <div class="page-btns-box clearfix" style="margin: 0; padding: 10px">
                 <form class="form-inline pumpRunCount-search pu0ll-left">
@@ -72,33 +63,6 @@
                     <div class="page-main-box clearfix" id="preInstantTable" style="width:100%;float: left; margin: 0 auto; padding: 10px">
                         <table class="table" id="mytable"></table>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--添加采集点模态框-->
-    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="Label"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header bg-primary">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" v-if="btnState == 0">添加采集点</h4>
-                </div>
-                <div class="modal-body">
-                    <form class="form-horizontal" role="form" id="addOneMedia" action=" " method="post">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label"><font color="black">采集点名称:</font></label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="patchName" placeholder="请输入采集点介质名称">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary" onclick="collection.btnOk()">确定</button>
                 </div>
             </div>
         </div>
