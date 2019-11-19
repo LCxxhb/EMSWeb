@@ -62,7 +62,9 @@ var Erhistory = {
 			},
 			function(res) {
 				if (res.result) {
-					$("#ErFactory").append("<option value='0'>-请选择-</option>");
+					var select = $("#ErFactory");
+					select.append("<option value=''>-请选择-</option>");
+					//$("#ErFactory").append("<option value='0'>-请选择-</option>");
 					for (var i = 0; i < res.result.length; i++) {
 						$("#ErFactory").append("<option value='" + res.result[i].aid + "'>" +
 							res.result[i].aname + "</option>");
@@ -88,7 +90,9 @@ var Erhistory = {
 			},
 			function(res) {
 				if (res.result) {
-					$("#ErArea").append("<option value='0'>-请选择-</option>");
+					var select=$("#ErArea");
+					select.append("<option value=''>-请选择-</option>");
+					//$("#ErArea").append("<option value='0'>-请选择-</option>");
 					for (var i = 0; i < res.result.length; i++) {
 						if (nodeId == "" || nodeId == "undefind") {
 							$("#ErArea").append("<option value='" + res.result[i].aid + "'>" +
@@ -302,15 +306,17 @@ var Erhistory = {
 	// 查詢
 	eleReportSearch: function() {
 		var type = this.getQueryString("type");
-		alert("type====>" + type)
+		
 		var url;
 		var self = this;
 		//气体
 		//获取查询条件
-		var jzType = $("#jzType option:selected").text();
-		var ErFactory = $("#ErFactory option:selected").text();
-		var ErArea = $("#ErArea option:selected").text();
-		var jzleix = $("#jzleix option:selected").text();
+		var jzType = $("#jzType option:selected").text()=="-请选择-"?"":$("#jzType option:selected").text();
+		var ErFactory = $("#ErFactory option:selected").text()=="-请选择-"?"":$("#ErFactory option:selected").text();
+		//alert("type====>" + ErFactory)
+		
+		var ErArea = $("#ErArea option:selected").text()=="-请选择-"?"":$("#ErArea option:selected").text();
+		var jzleix = $("#jzleix option:selected").text()=="-请选择-"?"":$("#jzleix option:selected").text();
 		
 		//var startDayDate=$("#startDayDate option:selected").text();
 		//var endDayDate=$("#endDayDate option:selected").text();

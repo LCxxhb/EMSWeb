@@ -42,7 +42,9 @@ var ErDate = {
 			},
 			function(res) {
 				if (res.result) {
-					$("#ErFactory").append("<option value='0'>-请选择-</option>");
+					var select = $("#ErFactory");
+					select.append("<option value=''>-请选择-</option>");
+					//$("#ErFactory").append("<option value='0'>-请选择-</option>");
 					for (var i = 0; i < res.result.length; i++) {
 						$("#ErFactory").append("<option value='" + res.result[i].aid + "'>" +
 							res.result[i].aname + "</option>");
@@ -68,7 +70,9 @@ var ErDate = {
 			},
 			function(res) {
 				if (res.result) {
-					$("#ErArea").append("<option value='0'>-请选择-</option>");
+					var select=$("#ErArea");
+					select.append("<option value=''>-请选择-</option>");
+					//$("#ErArea").append("<option value='0'>-请选择-</option>");
 					for (var i = 0; i < res.result.length; i++) {
 						if (nodeId == "" || nodeId == "undefind") {
 							$("#ErArea").append("<option value='" + res.result[i].aid + "'>" +
@@ -304,30 +308,40 @@ var ErDate = {
 		var self = this;
 		//气体
 		//获取查询条件
-		var jzType = $("#jzType option:selected").text(); //介质下拉框的文本值
+		var jzType = $("#jzType option:selected").text()=="-请选择-"?"":$("#jzType option:selected").text(); //介质名称下拉框的文本值
 		//var jzType = $("#jzType").val(); //介质下拉框的value值
-		var ErFactory = $("#ErFactory option:selected").text(); //分厂
-		var ErArea = $("#ErArea option:selected").text(); //区域
+		
+		var jzleix = $("#jzleix option:selected").text()=="-请选择-"?"":$("#jzleix option:selected").text(); //介质类型下拉框的文本值
+		//var jzleix = $("#jzleix").val(); //介质下拉框的value值
+		
+		var ErFactory = $("#ErFactory option:selected").text()=="-请选择-"?"":$("#ErFactory option:selected").text(); //分厂
+		var ErArea = $("#ErArea option:selected").text()=="-请选择-"?"":$("#ErArea option:selected").text(); //区域
+		
+		//var ErFactory = $("#ErFactory").val(); //分厂下拉框的value值
+		//var ErArea = $("#ErArea").val(); //区域下拉框的value值
+		
 		var startDayDate = $("#startDayDate").val(); //开始时间
 		var endDayDate = $("#endDayDate").val(); //结束时间
+		
 
 
 		//把查询条件放入参数对象
 		var params = {
-			"areaname": ErFactory, //Parma1;分厂名
-			"tagtype": jzType, //介质
-			"factory": ErArea, //区域
+			"param1": jzleix,
+			"param2": ErFactory, //Parma1;分厂名
+			"param4": jzType, //介质
+			"param3": ErArea, //区域
 			//"param4": startDayDate, //开始时间
 			//"param5": endDayDate, //结束时间
 		};
 		//根据type调用不同接口1表示水2表示电3表示气
 		if ("1" == type)
 			//调用接口
-			url = "water/findAllTagtype";
+			url = "water/diately";
 		else if ("2" == type)
 			url = "";
 		else if ("3" == type)
-			url = "gas/findAllTagtype";
+			url = "gas/diately";
 		//alert("url=====>"+url)
 
 		//调用接口
@@ -350,33 +364,33 @@ var ErDate = {
 
 
 		//时间判断
-		GroupType = $("#GroupType").val();
+	/* 	GroupType = $("#GroupType").val();
 
 		if (GroupType == 2) {
-			$("#startHourDate").each(function() {
-				if ($(this).hasClass('dateTime')) {
-					startDate = $(this).val();
-					startDate = startDate + ":00";
-				}
-			})
-			$("#endHourDate").each(function() {
-				if ($(this).hasClass('dateTime')) {
-					endDate = $(this).val();
-					endDate = endDate + ":00";
-				}
-			})
-		} else if (GroupType == 3) {
+		// 	$("#startHourDate").each(function() {
+		// 		if ($(this).hasClass('dateTime')) {
+		// 			startDate = $(this).val();
+		// 			startDate = startDate + ":00";
+		// 		}
+		// 	})
+		// 	$("#endHourDate").each(function() {
+		// 		if ($(this).hasClass('dateTime')) {
+		// 			endDate = $(this).val();
+		// 			endDate = endDate + ":00";
+		// 		}
+		// 	})
+		// } else if (GroupType == 3) {
 
-			$("#startGroupDate").each(function() {
-				if ($(this).hasClass('dateTime')) {
-					startDate = $(this).val();
-				}
-			})
-			$("#endGroupDate").each(function() {
-				if ($(this).hasClass('dateTime')) {
-					endDate = $(this).val();
-				}
-			})
+		// 	$("#startGroupDate").each(function() {
+		// 		if ($(this).hasClass('dateTime')) {
+		// 			startDate = $(this).val();
+		// 		}
+		// 	})
+		// 	$("#endGroupDate").each(function() {
+		// 		if ($(this).hasClass('dateTime')) {
+		// 			endDate = $(this).val();
+		// 		}
+		// 	})
 
 
 
@@ -437,13 +451,13 @@ var ErDate = {
 			})
 		}
 
-		console.log(startDate);
-		if (Ter.dateCompare(startDate, endDate)) {} else {
-			layer.alert("结束时间要大于开始时间", {
-				title: "提示"
-			});
-			return;
-		}
+		console.log(startDate); */
+		// if (Ter.dateCompare(startDate, endDate)) {} else {
+		// 	layer.alert("结束时间要大于开始时间", {
+		// 		title: "提示"
+		// 	});
+		// 	return;
+		// }
 
 
 	},
