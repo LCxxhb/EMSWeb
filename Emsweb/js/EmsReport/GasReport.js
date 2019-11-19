@@ -97,6 +97,17 @@ var GasReport = {
 			   }],
 
 		});
+		var url = "/EmsReport/findAllGas";
+		Ter.getApi({
+			apiname: url,
+			},
+			function(res) {
+				if(res.result) {
+					console.log(res.result);
+					//加载表格
+					$("#gasTable").bootstrapTable('load', res.result);
+				}
+			});
 	},
 	//加载模态框区域以及下拉框
 	LoadModalAreaSelect: function(id) {
@@ -146,11 +157,11 @@ var GasReport = {
 				}
 			})
 	},
-	//按分厂查询数据绑定
+	//按分厂、区域、时间查询数据绑定
 	loadTableData: function() {
 		var url = "/EmsReport/findGasByFactoryOrAreaOrTagtype";
-		var factoryName = $("#gasArea option:checked").text();
-		var branchfactory=$("#gasFactory option:checked").text();
+		var factoryName = $("#gasArea option:checked").text()=="--请选择--"?"":$("#gasArea option:checked").text();
+		var branchfactory=$("#gasFactory option:checked").text()=="--请选择--"?"":$("#gasFactory option:checked").text();
 		var readtime = document.getElementById("startInstantDate").value;
 		Ter.getApi({
 			apiname: url,

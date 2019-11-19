@@ -108,6 +108,17 @@ var waterReport = {
 			       }
 			   }],
 		});
+		var url = "/EmsReport/findAllWater";
+		Ter.getApi({
+			apiname: url,
+			},
+			function(res) {
+				if(res.result) {
+					console.log(res.result);
+					//加载表格
+					$("#waterTable").bootstrapTable('load', res.result);
+				}
+			});
 	},
 	//加载模态框区域以及下拉框
 	LoadModalAreaSelect: function(id) {
@@ -157,11 +168,11 @@ var waterReport = {
 				}
 			})
 	},
-	//按分厂查询数据绑定
+	//按分厂、区域、时间查询数据绑定
 	loadTableData: function() {
 		var url = "/EmsReport/findWaterByFactoryOrAreaOrTagtype";
-		var factoryName = $("#waterArea option:checked").text();
-		var branchfactory=$("#waterFactory option:checked").text();
+		var factoryName = $("#waterArea option:checked").text()=="--请选择--"?"":$("#waterArea option:checked").text();
+		var branchfactory=$("#waterFactory option:checked").text()=="--请选择--"?"":$("#waterFactory option:checked").text();
 		var readtime = document.getElementById("startInstantDate").value;
 		Ter.getApi({
 			apiname: url,
