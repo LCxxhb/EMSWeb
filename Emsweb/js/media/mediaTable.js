@@ -1,4 +1,5 @@
 var mediaTable = {
+
 	init: function() {
 		mediaTable.loadTable(); //加载table
 		mediaTable.initDate();
@@ -6,6 +7,11 @@ var mediaTable = {
 		mediaTable.loadTableData1();
 		this.loadMediaOneSelect();//加载一级介质下拉框
 		this.LoadPatchSelect();//加载采集点数据下拉框
+		let data1 = ['请选择介质和采集点'];
+		let data2 = [{value: 999999, name: '请选择介质和采集点'}];
+		this.initChart2(data1,data2);
+
+
 	},
 	// 表结构
 				loadTable: function () {
@@ -55,7 +61,7 @@ var mediaTable = {
 								var a = "";
 								var v=row.spare1;
 								if(v == "1") {
-									a = '<span style="color:#00ff00">'+value+'</span>';
+									a = '<span style="color:#00B83F">'+value+'</span>';
 								}else if(v == "2"){
 									a = '<span style="color:#0000ff">'+value+'</span>';
 								}else if(v == "3") {
@@ -89,7 +95,7 @@ var mediaTable = {
 			//导出excel表格设置
 			showExport: true,//是否显示导出按钮(此方法是自己写的目的是判断终端是电脑还是手机,电脑则返回true,手机返回falsee,手机不显示按钮)
 			exportDataType: "all",              //basic', 'all', 'selected'.
-			exportTypes:['excel','xlsx'],	    //导出类型
+			exportTypes:['excel'],	    //导出类型
 			//exportButton: $('#btn_export'),     //为按钮btn_export  绑定导出事件  自定义导出按钮(可以不用)
 			exportOptions: {
 				//ignoreColumn: [0,0],            //忽略某一列的索引
@@ -105,10 +111,28 @@ var mediaTable = {
 		var url="/MediaData/findMediaDataList";
 		//var params={};
 		var mid = $("#mediaTwo").val();
+		if(mid==0){
+			alert("请选择二级介质项");
+			return;
+		};
 		var patchName = $("#patchName").val();
 		var spare1 = $("#spare1").val();
 		var startTime = $("#startTime").val();
 		var endTime =  $("#endTime").val();
+		if(endTime == ""&&startTime !=""){
+			var date = new Date();
+			var seperator1 = "-";
+			var year = date.getFullYear();
+			var month = date.getMonth() + 1;
+			var strDate = date.getDate();
+			if (month >= 1 && month <= 9) {
+				month = "0" + month;
+			}
+			if (strDate >= 0 && strDate <= 9) {
+				strDate = "0" + strDate;
+			}
+			endTime = year + seperator1 + month + seperator1 + strDate;
+		}
 		Ter.getApi({
 				apiname: url,
 				params: {
@@ -121,13 +145,127 @@ var mediaTable = {
 			},
 			function(res) {
 				if(res.result) {
-					console.log(res.result);
+					//console.log(res.result);
+					var result = res.result;
 					//加载表格
 					$("#mytable").bootstrapTable('load', res.result);
+					if(spare1==0&&startTime!=""&&endTime!=""&&patchName!=0){
+						let data1 = [];
+						let data2 = [];
+						let data4 = [];
+						for(var i = 0; i < result.length; i++) {
+							var projectName = "日期:"+result[i].createDate +",介质属性:"+  result[i].projectName;
+							//var projectName =  result[i].projectName;
+
+							var data3 = {
+								"value":result[i].mediaData,
+								"name":  "日期:"+result[i].createDate +",介质属性:"+  result[i].projectName
+								//projectName : result[i].mediaData
+							};
+							data1.push(projectName);
+							data4.push(result[i].createDate);
+							data2.push(data3);
+						}
+						//let newArr = mediaTable.isRepeat(data2);
+						if(mediaTable.isRepeat(data4)){
+							mediaTable.initChart2(data1,data2);
+						}else {
+							let data1 = ['请选择介质和采集点'];
+							let data2 = [{value: 999999, name: '请选择介质和采集点'}];
+							mediaTable.initChart2(data1,data2);
+						}
+					}else{
+						let data1 = ['请选择介质和采集点'];
+						let data2 = [{value: 999999, name: '请选择介质和采集点'}];
+						mediaTable.initChart2(data1,data2);
+					}
+
 				}
 			})
 	},
 
+	isRepeat: function(arr){
+		var isRepeat = true;
+		for(var i in arr) {
+			for(var j in arr) {
+				if (arr[i] != arr[j]) {
+					isRepeat = false;
+					return isRepeat;
+				}
+			}
+		}
+
+		return isRepeat;
+
+		// let newArr = [],
+		// 	obj = {};
+		// arr.forEach(item => {
+		// 	for(let key in item) {
+		// 		let value = item[key];
+		// 		key in obj ? (obj[key] += value) : (obj[key] = value)
+		// 	}
+		// })
+		// //遍历对象转为数组
+		// for(let i in obj) {
+		// 	let o = {};
+		// 	o[i] = obj[i];
+		// 	newArr.push(o)
+		// }
+		// return newArr;
+	},
+	initChart2: function (data1,data2) {
+		var chart2 = echarts.init(document.getElementById('chart1'));
+				chart2.setOption({
+					// 是否触发数据项提示
+					tooltip: {
+						trigger: 'item',//散点图和饼状图等无类目轴的图表中使用item类型，折线图柱状图中使用axis类型
+						formatter: "{a} <br/>{b} : {c} ({d}%)"
+					},
+					//图例，图表上方用于显示不同系列的标记，颜色和名字，可控制图例显示情况
+					legend: {
+						orient: 'vertical',// 图例列表的布局朝向。
+						x: 'left',//图例位置
+						data: data1//图例的数据项
+					},
+					//工具栏项，内置有导出图片、数据视图、动态类型切换、数据区域缩放和重置五种工具
+					toolbox: {
+						show: true,//是否显示工具栏
+						//工具配置项
+						feature: {
+							mark: {show: true},
+							// 数据视图工具，可以展示当前图表所用数据，编辑后可以动态更新
+							dataView: {show: true, readOnly: false},//仅显示只读
+							// 动态类型切换
+							magicType: {
+								show: true,
+								type: ['pie', 'funnel'],//切换的类型
+								//切换的图形配置
+								option: {
+									funnel: {
+										x: '25%',
+										width: '50%',
+										funnelAlign: 'left',
+										max: 1548
+									}
+								}
+							},
+							restore: {show: true},//配置项还原
+							saveAsImage: {show: true}//配置项保存为图片
+						}
+					},
+					calculable: true,
+					// 系列列表。每个系列通过 type 决定自己的图表类型
+					series: [
+						{
+							name: '访问来源',
+							type: 'pie',//定义为饼状图
+							radius: '55%',
+							center: ['50%', '60%'],
+							data:data2
+						}
+					]
+				});
+	},
 
 	loadTableData1: function() {
 		var url="/MediaData/findAllMediaData";
@@ -136,46 +274,39 @@ var mediaTable = {
 			},
 			function(res) {
 				if(res.result) {
-					console.log(res.result);
+				//	console.log(res.result);
 					//加载表格
 					$("#mytable").bootstrapTable('load', res.result);
 				}
 			})
 	},
 
-	//jedate
+
+	//页面日期控件
 	initDate: function() {
 		//日开始
 		jeDate("#startTime", {
-			onClose: false,
-			isinitVal: true,
-			isClear: false,
-			initDate: [{
-				DD: "-1"
-			}, true],
-			maxDate: jeDate.nowDate(+365),
+			onClose: false,//选中日期后关闭弹层
+			isinitVal: false,//不初始化时间
 			theme: {
 				bgcolor: "#0196c9",
 				pnColor: "#00CCFF"
 			}, //主题色
 			format: "YYYY-MM-DD",
-			zIndex: 3000,
-			isTime: true,
+			zIndex: 3000,//弹出层的层级高度
+			clearfun:function(elem, val) {},//清除日期后的回调, elem当前输入框ID, val当前选择的值
 		});
+
 		//日结束
 		jeDate("#endTime", {
 			onClose: false,
-			isinitVal: true,
-			isClear: false,
-			initDate: jeDate.nowDate(),
-			maxDate: jeDate.nowDate(+365),
+			isinitVal: false,
 			theme: {
-				bgcolor: "#0196c9",
+				bgcolor: "#0196c9",//背景颜色
 				pnColor: "#00CCFF"
 			}, //主题色
 			format: "YYYY-MM-DD",
 			zIndex: 3000,
-			isTime: true,
 		});
 	},
 	//加载模态框一级介质下拉框
@@ -185,7 +316,7 @@ var mediaTable = {
 				apiname: "/Media/findByOneMedia"
 			},
 			function(res) {
-				console.log(res.result);
+				//console.log(res.result);
 				if(res.result) {
 					var select = $("#mediaOne");
 					select.append("<option value='0'>-请选择-</option>");
@@ -201,7 +332,7 @@ var mediaTable = {
 		$("#mediaTwo").empty(); //重置下拉框
 		var select = $("#mediaTwo");
 		var pid = $.trim($('#mediaOne option:selected').val()); //获取选中的区域
-		select.append("<option value='"+pid+"'>-请选择-</option>");
+		select.append("<option value='0'>-请选择-</option>");
 		if(pid==""||pid==0){
 			//layer.alert("请先选择一级介质！");
 			//select.append("<option value='0'>-请选择-</option>");
@@ -214,7 +345,7 @@ var mediaTable = {
 				}
 			},
 			function(res) {
-				console.log(res);
+			//	console.log(res);
 				if(res.result) {
 					//select.append("<option value='0'>-请选择-</option>");
 					for(var i = 0; i < res.result.length; i++) {
@@ -234,6 +365,7 @@ var mediaTable = {
 			function (res) {
 				if (res.result) {
 					var select = $("#patchName");
+					select.append("<option value=''>-请选择-</option>");
 					for (var i = 0; i < res.result.length; i++) {
 						select.append("<option value='" + res.result[i].patchName + "'>" +
 							res.result[i].patchName + "</option>");

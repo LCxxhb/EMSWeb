@@ -1,10 +1,8 @@
 var collection = {
     init: function () {
         this.LoadPatchSelect();//加载采集点数据下拉框
-       /* this.loadSelect();//加载介质下拉框*/
         this.loadTable();//加载表格
         this.loadMediaOneSelect();
-        //this.loadmediaTwoSlect();
     },
     // 表结构
     loadTable: function () {
@@ -86,7 +84,7 @@ var collection = {
                 params: params
             },
             function (res) {
-                console.log(res);
+                //console.log(res);
                 if (res.errCode == "SUCCESS") {
                     layer.alert(res.errMsg);
                 }
@@ -115,7 +113,7 @@ var collection = {
                         params: params
                     },
                     function (res) {
-                        console.log(res);
+                       // console.log(res);
                         if (res.errCode == "SUCCESS") {
                             //layer.alert(res.errMsg);
                             $("#mytable").bootstrapTable('load', res.result);
@@ -132,18 +130,13 @@ var collection = {
                 apiname: "/Media/findByOneMedia"
             },
             function(res) {
-                console.log(res.result);
+                //console.log(res.result);
                 if(res.result) {
                     var select = $("#mediaOne");
                     select.append("<option value=''>-请选择-</option>");
                     for(var i = 0; i < res.result.length; i++) {
-                        // if(id == res.result[i].id) {
-                        //     select.append("<option value='" + res.result[i].id + "' selected='selected'>" +
-                        //         res.result[i].mediaName + "</option>");
-                        // } else {
                             select.append("<option value='" + res.result[i].id + "'>" +
                                 res.result[i].mediaName + "</option>");
-                        // }
                     }
                 }
             })
@@ -165,7 +158,7 @@ var collection = {
                 }
             },
             function(res) {
-                console.log(res);
+                //console.log(res);
                 if(res.result) {
                     var select = $("#mediaTwo");
                     select.append("<option value=''>-请选择-</option>");
@@ -194,12 +187,12 @@ var collection = {
                 }
             })
     },
-    // 添加采集点按钮
+   /* // 添加采集点按钮
     btnAdd: function () {
         $("#myModal1").modal("show");
         $("#patchName").val("");
-    },
-    // 添加采集点表单提交确定按钮
+    },*/
+  /*  // 添加采集点表单提交确定按钮
     btnOk: function () {
         var patchName = $.trim($('#patchName').val());
         var url = '/Patch/insert';
@@ -211,14 +204,15 @@ var collection = {
                     params: params
                 },
                 function (res) {
-                    console.log(res);
+                  //  console.log(res);
                     if (res.errCode == "SUCCESS") {
                         layer.alert(res.errMsg);
                         $('#myModal1').modal('hide');
+                        collection.LoadPatchSelect("");
                     }
                     ;
                 })
-    }
+    }*/
 }
 //初始化
 $(function () {

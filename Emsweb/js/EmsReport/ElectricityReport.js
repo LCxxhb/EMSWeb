@@ -3,13 +3,14 @@ var reportType, startDate, endDate;
 var electricityReport = {
 	init: function() {
 		this.initDate();
-		this.initTree();
-		this.initAreaTree();
-		this.reportType();
+		//this.initTree();
+		//this.initAreaTree();
+		//this.reportType();
 		this.initTable();
 		this.chart();
 		this.tabChange();
 		this.calcTableHeight();
+		this.LoadModalAreaSelect()
 	},
 	initDate: function() {
 		//日开始
@@ -28,12 +29,12 @@ var electricityReport = {
 			format: "YYYY-MM-DD",
 			zIndex: 3000,
 			isTime: true,
-			donefun: function(obj) {
+			/* donefun: function(obj) {
 				console.log(obj.val);
 				$("#endDayDate").val(electricityReport.addDate(obj.val, 3));
-			},
+			}, */
 		});
-		//日结束
+		/* //日结束
 		jeDate("#endDayDate", {
 			onClose: false,
 			isinitVal: true,
@@ -137,13 +138,13 @@ var electricityReport = {
 					$(".yearTime .dateinput").addClass('dateTime');
 				}
 			}
-		})
+		}) */
 	},
 	calcTableHeight: function() {
 		var sc_height = $(".water-tab-content").height();
 		return sc_height - 40 - 70 - 44; //表格高度;
 	},
-	initTree: function() {
+	/* initTree: function() {
 		var self = this;
 		var setting = {
 			view: {
@@ -180,7 +181,7 @@ var electricityReport = {
 					}
 				}
 			}
-		};
+		}; */
 		// Ter.getApi({
 		//     apiname: "SecondSupply/PumpManage/getPumpTree"
 		// }, function (res) {
@@ -206,7 +207,7 @@ var electricityReport = {
 		//     self.eleReportSearch();
 		// });
 
-		var zNodes = [{
+		/* var zNodes = [{
 				id: 0,
 				name: "能源管理系统",
 				"nocheck": true,
@@ -418,8 +419,8 @@ var electricityReport = {
 			}
 		];
 		$.fn.zTree.init($("#treeArea"), setting, zNodes);
-	},
-	eleReportSearch: function() {
+	}, */
+	/* eleReportSearch: function() {
 		var self = this;
 		if (!self.treeId) {
 			layer.alert("请先勾选设备", {
@@ -458,7 +459,7 @@ var electricityReport = {
 				var instantTable = res.Result.ElectricData;
 				//绑定表格
 				self.initTable();
-				$("#table").bootstrapTable("load", instantTable);
+				$("#electricitytable").bootstrapTable("load", instantTable);
 				//用电量图表               
 				var chartXval = [],
 					chartYval = [];
@@ -469,45 +470,148 @@ var electricityReport = {
 				self.chart(chartXval, chartYval);
 			}
 		);
-	},
+	}, */
+	
 	initTable: function() {
 		var self = this;
-		$("#table").bootstrapTable({
-			height: self.calcTableHeight(),
+		$("#electricityTable").bootstrapTable({
+			//height: self.calcTableHeight(),
+			pagination: true,
+			pageSize: 10,
+			pageList: [5, 10, 15, 20],
 			striped: true, //隔行变色
+			search: true,                     //是否显示表格搜索，此搜索是客户端搜索，不会进服务端
+			strictSearch: false,		  //是否全局匹配,false模糊匹配
+			showColumns: true,                  //是否显示所有的列
+			showRefresh: true,                  //是否显示刷新按钮
+			clickToSelect: false,               //是否启用点击选中行
+			showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+			cardView: false,                    //是否显示详细视图
+			detailView: false,                  //是否显示父子表
+			//导出excel表格设置
+			showExport: true,//是否显示导出按钮(此方法是自己写的目的是判断终端是电脑还是手机,电脑则返回true,手机返回falsee,手机不显示按钮)
+			exportDataType: "all",              //basic', 'all', 'selected'.
+			exportTypes:['excel','xlsx'],	    //导出类型
+			exportOptions: {
+				//ignoreColumn: [0,0],            //忽略某一列的索引
+				fileName: '电报表',              //文件名称设置
+				worksheetName: 'Sheet1',          //表格工作区名称
+				tableName: '电报表',
+				//excelstyles: ['background-color', 'color', 'font-size', 'font-weight'],
+			},
 			columns: [{
-				field: 'AcqTime',
-				title: '采集日期',
-				align: 'center',
-			}, {
-				field: 'EquName',
-				title: '设备名称  ',
-				align: 'center',
-			}, {
-				field: 'Electric',
-				title: '用电量',
-				align: 'center',
-			}],
-			data: [{
-					AcqTime: '2019-10-25',
-					EquName: '炼铁厂',
-					Electric: '1263.23'
-				}, {
-					AcqTime: '2019-10-25',
-					EquName: '炼钢厂',
-					Electric: '963.23'
-				},
-				{
-					AcqTime: '2019-10-25',
-					EquName: '轧钢厂',
-					Electric: '2163.23'
-				}
-			],
+			    field: 'AREANAME',
+			    title: '分厂',
+			    align: 'center'
+			   }, {
+			    field: 'BRANCHFACTORY',
+			    title: '区域',
+			    align: 'center'
+			   }, {
+			    field: 'COLLECTIONPOINT',
+			    title: '采集点',
+			    align: 'center'
+			   }, {
+			    field: 'DESCRIPTION',
+			    title: '采集点描述',
+			    align: 'center'
+			   }, {
+			    field: 'TAGTYPE',
+			    title: '介质类型',
+			    align: 'center'
+			   }, {
+			    field: 'USETYPE',
+			    title: '产出/消耗',
+			    align: 'center'
+			   }, {
+			    field: 'TAGVAL',
+			    title: '产出/消耗量',
+			    align: 'center'
+			   }, {
+			    field: 'READTIME',
+			    title: '日期',
+			    align: 'center',
+			    formatter: function(value) {
+			        //通过判断单元格的值，来格式化单元格，返回的值即为格式化后包含的元素
+			        var date = new Date(value).toLocaleString();
+			        return date;
+			       }
+			   }],
 			onClickRow: function(row, element) { //添加点击行颜色
 				$('.click').removeClass('click');
 				$(element).addClass('click');
 			},
 		});
+	},
+	//加载模态框区域以及下拉框
+	LoadModalAreaSelect: function(id) {
+		$("#electricArea").empty();
+		Ter.getApi({
+				apiname: "/region/findByTwoRegion"
+			},
+			function(res) {
+				if(res.result) {
+					var select = $("#electricArea");
+					select.append("<option value=''>--请选择--</option>")
+					for(var i = 0; i < res.result.length; i++) {
+						if(id == res.result[i].aid) {
+							select.append("<option value='" + res.result[i].aid + "' selected='selected'>" +
+								res.result[i].aname + "</option>");
+						} else {
+							select.append("<option value='" + res.result[i].aid + "'>" +
+								res.result[i].aname + "</option>");
+						}
+					}
+				}
+			})
+	},
+	//加载模态框区域二级下拉框
+	loadChildSlect: function() {
+		$("#electricFactory").empty(); //重置下拉框
+		var aid = $.trim($('#electricArea option:selected').val()); //获取选中的区域
+		var select = $("#electricFactory");
+		select.append("<option value=''>--请选择--</option>")
+		if(aid == "") {
+			layer.alert("请先选择分厂！")
+			return;
+		}
+		Ter.getApi({
+				apiname: '/region/findByPid',
+				params: {
+					"pid": aid
+				}
+			},
+			function(res) {
+				console.log(res);
+				if(res.result) {
+					for(var i = 0; i < res.result.length; i++) {
+						select.append("<option value='" + res.result[i].aid + "'>" +
+							res.result[i].aname + "</option>");
+					}
+				}
+			})
+	},
+	//按分厂查询数据绑定
+	loadTableData: function() {
+		var url = "/EmsReport/findGasByFactoryOrAreaOrTagtype";
+		var factoryName = $("#electricArea option:checked").text();
+		var branchfactory=$("#electricFactory option:checked").text();
+		//var readtime = document.getElementById("startDayDate").value;
+		Ter.getApi({
+			apiname: url,
+		    params: {
+				"areaname": factoryName,
+				"branchfactory":branchfactory,
+				//"readtime" :readtime,
+				},
+			},
+			function(res) {
+				if(res.result) {
+					console.log(res.result);
+					//加载表格
+					$("#electricityTable").bootstrapTable('load', res.result);
+				}
+			});
 	},
 	chart: function() {
 		var electricityChart = echarts.init($('#electricityChart')[0]);

@@ -1,3 +1,4 @@
+var media12;
 var quality = {
     init: function () {
         this.initTree();//目录树
@@ -28,8 +29,15 @@ var quality = {
             },
             callback: {
                 onClick: function (event, treeId, treeNode) {
-                    console.log(treeNode.id);
-                    quality.loadTableData(treeNode.id);
+                    console.log(treeNode);
+                    if(treeNode.pid == 0){
+                        quality.loadTableData1(treeNode.mediaName);
+                    }else{
+                        quality.loadTableData(treeNode.id);
+                    }
+
+
+                    media12 = treeNode.id;
                 },
                 onCheck: function (event, treeId, treeNode) {
                     var zTree = $.fn.zTree.getZTreeObj("treeDemo");
@@ -98,30 +106,47 @@ var quality = {
         this.loadTableData("");
     },
     action: function (value, row, quality) {
-        console.log(row);
+        //console.log(row);
         var col = '<a style="cursor: pointer; text-decoration: none!important;" href="javascript:void(0)" class="ter-visibleBtn" data-power="修改" onclick="quality.btnEdit('+JSON.stringify(row).replace(/\"/g,"'")+');">修改</ a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="cursor: pointer;text-decoration: none!important;" class="ter-visibleBtn" data-power="删除" onclick=quality.btnDelete("'+row.id+'")>删除</ a>';
         return col;
-        //onclick="eidtField('+JSON.stringify(row).replace(/\"/g,"'")+')"
     },
+
+    loadTableData1:function(mediaName){
+        var parms;
+        var url;
+        url="/MediaOrProject/findByMediaNameMediaOrProject";
+        parms = {mediaName:mediaName};
+        Ter.getApi({
+                apiname: url,
+                params: parms
+            },
+            function (res) {
+                //console.log(res);
+                if (res.errCode == "SUCCESS") {
+                    $("#mytable").bootstrapTable('load', res.result);
+                }
+
+            })
+    },
+    // 加载表格数据
     loadTableData:function(treeId)
     {
         var parms;
         var url;
-        if (treeId=="")
+        if (treeId=="" || treeId==undefined)
         {
             url="/MediaOrProject/findAllMediaOrProject";
             Ter.getApi({
                     apiname: url
                 },
                 function (res) {
-                    console.log(res);
+                   // console.log(res);
                     if (res.errCode == "SUCCESS") {
                         $("#mytable").bootstrapTable('load', res.result);
                     }
 
                 })
         }else {
-
             url="/MediaOrProject/findByMidMediaOrProject";
             parms = {mid:treeId};
             Ter.getApi({
@@ -129,70 +154,29 @@ var quality = {
                     params: parms
                 },
                 function (res) {
-                    console.log(res);
+                    //console.log(res);
                     if (res.errCode == "SUCCESS") {
                         $("#mytable").bootstrapTable('load', res.result);
                     }
 
                 })
         }
-
-
-
     },
-    //添加一级和二级介质
-    btnAdd: function (parm) {
-        if (1==parm) {
+    //添加属性配置
+    btnAdd: function () {
             $("#myModal1").modal("show");
-            $("#mediaName").val("");
-        } else if (2==parm) {
-            $("#myModal2").modal("show");
-            $("#mediaNameTwo").val("");
-            this.LoadModalSelect("");
-        } else if(3==parm){
-            $("#myModal3").modal("show");
-            $("#projectName1").val("");
-        }else if(4==parm){
-            $("#myModal4").modal("show");
-            $("#unitName1").val("");
-        }else if(5==parm){
-            $("#myModal5").modal("show");
+            $("#minimum").val("");
+            $("#maximum").val("");
+            $("#state").val("");
             this.LoadModalMediaSelect("");
             this.LoadModalProjectSelect("");
             this.LoadModalUnitSelect("");
-        }
     },
+    // 添加和修改页面表单提交确定按钮
     btnOk:function(parm){
         var url;
         var params={};
         if(1==parm){
-            var mediaName = $.trim($('#mediaNameOne').val());
-            url = '/Media/insert';
-            params = {
-                "mediaName": mediaName
-            }
-        }else if(2==parm){
-            var pid = $.trim($('#mediaOne option:selected').val());
-            var mediaName =$.trim($('#mediaNameTwo').val());
-            url = '/Media/insert';
-            params = {
-                "pid": pid,
-                "mediaName": mediaName
-            }
-
-        } else if(3==parm){
-            var projectName= $.trim($('#projectName1').val());
-            url = '/Project/insert';
-            params = {
-                "projectName": projectName
-            }
-        }else if(4==parm){
-            var unitName= $.trim($('#unitName1').val());
-            url = '/Unit/insert';
-            params = {
-                "unitName": unitName
-            }
-        }else if(5==parm){
             var mid = $.trim($('#mediaNameTwo1 option:selected').val());
             var projectName = $.trim($('#projectName option:selected').val());
             var minimum=$.trim($('#minimum').val());
@@ -208,7 +192,7 @@ var quality = {
                 "unitName": unitName,
                 "state": state
             }
-        }else if(6==parm){
+        }else if(2==parm){
             var id=$.trim($('#hdMid').val())
             var mid = $.trim($('#mid').val());
             var projectName = $.trim($('#projectName2').val());
@@ -232,52 +216,20 @@ var quality = {
                 params: params
             },
             function (res) {
-                console.log(res);
+                //console.log(res);
                 if (res.errCode == "SUCCESS") {
                     layer.alert(res.errMsg);
-
                 };
                 if(1==parm){
                     $('#myModal1').modal('hide');
-                    quality.initTree();
-                    quality.loadTable();
+                    quality.loadTableData(media12);
                 }else if(2==parm){
                     $('#myModal2').modal('hide');
-                    quality.initTree();
-                    quality.loadTable();
-                }else if(3==parm){
-                    $('#myModal3').modal('hide');
-                    quality.loadTable();
-                }else if(4==parm){
-                    $('#myModal4').modal('hide');
-                    quality.loadTable();
-                }else if(5==parm){
-                    $('#myModal5').modal('hide');
-                    quality.loadTable();
-                }else if(6==parm){
-                    $('#myModal6').modal('hide');
-                    quality.loadTable();
-                }
-
-            })
-    },
-    //加载添加二级介质模态框中的下拉框
-    LoadModalSelect: function() {
-        $("#mediaOne").empty();
-        Ter.getApi({
-                apiname: "/Media/findByOneMedia"
-            },
-            function(res) {
-                if(res.result) {
-                    var select = $("#mediaOne");
-                    for(var i = 0; i < res.result.length; i++) {
-                            select.append("<option value='" + res.result[i].id + "'>" +
-                                res.result[i].mediaName + "</option>");
-                    }
+                    quality.loadTableData(media12);
                 }
             })
     },
-    //加载添加介质属性配置模态框中的介质名下拉框
+    //加载添加介质属性配置模态框中的二级介质名下拉框
     LoadModalMediaSelect: function(id) {
         $("#mediaNameTwo1").empty();
         Ter.getApi({
@@ -287,9 +239,13 @@ var quality = {
                 if(res.result) {
                     var select = $("#mediaNameTwo1");
                     for(var i = 0; i < res.result.length; i++) {
-                        select.append("<option value='" + res.result[i].id + "'>" +
-                            res.result[i].mediaName + "</option>");
-
+                        if(res.result[i].id == media12){
+                            select.append("<option value='" + res.result[i].id + "' selected='selected'>" +
+                                res.result[i].mediaName + "</option>");
+                        }else {
+                            select.append("<option value='" + res.result[i].id + "'>" +
+                                res.result[i].mediaName + "</option>");
+                        }
                     }
                 }
             })
@@ -306,7 +262,6 @@ var quality = {
                     for(var i = 0; i < res.result.length; i++) {
                         select.append("<option value='" + res.result[i].projectName + "'>" +
                             res.result[i].projectName + "</option>");
-
                     }
                 }
             })
@@ -344,8 +299,8 @@ var quality = {
                     function(res) {
                         if(res.errCode == "SUCCESS") {
                             layer.alert(res.errMsg)
-                            window.location.reload();
-                            quality.loadTableData();
+                            //window.location.reload();
+                            quality.loadTableData(media12);
                         }
                     })
             }
@@ -353,11 +308,9 @@ var quality = {
 
     },
     btnEdit:function(MediaOrProject){
-        //alert(obj.id);
-
         var row = MediaOrProject;
         console.log(row);
-        $("#myModal6").modal("show");
+        $("#myModal2").modal("show");
         $('#hdMid').val(row.id);
         $('#mid').val(row.mid);
         $('#mediaName').val(row.mediaName);
