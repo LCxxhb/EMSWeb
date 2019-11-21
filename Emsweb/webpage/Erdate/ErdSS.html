@@ -2,16 +2,16 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<meta http-equiv="refresh" content="6">
+		<!-- <meta http-equiv="refresh" content="6"> -->
 		<title>能源实绩实时数据查询</title>
 		<link rel="stylesheet" href="../../css/tab.css">
-		<link rel="stylesheet" type="text/css" href="../../css/Erdate_index.css" />
+		<!-- <link rel="stylesheet" type="text/css" href="../../css/Erdate_index.css" /> -->
 	</head>
 	<body>
 		<div class="iframe-wrapper" style="overflow-x: hidden; position: relative;">
-			<div class="page-container hasTree">
+			<div class="page-container">// hasTree
 				<!--tree-wrapper包含树的结构，如果页面不需要树结构，只需要将这段代码删除-->
-				<div class="tree-wrapper">
+				<!-- <div class="tree-wrapper">
 					<div class="tree-head">
 						<div class="tree-head-jz tree-hleft">介质</div>
 						<div class="tree-head-jz tree-hright">区域</div>
@@ -24,7 +24,7 @@
 						<i class="fa fa-outdent tree-icon"></i>
 						<div class="tree-shape"></div>
 					</div>
-				</div>
+				</div> -->
 				<!--页面主体内容部分-->
 				<div class="waterSource-wrapper">
 					<div class="water-tab-card">
@@ -35,7 +35,7 @@
 									<!--条件查询区域-->
 
 									<div class="form-group">
-										<label class="control-label">介质类型：</label>
+										<label class="control-label">介质名称：</label>
 										<select class="form-control" id="jzType">
 										<!--	<option selected="selected">--请选择--</option>
 										 	<option value="101">天然气</option>
@@ -48,21 +48,35 @@
 											
 										</select>
 									</div>
+									<div class="form-group">
+										<label class="control-label">介质类型：</label>
+										<select class="form-control" id="jzleix">
+										<option selected="selected">-请选择-</option>
+										 	<option value="101">压力</option>
+											<option value="102">温度</option>
+											<option value="103">累积值</option>
+											<option value="104">瞬时值</option>
+											<option value="105">产出</option>
+											<option value="106">消耗</option>
+											<!-- <option value="204">净环水</option> --> 
+											
+										</select>
+									</div>
 
 									<div class="form-group">
 										<label class="control-label">分厂：</label>
 										<select class="form-control" id="ErFactory" onchange="ErDate.getArea()" ;>
-											<option>--请选择--</option>
+											<!-- <option>--请选择--</option> -->
 										</select>
 									</div>
 									<div class="form-group">
 										<label class="control-label">区域：</label>
 										<select class="form-control" id="ErArea" ;>
-											<option>--请选择--</option>
+											<!-- <option>--请选择--</option> -->
 										</select>
 									</div>
 
-									<div class="form-group">
+									<!-- <div class="form-group">
 										<label class="control-label">报表类型：</label>
 										<select class="form-control" id="reportType">
 											<option selected="selected" value="1">--请选择--</option>
@@ -71,7 +85,7 @@
 											<option value="4">周报表</option>
 											<option value="5">季度报表</option>
 										</select>
-									</div>
+									</div> -->
 
 									<button class="btn btn-search btn-margin" type="button" onclick="ErDate.eleReportSearch()">
 										<span class="glyphicon glyphicon-search"></span>查询
@@ -99,8 +113,8 @@
 													<div class="page-main-box">
 														
 														<!-- 这一行开始的div为copy -->
-														<div class="charts" style="width:95%;margin:0 auto;padding-top:10px; display: flex;">
-															<div id="electricityChart" style="width:900px;height:600px; "></div>
+														<div class="charts" style="width:95%; height:800px;margin:0 auto;padding-top:10px;">
+															<div id="electricityChart" style="width:95%;height:100%; "></div>
 															<!-- <div id="electricityChart" style="width:900px;height:600px; ">
 																<div class="form-group">
 																	<label class="control-label">瞬时值：</label>
@@ -184,116 +198,7 @@
 					</div>
 				</div>
 				<!--模态框（Modal）-->
-				<div class="modal fade" id="planModal" tabindex="-1" role="dialog" aria-labelledby="planModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered">
-						<div class="modal-content">
-							<div class="modal-header bg-primary">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-								<h4 class="modal-title" v-if="btnState == 0">新增计划</h4>
-							</div>
-							<div class="modal-body">
-								<form class="form-horizontal" role="form" id="addcontent" action=" " method="post">
-									<!--隐藏域放区域id-->
-									<input type="hidden" id="id">
-
-									<div class="form-group">
-										<label class="col-sm-2 control-label">
-											<font color="black">开始日期:</font>
-										</label>
-										<div class="input-group dayGroup-box" style="padding-left: 15px;">
-											<label class="control-label"></label>
-											<input class="dateinput dateicon" id="planStartDayDate" type="text" readonly>
-										</div>
-										<div class="input-group monthGroup-box" style="display:none">
-											<label class="control-label">开始日期：</label>
-											<input class="dateinput dateicon startDate" id="startMonthDate" type="text" readonly>
-										</div>
-										<div class="input-group yearGroup-box" style="display:none">
-											<label class="control-label">开始日期：</label>
-											<input class="dateinput dateicon startDate" id="startYearDate" type="text" readonly>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-2 control-label">
-											<font color="black">结束日期:</font>
-										</label>
-										<div class="input-group dayGroup-box">
-											<label class="control-label endTime" style="margin-left: 15px;"></label>
-											<input class="dateinput dateicon endDate dateTime" id="planEndDayDate" type="text" readonly>
-										</div>
-										<div class="input-group monthGroup-box" style="display:none">
-											<label class="control-label endTime">结束日期：</label>
-											<input class="dateinput dateicon endDate" id="endMonthDate" type="text" readonly>
-										</div>
-										<div class="input-group yearGroup-box" style="display:none">
-											<label class="control-label endTime">结束日期：</label>
-											<input class="dateinput dateicon endDate" id="endYearDate" type="text" readonly>
-										</div>
-									</div>
-
-									<div class="form-group">
-										<label class="col-sm-2 control-label">
-											<font color="black">分厂:</font>
-										</label>
-										<div class="col-sm-10">
-											<select class="form-control" id="factoryMenu" onchange="ErDate.loadChildSlect()">
-												<option value="">-请选择-</option>
-												<!--<op tion value="2">炼铁厂</option>
-														<option value="3">炼轧厂</option>
-														<option value="4">电业局</option>
-														<option value="5">成飞煤高效</option>
-														<option value="6">天然气公司</option>
-														<option value="7">特材公司锻造车间</option>-->
-											</select>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-2 control-label">
-											<font color="black">区域:</font>
-										</label>
-										<div class="col-sm-10">
-											<select class="form-control" id="areaMenu">
-												<option value="0">-请选择-</option>
-												<!--<option value="2">A</option>
-														<option value="3">B</option>
-														<option value="4">C</option>
-														<option value="5">D</option>
-														<option value="6">E</option>
-														<option value="7">F</option>-->
-											</select>
-										</div>
-									</div>
-									<!--<div class="form-group">
-												<label class="col-sm-2 control-label"><font color="black">单位:</font></label>
-												<div class="col-sm-10">
-													<select class="form-control" id="workMenu">
-														<option>-请选择-</option>
-														<option value="2">a</option>
-														<option value="3">b</option>
-														<option value="4">c</option>
-														<option value="5">d</option>
-														<option value="6">e</option>
-														<option value="7">f</option>
-													</select>
-												</div>
-											</div>-->
-									<div class="form-group">
-										<label class="col-sm-2 control-label">
-											<font color="black">计划产量:</font>
-										</label>
-										<div class="col-sm-10">
-											<input type="text" class="form-control" id="planNumber" placeholder="请输入计划值/吨">
-										</div>
-									</div>
-								</form>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-								<button type="button" class="btn btn-primary" onclick="ErDate.btnOk()">确定</button>
-							</div>
-						</div>
-					</div>
-				</div>
+				
 
 
 			</div>
