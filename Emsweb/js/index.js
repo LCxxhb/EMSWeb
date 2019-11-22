@@ -4,7 +4,7 @@ var indexPage = {
 		this.loginOut();
 		this.getPageData(); //加载菜单
 		this.updatePwd(); //用户修改密码
-		//		$("#userName").html(Ter.userInfo.uname);//登录用户
+		//		$("#userName").html(Ter.userInfo.user);//登录用户
 	},
 	modifyPassword: function() {
 		$("#modifyPassword").on('click', function() {
@@ -32,7 +32,7 @@ var indexPage = {
 			Ter.getApi({
 				apiname: '/user/updatePwd',
 				params: {
-					id: Ter.userInfo.id,
+					id: Ter.userInfo.user.id,
 					oldPwd: nowPwd,
 					newPwd: newPwd
 				}
@@ -64,11 +64,11 @@ var indexPage = {
 	},
 	getPageData: function() {
 		//				$(".sidebar-navList").prepend(template('sideMenu', Ter.userInfo.power));
-		console.log(Ter.userInfo.roleId);
+		console.log(Ter.userInfo.user.roleId);
 		Ter.getApi({
 			apiname: '/roles/findMenuByRoleId',
 			params: {
-				"id": Ter.userInfo.roleId
+				"id": Ter.userInfo.user.roleId
 			}
 		}, function(res) {
 			console.log(res);

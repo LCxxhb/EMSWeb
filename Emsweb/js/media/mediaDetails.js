@@ -59,6 +59,7 @@ var mediaDetails = {
         //会显选中的用户信息
         $("#myModal3").modal("show");
         $('#id').val(row.id);
+        $('#pid').val(row.pid);
         $('#mediaNameOne1').val(row.mediaName);
     },
     //添加修改介质模态框下的确定按钮
@@ -81,6 +82,7 @@ var mediaDetails = {
             }
         }else {
             var id = $.trim($('#id').val());
+            var pid1 = $.trim($('#pid').val());
             var mediaName = $.trim($('#mediaNameOne1').val());
             url = '/Media/update';
             params = {
@@ -98,13 +100,20 @@ var mediaDetails = {
                         layer.alert(res.errMsg);
                         if(1==parm){
                             $("#myModal1").modal("hide");
+                            mediaDetails.btnSearch1();
                         }else if(2==parm){
                             $("#myModal2").modal("hide");
+                            mediaDetails.btnSearch2();
                         }else{
                             $("#myModal3").modal("hide");
+                            if(pid1==0){
+                                mediaDetails.btnSearch1();
+                            }else {
+                                mediaDetails.btnSearch2();
+                            }
                         }
 
-                        window.location.reload();
+
                     };
                 },)
     },

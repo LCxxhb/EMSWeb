@@ -23,20 +23,8 @@ var GasReport = {
 			zIndex: 3000,
 			isTime: true
 		});
-		//日结束
-		/*jeDate("#endInstantDate", {
-		    onClose: false,
-		    isinitVal: true,
-		    isClear: false,
-		    initDate: jeDate.nowDate(),
-		    maxDate: jeDate.nowDate(),
-		    theme: {bgcolor: "#0196c9", pnColor: "#00CCFF"},//主题色
-		    format: "YYYY-MM-DD hh:mm:ss",
-		    zIndex: 3000,
-		    isTime: true
-		});*/
-
 	},
+	
 	calcTableHeight: function() {
 		var t_height = $(".content-wrapper").height() - $(".page-btns-box").outerHeight();
 		$(".page-main-box").outerHeight(t_height);
@@ -45,9 +33,7 @@ var GasReport = {
 
 	initTable: function() {
 		var self = this;
-		$('#instantTable').bootstrapTable({
-
-			search: false,
+		$('#gasTable').bootstrapTable({
 			pagination: true,
 			pageSize: 10,
 			pageList: [5, 10, 15, 20],
@@ -72,40 +58,56 @@ var GasReport = {
 				//excelstyles: ['background-color', 'color', 'font-size', 'font-weight'],
 			},
 			columns: [{
-				field: 'areaname',
-				title: '分厂',
-				align: 'center'
-			}, {
-				field: 'branchfactory',
-				title: '区域',
-				align: 'center'
-			}, {
-				field: 'collectionpoint',
-				title: '采集点',
-				align: 'center'
-			}, {
-				field: 'description',
-				title: '采集点描述',
-				align: 'center'
-			}, {
-				field: 'tagtype',
-				title: '介质类型',
-				align: 'center'
-			}, {
-				field: 'usetype',
-				title: '产出/消耗',
-				align: 'center'
-			}, {
-				field: 'tagval',
-				title: '产出/消耗量',
-				align: 'center'
-			}, {
-				field: 'readTime',
-				title: '日期',
-				align: 'center'
-			}],
+			    field: 'AREANAME',
+			    title: '分厂',
+			    align: 'center'
+			   }, {
+			    field: 'BRANCHFACTORY',
+			    title: '区域',
+			    align: 'center'
+			   }, {
+			    field: 'COLLECTIONPOINT',
+			    title: '采集点',
+			    align: 'center'
+			   }, {
+			    field: 'DESCRIPTION',
+			    title: '采集点描述',
+			    align: 'center'
+			   }, {
+			    field: 'TAGTYPE',
+			    title: '介质类型',
+			    align: 'center'
+			   }, {
+			    field: 'USETYPE',
+			    title: '产出/消耗',
+			    align: 'center'
+			   }, {
+			    field: 'TAGVAL',
+			    title: '产出/消耗量',
+			    align: 'center'
+			   }, {
+			    field: 'READTIME',
+			    title: '日期',
+			    align: 'center',
+			    formatter: function(value) {
+			        //通过判断单元格的值，来格式化单元格，返回的值即为格式化后包含的元素
+			        var date = new Date(value).toLocaleString();
+			        return date;
+			       }
+			   }],
 
 		});
+		var url = "/EmsReport/findAllGas";
+		Ter.getApi({
+			apiname: url,
+			},
+			function(res) {
+				if(res.result) {
+					console.log(res.result);
+					//加载表格
+					$("#gasTable").bootstrapTable('load', res.result);
+				}
+			});
 	},
 	//加载模态框区域以及下拉框
 	LoadModalAreaSelect: function(id) {
@@ -155,57 +157,30 @@ var GasReport = {
 				}
 			})
 	},
-	//按分厂查询数据绑定
+	//按分厂、区域、时间查询数据绑定
 	loadTableData: function() {
-		var url = "/report/findByAreaname";
-		var factoryName = $("#gasArea option:checked").text();
+		var url = "/EmsReport/findGasByFactoryOrAreaOrTagtype";
+		var factoryName = $("#gasArea option:checked").text()=="--请选择--"?"":$("#gasArea option:checked").text();
+		var branchfactory=$("#gasFactory option:checked").text()=="--请选择--"?"":$("#gasFactory option:checked").text();
+		var readtime = document.getElementById("startInstantDate").value;
 		Ter.getApi({
-				apiname: url,
-				params: {
-					"areaname": factoryName,
-				}
+			apiname: url,
+		    params: {
+				"areaname": factoryName,
+				"branchfactory":branchfactory,
+				"readtime" :readtime,
+				},
 			},
 			function(res) {
 				if(res.result) {
 					console.log(res.result);
 					//加载表格
-					$("#instantTable").bootstrapTable('load', res.result);
+					$("#gasTable").bootstrapTable('load', res.result);
 				}
 			});
-		//		var areaUrl = "/report/findByBranchfactory";
-		//		var branchfactory = $("#Factory option:checked").text();
-		//		Ter.getApi({
-		//				apiname: areaUrl,
-		//				params: {
-		//					"branchfactory": branchfactory,
-		//				}
-		//			},
-		//			function(res) {
-		//				if(res.result) {
-		//					console.log(res.result);
-		//					//加载表格
-		//					$("#instantTable").bootstrapTable('load', res.result);
-		//				}
-		//			})
 	},
-	/* LoadMediumTypeButton: function(id) {
-		$("#MediumType").empty();
-		var url = "/report/findByTag";
-		//		var mediumName = document.getElementById(MediumType).valueOf();
-		Ter.getApi({
-				apiname: url
-				//				params: {
-				//					"mediumName": mediumName,
-				//				}
-			},
-			function(res) {
-				if(res.result) {
-
-				}
-			})
-	}, */
 	chart: function() {
-		var instantChart = echarts.init($('#instantChart')[0]);
+		var gasChart = echarts.init($('#gasChart')[0]);
 		option = {
 			title: {
 				text: '气体用量折线图'
@@ -266,7 +241,7 @@ var GasReport = {
 				}
 			]
 		};
-		instantChart.setOption(option, true);
+		gasChart.setOption(option, true);
 	},
 	tabChange: function() {
 		$(".ter-tab-head li").on("click", function() {
@@ -276,15 +251,6 @@ var GasReport = {
 			$(".ter-tab-item").eq(index).show().siblings().hide();
 			//$("#table").bootstrapTable("resetView");
 		});
-
-		/* $(".tree-head-jz").on("click", function() {
-			var index = $(this).index();
-			$(this).addClass("tree-hleft").siblings().addClass("tree-hright");
-			$(this).removeClass("tree-hright").siblings().addClass("tree-hright");
-			$(".ztree").eq(index).show().siblings().hide();
-			//$("#table").bootstrapTable("resetView");
-		}); */
-
 	}
 };
 $(function() {

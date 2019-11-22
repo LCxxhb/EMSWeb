@@ -27,6 +27,7 @@
 							title: '提示'
 						});
 					} else {
+						console.log(res.result);
 						localStorage.setItem('userInfo', JSON.stringify(res.result));
 						location.href = 'index.html';
 					}

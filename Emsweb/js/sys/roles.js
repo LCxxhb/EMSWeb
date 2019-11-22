@@ -85,8 +85,8 @@
 	btnDelete: function() {
 		var ids = ""; //得到选择的角色的ID
 		var rows = $('#mytable').bootstrapTable('getSelections');
-		if(rows.length == 0) {
-			layer.alert("请选择要删除的数据！")
+		if(rows.length != 1) {
+			layer.alert("请选择要删除的一条数据！")
 			return;
 		}
 
