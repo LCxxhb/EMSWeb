@@ -1,4 +1,4 @@
-﻿@charset "UTF-8";
+@charset "UTF-8";
 
 .alarm-panel-wrapper {
     display: none;
@@ -1006,7 +1006,7 @@ textarea {
 
 .sidebar-navList {
     height: calc(100% - 36px);
-    overflow: hidden
+    overflow: auto
 }
 
 .sidebar-fold {
