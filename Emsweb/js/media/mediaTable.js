@@ -119,7 +119,7 @@ var mediaTable = {
 		var spare1 = $("#spare1").val();
 		var startTime = $("#startTime").val();
 		var endTime =  $("#endTime").val();
-		if(endTime == ""){
+		if(endTime == ""&&startTime !=""){
 			var date = new Date();
 			var seperator1 = "-";
 			var year = date.getFullYear();
@@ -149,21 +149,32 @@ var mediaTable = {
 					var result = res.result;
 					//加载表格
 					$("#mytable").bootstrapTable('load', res.result);
-					if(spare1==0&&startTime==""&&endTime==""&&patchName!=0){
+					if(spare1==0&&startTime!=""&&endTime!=""&&patchName!=0){
 						let data1 = [];
 						let data2 = [];
+						let data4 = [];
 						for(var i = 0; i < result.length; i++) {
+							var projectName = "日期:"+result[i].createDate +",介质属性:"+  result[i].projectName;
+							//var projectName =  result[i].projectName;
 
 							var data3 = {
 								"value":result[i].mediaData,
-								"name":result[i].projectName
+								"name":  "日期:"+result[i].createDate +",介质属性:"+  result[i].projectName
+								//projectName : result[i].mediaData
 							};
-							data1.push(result[i].projectName);
-
+							data1.push(projectName);
+							data4.push(result[i].createDate);
 							data2.push(data3);
 						}
-						mediaTable.initChart2(data1,data2);
-					}else {
+						//let newArr = mediaTable.isRepeat(data2);
+						if(mediaTable.isRepeat(data4)){
+							mediaTable.initChart2(data1,data2);
+						}else {
+							let data1 = ['请选择介质和采集点'];
+							let data2 = [{value: 999999, name: '请选择介质和采集点'}];
+							mediaTable.initChart2(data1,data2);
+						}
+					}else{
 						let data1 = ['请选择介质和采集点'];
 						let data2 = [{value: 999999, name: '请选择介质和采集点'}];
 						mediaTable.initChart2(data1,data2);
@@ -173,6 +184,35 @@ var mediaTable = {
 			})
 	},
 
+	isRepeat: function(arr){
+		var isRepeat = true;
+		for(var i in arr) {
+			for(var j in arr) {
+				if (arr[i] != arr[j]) {
+					isRepeat = false;
+					return isRepeat;
+				}
+			}
+		}
+
+		return isRepeat;
+
+		// let newArr = [],
+		// 	obj = {};
+		// arr.forEach(item => {
+		// 	for(let key in item) {
+		// 		let value = item[key];
+		// 		key in obj ? (obj[key] += value) : (obj[key] = value)
+		// 	}
+		// })
+		// //遍历对象转为数组
+		// for(let i in obj) {
+		// 	let o = {};
+		// 	o[i] = obj[i];
+		// 	newArr.push(o)
+		// }
+		// return newArr;
+	},
 	initChart2: function (data1,data2) {
 		var chart2 = echarts.init(document.getElementById('chart1'));
 				chart2.setOption({

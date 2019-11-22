@@ -24,8 +24,11 @@
 					title: '父级菜单',
 					visible: false
 				}, {
-					field: 'lastupdateby',
-					title: '更新人'
+					field: 'spare',
+					title: '排序'
+				}, {
+					field: 'lastupdatedate',
+					title: '更新时间'
 				}, {
 					field: 'lastupdatedate',
 					title: '更新时间'
@@ -34,10 +37,10 @@
 		});
 		this.loadTableData();
 	},
-	
+
 	//加载菜单table数据
 	loadTableData: function() {
-		var url="/menu/findAll";
+		var url = "/menu/findAll";
 		Ter.getApi({
 				apiname: url,
 			},
@@ -48,9 +51,9 @@
 				}
 			})
 	},
-	
+
 	//加载模态框父级菜单下拉框
-	LoadModalMenuSelect:function(id) {
+	LoadModalMenuSelect: function(id) {
 		$("#parentMenu").empty();
 		Ter.getApi({
 				apiname: "/menu/findParentMenu"
@@ -70,14 +73,15 @@
 				}
 			})
 	},
-	
+
 	//菜单添加、编辑
 	btnEdit: function(parm) {
-		if(parm == 0) {		
+		if(parm == 0) {
 			$("#myModal").modal("show");
 			$('#title').html('新增菜单');
 			$('#menuname').val('');
 			$('#menuurl').val('');
+			$('#order').val('');
 			$('#id').val('');
 			this.LoadModalMenuSelect("");
 		} else {
@@ -92,25 +96,28 @@
 			$('#title').html('编辑菜单');
 			$('#menuname').val(rows[0].menuname);
 			$('#menuurl').val(rows[0].munuurl);
+			$('#order').val(rows[0].order);
 			$('#id').val(rows[0].id);
 			this.LoadModalMenuSelect(rows[0].pid);
 		}
 
 	},
-	
+
 	//添加编辑数据方法 提交表单
 	btnOk: function() {
 		var pid = $.trim($('#parentMenu option:selected').val());
 		var id = $('#id').val();
 		var menuname = $('#menuname').val();
-		var munuurl=$('#menuurl').val();
+		var munuurl = $('#menuurl').val();
+		var order = $('#order').val();
 		var url;
 		if(id == null || id == undefined || id == "") { //菜单添加
 			url = '/menu/insert';
 			var menu = {
 				"pid": pid,
 				"menuname": menuname,
-				"munuurl":munuurl
+				"munuurl": munuurl,
+				"spare": order
 			}
 		} else {
 			url = '/menu/update';
@@ -118,7 +125,8 @@
 				"pid": pid,
 				"id": id,
 				"menuname": menuname,
-				"munuurl":munuurl
+				"munuurl": munuurl,
+				"spare": order
 			}
 		}
 		Ter.getApi({
@@ -134,7 +142,7 @@
 
 			})
 	},
-	
+
 	//实现菜单删除的方法
 	btnDelete: function() {
 		var ids = ""; //得到菜单选择的数据的ID
@@ -169,7 +177,7 @@
 			}
 		)
 	}
-	
+
 }
 $(function() {
 	menuPage.init();

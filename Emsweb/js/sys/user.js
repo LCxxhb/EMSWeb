@@ -157,6 +157,7 @@ var userpage = {
 				if(res) {
 					//加载表格
 					$("#mytable").bootstrapTable('load', res.result);
+					$("#mytable").bootstrapTable('refresh', res.result);
 				}
 			})
 	},
