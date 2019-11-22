@@ -11,7 +11,8 @@
 					visible: true
 				}, {
 					field: 'id',
-					title: 'ID'
+					title: 'ID',
+					visible: false
 				}, {
 					field: 'menuname',
 					title: '菜单名称'
@@ -30,8 +31,8 @@
 					field: 'lastupdatedate',
 					title: '更新时间'
 				}, {
-					field: 'lastupdatedate',
-					title: '更新时间'
+					field: 'lastupdateby',
+					title: '操作人'
 				}
 			]
 		});
@@ -96,7 +97,7 @@
 			$('#title').html('编辑菜单');
 			$('#menuname').val(rows[0].menuname);
 			$('#menuurl').val(rows[0].munuurl);
-			$('#order').val(rows[0].order);
+			$('#order').val(rows[0].spare);
 			$('#id').val(rows[0].id);
 			this.LoadModalMenuSelect(rows[0].pid);
 		}

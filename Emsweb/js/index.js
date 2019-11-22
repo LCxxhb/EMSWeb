@@ -4,7 +4,7 @@ var indexPage = {
 		this.loginOut();
 		this.getPageData(); //加载菜单
 		this.updatePwd(); //用户修改密码
-		//		$("#userName").html(Ter.userInfo.user);//登录用户
+		$("#userName").html(Ter.userInfo.user.username);//登录用户
 	},
 	modifyPassword: function() {
 		$("#modifyPassword").on('click', function() {
